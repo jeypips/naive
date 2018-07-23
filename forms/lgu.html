@@ -1,0 +1,36 @@
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-body">
+			<div class="form-validation">
+				<form name="formHolder.lgu" novalidate autocomplete="off">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label class="col-form-label">Province <span class="text-danger">*</span></label>
+								<select class="form-control" name="province" ng-model="lgu.province" ng-options="province.province_description for province in provinces track by province.province_id" ng-change="municipalities = lgu.province.municipalities"></select>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label class="col-form-label">Municipality <span class="text-danger">*</span></label>
+								<select class="form-control" name="municipality" ng-model="lgu.municipality" ng-options="municipality.municipality_description for municipality in municipalities track by municipality.municipality_id"></select>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label class="col-form-label">Classification <span class="text-danger">*</span></label>
+								<input type="text" class="form-control" name="classification" ng-model="lgu.classification">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div><hr>
+			<div class="col-lg-12">
+				<div class="row">
+					<button class="btn btn-outline-secondary" ng-click="app.cancel(this)" style="margin-right: 5px;">{{btns.cancel.label}}</button>
+					<button class="btn btn-info" ng-click="app.save(this)">{{btns.ok.label}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

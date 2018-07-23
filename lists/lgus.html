@@ -1,0 +1,52 @@
+<div class="row">
+	<div class="col-lg-12">
+		<button type="button" class="btn btn-info float-right" ng-click="app.lgu(this)">Add</button>
+	</div>
+</div>
+<div class="card">
+	<div class="card-title">
+		<h4 class="col-lg-12">List
+			<div class="col-lg-4 col-sm-6 pull-right">
+				<div class="input-flat">
+					<input type="text" placeholder="Search. . ." name="Search" class="form-control" ng-model="search">
+				</div>
+			</div>
+		</h4>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Province</th>
+						<th>Municipality</th>
+						<th>Classification</th>
+						<th>Date Added</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="lgu in filterData = (lgus | filter:search) | pagination: currentPage:pageSize">
+						<td>{{$index+1}}</td>
+						<td>{{lgu.province.province_description}}</td>
+						<td>{{lgu.municipality.municipality_description}}</td>
+						<td>{{lgu.classification}}</td>
+						<td>{{lgu.system_log}}</td>
+						<td>
+						<button class="btn btn-info" ng-click="app.lgu(this,lgu)"><i class="fa fa-pencil-square-o"></i></button>
+						<button class="btn btn-danger" ng-click="app.delete(this,lgu)"><i class="fa fa-trash"></i></button>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="6" style="text-align: center;">
+							<div class="float-left"><ul uib-pagination direction-links="false" boundary-links="true" total-items="filterData.length" ng-model="currentPage" max-size="maxSize"></ul></div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
