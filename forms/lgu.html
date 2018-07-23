@@ -4,22 +4,28 @@
 			<div class="form-validation">
 				<form name="formHolder.lgu" novalidate autocomplete="off">
 					<div class="row">
+						<div class="col-lg-12">
+							<span>FORM</span>
+							<button type="button" class="btn btn-outline-secondary pull-right" ng-click="app.edit(this)"><i class="fa" ng-class="{'fa-edit': btns.ok.disabled, 'fa-ban': !btns.ok.disabled}"></i></button>
+						</div>
+					</div><hr>
+					<div class="row">
 						<div class="col-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Province <span class="text-danger">*</span></label>
-								<select class="form-control" name="province" ng-model="lgu.province" ng-options="province.province_description for province in provinces track by province.province_id" ng-change="municipalities = lgu.province.municipalities"></select>
+								<select class="form-control" name="province" ng-model="lgu.province" ng-options="province.province_description for province in provinces track by province.province_id" ng-change="municipalities = lgu.province.municipalities" ng-disabled="btns.ok.disabled"></select>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Municipality <span class="text-danger">*</span></label>
-								<select class="form-control" name="municipality" ng-model="lgu.municipality" ng-options="municipality.municipality_description for municipality in municipalities track by municipality.municipality_id"></select>
+								<select class="form-control" name="municipality" ng-model="lgu.municipality" ng-options="municipality.municipality_description for municipality in municipalities track by municipality.municipality_id" ng-disabled="btns.ok.disabled"></select>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Classification <span class="text-danger">*</span></label>
-								<input type="text" class="form-control" name="classification" ng-model="lgu.classification">
+								<input type="text" class="form-control" name="classification" ng-model="lgu.classification" ng-disabled="btns.ok.disabled">
 							</div>
 						</div>
 					</div>

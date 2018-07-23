@@ -85,7 +85,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			if (row != null) {
 
 				scope.btns = {
-					ok: {disabled: false, label: 'Update'},
+					ok: {disabled: true, label: 'Update'},
 					cancel: {disabled: false, label: 'Close'}
 				};				
 			
@@ -152,6 +152,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			scope.lgu.id = 0;			
 			
 			self.list(scope);
+			
+		};
+		
+		self.edit = function(scope) {
+			
+			scope.btns.ok.disabled = !scope.btns.ok.disabled;
 			
 		};
 		
