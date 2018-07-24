@@ -1,0 +1,30 @@
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-body">
+			<div class="form-validation">
+				<form name="formHolder.cmci" novalidate autocomplete="off">
+					<div class="row">
+						<div class="col-lg-12">
+							<span>FORM</span>
+							<button type="button" class="btn btn-outline-secondary pull-right" ng-click="app.edit(this)"><i class="fa" ng-class="{'fa-edit': btns.ok.disabled, 'fa-ban': !btns.ok.disabled}"></i></button>
+						</div>
+					</div><hr>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label class="col-form-label">Period Covered <span class="text-danger">*</span></label>
+								<input type="text" class="form-control" name="period_covered" ng-model="cmci.period_covered" ng-disabled="btns.ok.disabled">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div><hr>
+			<div class="col-lg-12">
+				<div class="row">
+					<button class="btn btn-outline-secondary" ng-click="app.cancel(this)" style="margin-right: 5px;">{{btns.cancel.label}}</button>
+					<button class="btn btn-info" ng-click="app.save(this)">{{btns.ok.label}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
