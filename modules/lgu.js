@@ -23,6 +23,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.lgus = [];
 			
+			
 		};
 		
 		function provinces(scope){
@@ -209,7 +210,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			bootstrapModal.confirm(scope,'Confirmation','Are you sure you want to delete this profile?',onOk,function() {});			
 			
 		};
-
+		
 		function model(scope,form,model) {
 			
 			angular.forEach(scope.formHolder[form].$$controls,function (elem,i) {
@@ -219,6 +220,24 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			return model;
+			
+		};
+		
+		self.checkProvince = function(scope,province) {
+			
+			scope.municipalities = scope.lgu.province.municipalities;
+			
+			$http({
+			  method: 'POST',
+			  url: 'handlers/lgus/check-province.php',
+			  data: province
+			}).then(function mySucces(response) {
+
+				// scope.province = angular.copy(response.data);
+				
+			}, function myError(response) {
+				
+			});
 			
 		};
 		

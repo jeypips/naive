@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 22, 2018 at 02:24 PM
+-- Generation Time: Jul 24, 2018 at 08:29 AM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -33,6 +33,13 @@ CREATE TABLE `cmci` (
   `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cmci`
+--
+
+INSERT INTO `cmci` (`id`, `lgu_id`, `period_covered`, `system_log`, `update_log`) VALUES
+(1, 1, 'Sample', '2018-07-24 08:13:40', '2018-07-24 08:13:40');
 
 -- --------------------------------------------------------
 
@@ -753,7 +760,9 @@ CREATE TABLE `lgus` (
 --
 
 INSERT INTO `lgus` (`id`, `municipality`, `province`, `classification`, `system_log`, `update_log`) VALUES
-(1, 1, 1, 'First', '2018-07-22 20:30:17', '2018-07-22 20:30:17');
+(1, 31, 3, 'First', '2018-07-23 08:25:42', '2018-07-23 08:25:42'),
+(2, 9, 1, 'First', '2018-07-23 09:28:31', '2018-07-23 09:28:31'),
+(3, 88, 4, 'First', '2018-07-23 09:35:16', '2018-07-23 09:35:16');
 
 -- --------------------------------------------------------
 
@@ -2006,7 +2015,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cmci`
 --
 ALTER TABLE `cmci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `indicator_1`
 --
@@ -2186,7 +2195,7 @@ ALTER TABLE `indicator_40`
 -- AUTO_INCREMENT for table `lgus`
 --
 ALTER TABLE `lgus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `municipalities`
 --
@@ -2373,6 +2382,12 @@ ALTER TABLE `indicator_26`
 --
 ALTER TABLE `indicator_27`
   ADD CONSTRAINT `indicator_27_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `indicator_28`
+--
+ALTER TABLE `indicator_28`
+  ADD CONSTRAINT `indicator_28_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `indicator_29`
