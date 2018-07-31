@@ -232,8 +232,6 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			  url: 'handlers/lgus/check-province.php',
 			  data: province
 			}).then(function mySucces(response) {
-
-				// scope.province = angular.copy(response.data);
 				
 			}, function myError(response) {
 				
