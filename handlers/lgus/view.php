@@ -8,11 +8,18 @@ $con = new pdo_db("lgus");
 
 $lgu = $con->get($_POST['where'],$_POST['model']);
 
+// $lgu = $con->getData("SELECT * FROM lgus WHERE id = $_POST[id]");
+
+// Provinces & municipalities
 $province = $con->getData("SELECT * FROM provinces WHERE province_id = ".$lgu[0]['province']);
 $lgu[0]['province'] = $province[0];
 
-$municipality = $con->getData("SELECT municipality_id, municipality_description FROM municipalities WHERE municipality_id = ".$lgu[0]['municipality']);
-$lgu[0]['province']['municipality'] = $municipality[0];
+$municipalities = $con->getData("SELECT * FROM municipalities WHERE municipality_province = ".$province[0]['province_id']);
+$lgu[0]['province']['municipalities'] = $municipalities;
+
+//Municipality
+$municipality = $con->getData("SELECT * FROM municipalities WHERE municipality_id = ".$lgu[0]['municipality']);
+$lgu[0]['municipality'] = $municipality[0];
 		
 header("Content-Type: application/json");
 echo json_encode($lgu[0]);
