@@ -8,8 +8,6 @@ $con = new pdo_db("lgus");
 
 $lgu = $con->get($_POST['where'],$_POST['model']);
 
-// $lgu = $con->getData("SELECT * FROM lgus WHERE id = $_POST[id]");
-
 // Provinces & municipalities
 $province = $con->getData("SELECT * FROM provinces WHERE province_id = ".$lgu[0]['province']);
 $lgu[0]['province'] = $province[0];
