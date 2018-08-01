@@ -125,6 +125,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 						}).then(function success(response) {
 							
 							scope.lgu = angular.copy(response.data);
+							scope.municipalities = response.data.province.municipalities;
 							bui.hide();							
 							
 						}, function error(response) {
