@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 24, 2018 at 08:29 AM
+-- Generation Time: Aug 06, 2018 at 12:24 PM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -34,24 +34,25 @@ CREATE TABLE `cmci` (
   `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `cmci`
---
-
-INSERT INTO `cmci` (`id`, `lgu_id`, `period_covered`, `system_log`, `update_log`) VALUES
-(1, 1, 'Sample', '2018-07-24 08:13:40', '2018-07-24 08:13:40');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `indicator_1`
+-- Table structure for table `economy`
 --
 
-CREATE TABLE `indicator_1` (
+CREATE TABLE `economy` (
   `id` int(11) NOT NULL,
   `cmci_id` int(11) DEFAULT NULL,
-  `gross_sales_of_registered_firms` text,
-  `total_capitalization_of_new_businesses` text,
+  `local_economy_size` text,
+  `local_economy_growth` text,
+  `economy_structure` text,
+  `safety_compliant_business` text,
+  `increase_in_employment` text,
+  `cost_of_living` text,
+  `cost_of_doing_business` text,
+  `financial_deepening` text,
+  `productivity` text,
+  `presence_of_business_and_professional` text,
   `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -59,14 +60,22 @@ CREATE TABLE `indicator_1` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `indicator_2`
+-- Table structure for table `governtment_efficiency`
 --
 
-CREATE TABLE `indicator_2` (
+CREATE TABLE `governtment_efficiency` (
   `id` int(11) NOT NULL,
   `cmci_id` int(11) DEFAULT NULL,
-  `gross_sales_of_registered_firms` text,
-  `total_capitalization_of_new_businesses` text,
+  `compliance_to_national_directives` text,
+  `investment_promotion_unit` text,
+  `registration_efficiency` text,
+  `generate_local_resource` text,
+  `capacity_of_health_services` text,
+  `capacity_of_school_services` text,
+  `recognition_of_performance` text,
+  `business_permits_and_licensing` text,
+  `peace_and_order` text,
+  `social_protection` text,
   `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -74,668 +83,22 @@ CREATE TABLE `indicator_2` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `indicator_3`
+-- Table structure for table `infrastructure`
 --
 
-CREATE TABLE `indicator_3` (
+CREATE TABLE `infrastructure` (
   `id` int(11) NOT NULL,
   `cmci_id` int(11) DEFAULT NULL,
-  `share_of_agriculture_in_total_business_registration` text,
-  `share_of_other_industries_in_total_business_registration` text,
-  `share_of_services_in_total_business_registration` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_4`
---
-
-CREATE TABLE `indicator_4` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_occupancy_permits_approved` text,
-  `number_of_approved_fire_safety_inspection` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_5`
---
-
-CREATE TABLE `indicator_5` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_declared_employees_for_new_business_applications` text,
-  `number_of_declared_employees_for_business_renewals` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_6`
---
-
-CREATE TABLE `indicator_6` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `local_inflation_rate` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_7`
---
-
-CREATE TABLE `indicator_7` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `cost_of_electricity_commercial_users` text,
-  `cost_of_electricity_industrial_firms_customers` text,
-  `cost_of_water_commercial_users` text,
-  `cost_of_water_industrial_firms_customers` text,
-  `price_of_diesel_as_of_december_31_per_year` text,
-  `daily_minimum_wage_rate_agricultural_plantation` text,
-  `daily_minimum_wage_rate_agricultural_non_plantation` text,
-  `daily_minimum_wage_rate_non_plantation_with_more_than_10_workers` text,
-  `daily_minimum_wage_rate_non_plantation_with_10_workers_or_below` text,
-  `cost_of_land_in_a_central_business_district` text,
-  `cost_of_rent` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_8`
---
-
-CREATE TABLE `indicator_8` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_universal_commercial_banks` text,
-  `number_of_thrift_and_savings_banks` text,
-  `number_of_rural_banks` text,
-  `number_of_finance_cooperatives` text,
-  `number_of_savings_and_loans_association_with_quasibank_functions` text,
-  `number_of_pawnshops` text,
-  `number_of_money_changers_foreign_exchange_dealers` text,
-  `number_of_remittance_centers` text,
-  `number_of_microfinance_institutions` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_9`
---
-
-CREATE TABLE `indicator_9` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `gross_sales_of_registered_firms` text,
-  `number_of_declared_employees_for_business_renewals` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_10`
---
-
-CREATE TABLE `indicator_10` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `total_number_of_lgu_recognized_registered_business_groups` text,
-  `total_number_of_other_business_groups` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_11`
---
-
-CREATE TABLE `indicator_11` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `presence_of_cdp` text,
-  `year_of_last_update` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_12`
---
-
-CREATE TABLE `indicator_12` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `presence_of_the_local_investment_incentives_code` text,
-  `presence_of_the_equivalent_of_an_investment_promotions_unit_po` text,
-  `presence_of_staff_manning_the_ipu` text,
-  `presence_of_local_executive_order_or_ordinance_implementation` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_13`
---
-
-CREATE TABLE `indicator_13` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `getting_building_permits_days` text,
-  `getting_building_permits_steps` text,
-  `getting_occupancy_permits_days` text,
-  `getting_occupancy_permits_steps` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_14`
---
-
-CREATE TABLE `indicator_14` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `business_tax_collected_by_the_lgu_in_php` text,
-  `real_property_tax_collected_by_the_lgu_in_php` text,
-  `total_revenues_of_the_lgu_in_php` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_15`
---
-
-CREATE TABLE `indicator_15` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `capacity_of_public_health_services_doctors` text,
-  `capacity_of_public_health_services_nurses` text,
-  `capacity_of_public_health_services_midwives` text,
-  `capacity_of_private_health_services_doctors` text,
-  `capacity_of_private_health_services_nurses` text,
-  `capacity_of_private_health_services_midwives` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_16`
---
-
-CREATE TABLE `indicator_16` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `public_secondary_education_number_of_teachers` text,
-  `public_secondary_education_number_of_students` text,
-  `private_secondary_education_number_of_teachers` text,
-  `private_secondary_education_number_of_students` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_17`
---
-
-CREATE TABLE `indicator_17` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_dilg_accredited_awards` text,
-  `other_awards_by_credible_institutions_regional_awards` text,
-  `other_awards_by_credible_institutions_national_awards` text,
-  `other_awards_by_credible_institutions_international_awards` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_18`
---
-
-CREATE TABLE `indicator_18` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `bpls_automation` text,
-  `getting_mayor_permit_for_new_business_applications_days` text,
-  `getting_mayor_permit_for_new_business_applications_steps` text,
-  `getting_business_renewal_permits_days` text,
-  `getting_business_renewal_permits_steps` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_19`
---
-
-CREATE TABLE `indicator_19` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_policemen_in_the_locality` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_20`
---
-
-CREATE TABLE `indicator_20` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_local_citizens_with_philhealth_registration` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_21`
---
-
-CREATE TABLE `indicator_21` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `asphalt_in_km` text,
-  `gravel_in_km` text,
-  `concrete_in_km` text,
-  `unpaved_in_km` text,
-  `total_land_area` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_22`
---
-
-CREATE TABLE `indicator_22` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `distance_of_city_municipal_hall_to_operating_airport` text,
-  `distance_of_city_municipal_hall_to_land_transport_terminal` text,
-  `distance_of_city_municipal_hall_to_seaport_local_public_wharf` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_23`
---
-
-CREATE TABLE `indicator_23` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `average_hours_of_water_services_central_business_district` text,
-  `average_hours_of_electricity_services_central_business_district` text,
-  `percentage_of_households_with_water_service` text,
-  `percentage_of_households_with_electricity_service` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_24`
---
-
-CREATE TABLE `indicator_24` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `buses` text,
-  `passenger_vans` text,
-  `jeepneys` text,
-  `tricycles` text,
-  `taxis` text,
-  `ferries_ship` text,
-  `ferries_fast_craft` text,
-  `passenger_bancas` text,
-  `others_motorized_vehicles` text,
-  `others_non_motorized_vehicles` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_25`
---
-
-CREATE TABLE `indicator_25` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_public_secondary_schools` text,
-  `number_of_public_secondary_school_classrooms` text,
-  `number_of_private_secondary_schools` text,
-  `number_of_private_secondary_school_classrooms` text,
-  `public_tertiary_schools` text,
-  `public_tertiary_school_classrooms` text,
-  `private_tertiary_schools` text,
-  `private_tertiary_school_classrooms` text,
-  `public_tech_vocational_education_and_training_schools` text,
-  `public_tech_vocational_education_and_training_school_classroom` text,
-  `private_tech_vocational_education_and_training_schools` text,
-  `private_tech_vocational_education_and_training_school_classroom` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_26`
---
-
-CREATE TABLE `indicator_26` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_public_health_clinics` text,
-  `number_of_public_health_total_clinic_beds` text,
-  `number_of_public_health_diagnostic_centers` text,
-  `number_of_public_health_total_diagnostic_centers_beds` text,
-  `number_of_public_health_hospitals` text,
-  `number_of_public_health_total_hospital_beds` text,
-  `number_of_private_health_clinics` text,
-  `number_of_private_health_total_clinic_beds` text,
-  `number_of_private_health_diagnostic_centers` text,
-  `number_of_private_health_total_diagnostic_centers_beds` text,
-  `number_of_private_health_hospitals` text,
-  `number_of_private_health_total_hospital_beds` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_27`
---
-
-CREATE TABLE `indicator_27` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `total_investment_in_infrastructure_of_lgu` text,
-  `total_lgu_budget` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_28`
---
-
-CREATE TABLE `indicator_28` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `hotels` text,
-  `resorts` text,
-  `touries_inns` text,
-  `apartelles` text,
-  `pension_house` text,
-  `hotel_rooms` text,
-  `resort_rooms` text,
-  `tourist_inn_rooms` text,
-  `apartelle_rooms` text,
-  `pension_house_rooms` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_29`
---
-
-CREATE TABLE `indicator_29` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_cable_service_providers` text,
-  `number_of_internet_service_providers` text,
-  `number_of_telephone_companies_mobile_service_providers` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_30`
---
-
-CREATE TABLE `indicator_30` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_on_site_atms` text,
-  `number_of_off_site_atms` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_31`
---
-
-CREATE TABLE `indicator_31` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `presence_of_the_clup` text,
-  `presence_of_an_office_that_office_implements_the_clup` text,
-  `presence_of_staff_manning_the_office` text,
-  `presence_of_local_executive_order_or_mandates_the_implementation` text,
-  `year_of_last_update` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_32`
---
-
-CREATE TABLE `indicator_32` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `presence_of_the_drrmp` text,
-  `presence_of_an_office_that_office_implements_the_drrmp` text,
-  `presence_of_staff_manning_the_office` text,
-  `presence_of_local_executive_order_or_mandates_the_implementation` text,
-  `budget_allocation` text,
-  `year_of_last_update` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_33`
---
-
-CREATE TABLE `indicator_33` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `conduct_of_lgu_wide_disaster_drill` text,
-  `date_of_latest_lgu_wide_disaster_drill` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_34`
---
-
-CREATE TABLE `indicator_34` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `presence_warning_system_intergrates_prof_grassroots_organization` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_35`
---
-
-CREATE TABLE `indicator_35` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `total_budget_for_drrmp` text,
-  `total_lgu_budget` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_36`
---
-
-CREATE TABLE `indicator_36` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `availability_of_local_geohazard_maps_from_denr` text,
-  `availability_of_lgu_risk_profile_from_dswd` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_37`
---
-
-CREATE TABLE `indicator_37` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `ambulance_public` text,
-  `ambulance_private` text,
-  `firetrucks_public` text,
-  `firetrucks_private` text,
-  `bulldozer_public` text,
-  `bulldozer_private` text,
-  `rubber_boats_public` text,
-  `rubber_boats_private` text,
-  `infrastructure_for_evacuation_public` text,
-  `infrastructure_for_evacuation_private` text,
-  `presence_of_drainage_systems_in_lgu_center` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_38`
---
-
-CREATE TABLE `indicator_38` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `presence_of_water_source` text,
-  `distance_of_water_source` text,
-  `presence_of_power_source` text,
-  `distance_of_power_source_to_lgu` text,
-  `presence_of_generator_sets` text,
-  `redundancy_power` text,
-  `redundancy_water` text,
-  `redundancy_telecom` text,
-  `redundancy_road` text,
-  `redundancy_fuel` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_39`
---
-
-CREATE TABLE `indicator_39` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `number_of_public_employees_employed_by_lgu` text,
-  `number_of_private_employees_based_on_bpls` text,
-  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `indicator_40`
---
-
-CREATE TABLE `indicator_40` (
-  `id` int(11) NOT NULL,
-  `cmci_id` int(11) DEFAULT NULL,
-  `presence_of_a_sanitary_landfill` text,
-  `distance_of_landfill_to_lgu_center` text,
-  `frequency_of_garbage_collection_per_month` text,
-  `practice_of_waste_segregation` text,
-  `presence_of_recycling_material_recovery_facility` text,
+  `road_network` text,
+  `distance_to_ports` text,
+  `availability_of_basic_utilities` text,
+  `transportation_vehicles` text,
+  `education` text,
+  `health` text,
+  `lgu_investment` text,
+  `accommodation_capacity` text,
+  `information_technology_capacity` text,
+  `financial_technology_capacity` text,
   `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -760,9 +123,7 @@ CREATE TABLE `lgus` (
 --
 
 INSERT INTO `lgus` (`id`, `municipality`, `province`, `classification`, `system_log`, `update_log`) VALUES
-(1, 31, 3, 'First', '2018-07-23 08:25:42', '2018-07-23 08:25:42'),
-(2, 9, 1, 'First', '2018-07-23 09:28:31', '2018-07-23 09:28:31'),
-(3, 88, 4, 'First', '2018-07-23 09:35:16', '2018-07-23 09:35:16');
+(1, 1, 1, 'First', '2018-07-22 20:30:17', '2018-07-22 20:30:17');
 
 -- --------------------------------------------------------
 
@@ -1675,6 +1036,29 @@ INSERT INTO `provinces` (`province_id`, `province_description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `resiliency`
+--
+
+CREATE TABLE `resiliency` (
+  `id` int(11) NOT NULL,
+  `cmci_id` int(11) DEFAULT NULL,
+  `land_use_plan` text,
+  `disaster_risk_reduction_plan` text,
+  `annual_disaster_drill` text,
+  `early_warning_system` text,
+  `budget_for_drrmp` text,
+  `local_risk_assessments` text,
+  `emergency_infrastructure` text,
+  `utilities` text,
+  `employed_population` text,
+  `sanitary_system` text,
+  `system_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -1704,282 +1088,23 @@ ALTER TABLE `cmci`
   ADD KEY `lgu_id` (`lgu_id`);
 
 --
--- Indexes for table `indicator_1`
+-- Indexes for table `economy`
 --
-ALTER TABLE `indicator_1`
+ALTER TABLE `economy`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cmci_id` (`cmci_id`);
 
 --
--- Indexes for table `indicator_2`
+-- Indexes for table `governtment_efficiency`
 --
-ALTER TABLE `indicator_2`
+ALTER TABLE `governtment_efficiency`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cmci_id` (`cmci_id`);
 
 --
--- Indexes for table `indicator_3`
+-- Indexes for table `infrastructure`
 --
-ALTER TABLE `indicator_3`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_4`
---
-ALTER TABLE `indicator_4`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_5`
---
-ALTER TABLE `indicator_5`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_6`
---
-ALTER TABLE `indicator_6`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_7`
---
-ALTER TABLE `indicator_7`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_8`
---
-ALTER TABLE `indicator_8`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_9`
---
-ALTER TABLE `indicator_9`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_10`
---
-ALTER TABLE `indicator_10`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_11`
---
-ALTER TABLE `indicator_11`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_12`
---
-ALTER TABLE `indicator_12`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_13`
---
-ALTER TABLE `indicator_13`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_14`
---
-ALTER TABLE `indicator_14`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_15`
---
-ALTER TABLE `indicator_15`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_16`
---
-ALTER TABLE `indicator_16`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_17`
---
-ALTER TABLE `indicator_17`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_18`
---
-ALTER TABLE `indicator_18`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_19`
---
-ALTER TABLE `indicator_19`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_20`
---
-ALTER TABLE `indicator_20`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_21`
---
-ALTER TABLE `indicator_21`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_22`
---
-ALTER TABLE `indicator_22`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_23`
---
-ALTER TABLE `indicator_23`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_24`
---
-ALTER TABLE `indicator_24`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_25`
---
-ALTER TABLE `indicator_25`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_26`
---
-ALTER TABLE `indicator_26`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_27`
---
-ALTER TABLE `indicator_27`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_28`
---
-ALTER TABLE `indicator_28`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_29`
---
-ALTER TABLE `indicator_29`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_30`
---
-ALTER TABLE `indicator_30`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_31`
---
-ALTER TABLE `indicator_31`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_32`
---
-ALTER TABLE `indicator_32`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_33`
---
-ALTER TABLE `indicator_33`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_34`
---
-ALTER TABLE `indicator_34`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_35`
---
-ALTER TABLE `indicator_35`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_36`
---
-ALTER TABLE `indicator_36`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_37`
---
-ALTER TABLE `indicator_37`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_38`
---
-ALTER TABLE `indicator_38`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_39`
---
-ALTER TABLE `indicator_39`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cmci_id` (`cmci_id`);
-
---
--- Indexes for table `indicator_40`
---
-ALTER TABLE `indicator_40`
+ALTER TABLE `infrastructure`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cmci_id` (`cmci_id`);
 
@@ -2002,6 +1127,13 @@ ALTER TABLE `provinces`
   ADD PRIMARY KEY (`province_id`);
 
 --
+-- Indexes for table `resiliency`
+--
+ALTER TABLE `resiliency`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cmci_id` (`cmci_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -2015,187 +1147,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cmci`
 --
 ALTER TABLE `cmci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `indicator_1`
---
-ALTER TABLE `indicator_1`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `indicator_2`
+-- AUTO_INCREMENT for table `economy`
 --
-ALTER TABLE `indicator_2`
+ALTER TABLE `economy`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `indicator_3`
+-- AUTO_INCREMENT for table `governtment_efficiency`
 --
-ALTER TABLE `indicator_3`
+ALTER TABLE `governtment_efficiency`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `indicator_4`
+-- AUTO_INCREMENT for table `infrastructure`
 --
-ALTER TABLE `indicator_4`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_5`
---
-ALTER TABLE `indicator_5`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_6`
---
-ALTER TABLE `indicator_6`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_7`
---
-ALTER TABLE `indicator_7`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_8`
---
-ALTER TABLE `indicator_8`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_9`
---
-ALTER TABLE `indicator_9`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_10`
---
-ALTER TABLE `indicator_10`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_11`
---
-ALTER TABLE `indicator_11`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_12`
---
-ALTER TABLE `indicator_12`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_13`
---
-ALTER TABLE `indicator_13`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_14`
---
-ALTER TABLE `indicator_14`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_15`
---
-ALTER TABLE `indicator_15`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_16`
---
-ALTER TABLE `indicator_16`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_17`
---
-ALTER TABLE `indicator_17`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_18`
---
-ALTER TABLE `indicator_18`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_19`
---
-ALTER TABLE `indicator_19`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_20`
---
-ALTER TABLE `indicator_20`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_21`
---
-ALTER TABLE `indicator_21`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_27`
---
-ALTER TABLE `indicator_27`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_28`
---
-ALTER TABLE `indicator_28`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_29`
---
-ALTER TABLE `indicator_29`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_30`
---
-ALTER TABLE `indicator_30`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_31`
---
-ALTER TABLE `indicator_31`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_32`
---
-ALTER TABLE `indicator_32`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_33`
---
-ALTER TABLE `indicator_33`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_34`
---
-ALTER TABLE `indicator_34`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_35`
---
-ALTER TABLE `indicator_35`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_36`
---
-ALTER TABLE `indicator_36`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_37`
---
-ALTER TABLE `indicator_37`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_38`
---
-ALTER TABLE `indicator_38`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_39`
---
-ALTER TABLE `indicator_39`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `indicator_40`
---
-ALTER TABLE `indicator_40`
+ALTER TABLE `infrastructure`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `lgus`
 --
 ALTER TABLE `lgus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `municipalities`
 --
@@ -2206,6 +1178,11 @@ ALTER TABLE `municipalities`
 --
 ALTER TABLE `provinces`
   MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `resiliency`
+--
+ALTER TABLE `resiliency`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -2222,244 +1199,28 @@ ALTER TABLE `cmci`
   ADD CONSTRAINT `cmci_ibfk_1` FOREIGN KEY (`lgu_id`) REFERENCES `lgus` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `indicator_1`
+-- Constraints for table `economy`
 --
-ALTER TABLE `indicator_1`
-  ADD CONSTRAINT `indicator_1_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `economy`
+  ADD CONSTRAINT `economy_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `indicator_2`
+-- Constraints for table `governtment_efficiency`
 --
-ALTER TABLE `indicator_2`
-  ADD CONSTRAINT `indicator_2_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `governtment_efficiency`
+  ADD CONSTRAINT `governtment_efficiency_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `indicator_3`
+-- Constraints for table `infrastructure`
 --
-ALTER TABLE `indicator_3`
-  ADD CONSTRAINT `indicator_3_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `infrastructure`
+  ADD CONSTRAINT `infrastructure_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `indicator_4`
+-- Constraints for table `resiliency`
 --
-ALTER TABLE `indicator_4`
-  ADD CONSTRAINT `indicator_4_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_5`
---
-ALTER TABLE `indicator_5`
-  ADD CONSTRAINT `indicator_5_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_6`
---
-ALTER TABLE `indicator_6`
-  ADD CONSTRAINT `indicator_6_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_7`
---
-ALTER TABLE `indicator_7`
-  ADD CONSTRAINT `indicator_7_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_8`
---
-ALTER TABLE `indicator_8`
-  ADD CONSTRAINT `indicator_8_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_9`
---
-ALTER TABLE `indicator_9`
-  ADD CONSTRAINT `indicator_9_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_10`
---
-ALTER TABLE `indicator_10`
-  ADD CONSTRAINT `indicator_10_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_11`
---
-ALTER TABLE `indicator_11`
-  ADD CONSTRAINT `indicator_11_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_12`
---
-ALTER TABLE `indicator_12`
-  ADD CONSTRAINT `indicator_12_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_13`
---
-ALTER TABLE `indicator_13`
-  ADD CONSTRAINT `indicator_13_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_14`
---
-ALTER TABLE `indicator_14`
-  ADD CONSTRAINT `indicator_14_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_15`
---
-ALTER TABLE `indicator_15`
-  ADD CONSTRAINT `indicator_15_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_16`
---
-ALTER TABLE `indicator_16`
-  ADD CONSTRAINT `indicator_16_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_17`
---
-ALTER TABLE `indicator_17`
-  ADD CONSTRAINT `indicator_17_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_18`
---
-ALTER TABLE `indicator_18`
-  ADD CONSTRAINT `indicator_18_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_19`
---
-ALTER TABLE `indicator_19`
-  ADD CONSTRAINT `indicator_19_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_20`
---
-ALTER TABLE `indicator_20`
-  ADD CONSTRAINT `indicator_20_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_21`
---
-ALTER TABLE `indicator_21`
-  ADD CONSTRAINT `indicator_21_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_22`
---
-ALTER TABLE `indicator_22`
-  ADD CONSTRAINT `indicator_22_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_23`
---
-ALTER TABLE `indicator_23`
-  ADD CONSTRAINT `indicator_23_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_24`
---
-ALTER TABLE `indicator_24`
-  ADD CONSTRAINT `indicator_24_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_25`
---
-ALTER TABLE `indicator_25`
-  ADD CONSTRAINT `indicator_25_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_26`
---
-ALTER TABLE `indicator_26`
-  ADD CONSTRAINT `indicator_26_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_27`
---
-ALTER TABLE `indicator_27`
-  ADD CONSTRAINT `indicator_27_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_28`
---
-ALTER TABLE `indicator_28`
-  ADD CONSTRAINT `indicator_28_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_29`
---
-ALTER TABLE `indicator_29`
-  ADD CONSTRAINT `indicator_29_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_30`
---
-ALTER TABLE `indicator_30`
-  ADD CONSTRAINT `indicator_30_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_31`
---
-ALTER TABLE `indicator_31`
-  ADD CONSTRAINT `indicator_31_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_32`
---
-ALTER TABLE `indicator_32`
-  ADD CONSTRAINT `indicator_32_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_33`
---
-ALTER TABLE `indicator_33`
-  ADD CONSTRAINT `indicator_33_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_34`
---
-ALTER TABLE `indicator_34`
-  ADD CONSTRAINT `indicator_34_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_35`
---
-ALTER TABLE `indicator_35`
-  ADD CONSTRAINT `indicator_35_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_36`
---
-ALTER TABLE `indicator_36`
-  ADD CONSTRAINT `indicator_36_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_37`
---
-ALTER TABLE `indicator_37`
-  ADD CONSTRAINT `indicator_37_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_38`
---
-ALTER TABLE `indicator_38`
-  ADD CONSTRAINT `indicator_38_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_39`
---
-ALTER TABLE `indicator_39`
-  ADD CONSTRAINT `indicator_39_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `indicator_40`
---
-ALTER TABLE `indicator_40`
-  ADD CONSTRAINT `indicator_40_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `resiliency`
+  ADD CONSTRAINT `resiliency_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
