@@ -6,18 +6,33 @@ require_once '../../db.php';
 
 $con = new pdo_db("cmci");
 
-$data = $_POST;
+$cmci = $_POST;
 
-if ($data['id']) {
+$data = $_POST['data'];
+
+unset($cmci['data']);
+
+$cmci['lgu_id'] = $cmci['lgu_id']['id'];
+
+if ($cmci['id']) {
 	
-	$cmci = $con->updateObj($data,'id');
+	$update = $con->updateData($cmci,'id');
 	
 } else {
 	
-	unset($data['id']);	
+	unset($cmci['id']);	
 	
-	$cmci = $con->insertObj($data);
+	$insert = $con->insertData($cmci);
 	
 };
+
+# economy
+if ($data['economy']['id']) {
+	
+	
+} else {
+	
+	
+}
 
 ?>

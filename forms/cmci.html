@@ -1,15 +1,23 @@
 <div class="col-lg-12">
 	<div class="card">
 		<div class="card-body">
-			<div class="form-validation">
+			<h4 class="card-title">Form
+			<button type="button" class="btn btn-outline-secondary pull-right" ng-click="app.edit(this)"><i class="fa" ng-class="{'fa-edit': btns.ok.disabled, 'fa-ban': !btns.ok.disabled}"></i></button>
+			</h4><hr>
+			<div class="form-validation col-lg-12">
 				<form name="formHolder.cmci" novalidate autocomplete="off">
 					<div class="row">
-						<div class="col-lg-12">
-							<span>FORM</span>
-							<button type="button" class="btn btn-outline-secondary pull-right" ng-click="app.edit(this)"><i class="fa" ng-class="{'fa-edit': btns.ok.disabled, 'fa-ban': !btns.ok.disabled}"></i></button>
+						<div class="vtabs customvtab">
+							<ul class="nav nav-tabs tabs-vertical" role="tablist">
+								<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">LGU</span></a> </li>
+							</ul>
 						</div>
-					</div><hr>
-					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<label class="col-form-label">LGU <span class="text-danger">*</span></label>
+								<select class="form-control" name="municipality" ng-model="cmci.lgu_id" ng-options="lgu.municipality for lgu in lgus track by lgu.id"  ng-disabled="btns.ok.disabled"></select>
+							</div>
+						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
 								<label class="col-form-label">Period Covered <span class="text-danger">*</span></label>
@@ -19,8 +27,316 @@
 					</div>
 				</form>
 			</div><hr>
+			<!-- Nav tabs -->
+			<div class="vtabs customvtab">
+				<ul class="nav nav-tabs tabs-vertical" role="tablist">
+					<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#economy" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Economy</span></a> </li>
+					<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#governtment" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Government Efficiency</span></a> </li>
+					<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#infra" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Infrastructure</span></a> </li>
+					<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#resiliency" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Resiliency</span></a> </li>
+				</ul>
+				<!-- Tab panes -->
+				<!-- <div class="tab-content col-lg-12">
+					<div class="tab-pane col-lg-12" id="economy" role="tabpanel">
+						<div class="form-validation col-lg-12">
+							<form name="formHolder.cmci" novalidate autocomplete="off">
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Local Economy Size <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="local_economy_size" ng-model="cmci.local_economy_size" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Local Economy Growth <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="local_economy_growth" ng-model="cmci.local_economy_growth" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Local Economy Structure <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="local_economy_structure" ng-model="cmci.local_economy_structure" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Safety Compliant Business <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="safety_compliant_business" ng-model="cmci.safety_compliant_business" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Increase in Employment <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="increase_in_employment" ng-model="cmci.increase_in_employment" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Cost of Living <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="cost_of_living" ng-model="cmci.cost_of_living" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Cost of Doing Business <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="cost_of_doing_business" ng-model="cmci.cost_of_doing_business" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Financial Deepening <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="financial_deepening" ng-model="cmci.financial_deepening" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Productivity <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="productivity" ng-model="cmci.productivity" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Presence of Business and Professional Organizations <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="presence_of_business_and_professional" ng-model="cmci.presence_of_business_and_professional" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="tab-pane col-lg-12" id="governtment" role="tabpanel">
+						<div class="form-validation col-lg-12">
+							<form name="formHolder.cmci" novalidate autocomplete="off">
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Compliance to National Directives <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="compliance_to_national_directives" ng-model="cmci.compliance_to_national_directives" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Presence of Investment Promotion Unit <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="investment_promotion_unit" ng-model="cmci.investment_promotion_unit" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Business Registration Efficiency <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="registration_efficiency" ng-model="cmci.registration_efficiency" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Capacity to Generate Local Resource <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="generate_local_resource" ng-model="cmci.generate_local_resource" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Capacity of Health Services <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="capacity_of_health_services" ng-model="cmci.capacity_of_health_services" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Capacity of School Services <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="capacity_of_school_services" ng-model="cmci.capacity_of_school_services" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Recognition of Performance <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="recognition_of_performance" ng-model="cmci.recognition_of_performance" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Compliance to BPLS Standards<span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="business_permits_and_licensing" ng-model="cmci.business_permits_and_licensing" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Peace and Order <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="peace_and_order" ng-model="cmci.peace_and_order" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Social Protection <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="social_protection" ng-model="cmci.social_protection" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="tab-pane col-lg-12" id="infra" role="tabpanel">
+						<div class="form-validation col-lg-12">
+							<form name="formHolder.cmci" novalidate autocomplete="off">
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Road Network <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="road_network" ng-model="cmci.road_network" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Distance to Ports <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="distance_to_ports" ng-model="cmci.distance_to_ports" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Availability of Basic Utilities <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="availability_of_basic_utilities" ng-model="cmci.availability_of_basic_utilities" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Transportation Vehicles <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="transportation_vehicles" ng-model="cmci.transportation_vehicles" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Education <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="education" ng-model="cmci.education" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Health <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="health" ng-model="cmci.health" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">LGU Investment <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="lgu_investment" ng-model="cmci.lgu_investment" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Accommodation Capacity<span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="accommodation_capacity" ng-model="cmci.accommodation_capacity" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Information Technology Capacity <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="information_technology_capacity" ng-model="cmci.information_technology_capacity" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Financial Technology Capacity <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="financial_technology_capacity" ng-model="cmci.financial_technology_capacity" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="tab-pane col-lg-12" id="resiliency" role="tabpanel">
+						<div class="form-validation col-lg-12">
+							<form name="formHolder.cmci" novalidate autocomplete="off">
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Land Use Plan <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="land_use_plan" ng-model="cmci.land_use_plan" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Disaster Risk Reduction Plan <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="disaster_risk_reduction_plan" ng-model="cmci.disaster_risk_reduction_plan" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Annual Disaster Drill <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="annual_disaster_drill" ng-model="cmci.annual_disaster_drill" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Early Warning System <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="early_warning_system" ng-model="cmci.early_warning_system" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Budget for DRRMP <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="budget_for_drrmp" ng-model="cmci.budget_for_drrmp" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Local Risk Assessments <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="local_risk_assessments" ng-model="cmci.local_risk_assessments" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Emergency Infrastructure<span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="emergency_infrastructure" ng-model="cmci.emergency_infrastructure" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Utilities <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="utilities" ng-model="cmci.utilities" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Employed Population <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="employed_population" ng-model="cmci.employed_population" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label class="col-form-label">Sanitary System <span class="text-danger">*</span></label>
+											<input type="text" class="form-control" name="sanitary_system" ng-model="cmci.sanitary_system" ng-disabled="btns.ok.disabled">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div> -->
+			</div><hr>
 			<div class="col-lg-12">
-				<div class="row">
+				<div class="row pull-right">
 					<button class="btn btn-outline-secondary" ng-click="app.cancel(this)" style="margin-right: 5px;">{{btns.cancel.label}}</button>
 					<button class="btn btn-info" ng-click="app.save(this)">{{btns.ok.label}}</button>
 				</div>
