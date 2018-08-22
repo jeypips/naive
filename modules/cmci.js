@@ -21,10 +21,33 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			scope.cmci = {};
 			scope.cmci.id = 0;			
 			
+			//
+			scope.cmci.data = {};
+			
+			scope.cmci.data.economy = {};
+			scope.cmci.data.economy.id = 0;
+			//
+			
 			scope.cmcis = [];
 			
 		};
-
+		
+		function lgus(scope){
+			
+			$http({ 
+				method: 'POST',
+				url: 'api/suggestions/lgus.php'
+			}).then(function mySucces(response) {
+				
+				scope.lgus = response.data;
+				
+			},function myError(response) {
+				
+				//error
+				
+			});
+		};
+		
 		self.list = function(scope) {
 			
 			bui.show();
@@ -35,6 +58,13 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.cmci = {};
 			scope.cmci.id = 0;						
+			
+			//
+			scope.cmci.data = {};
+			
+			scope.cmci.data.economy = {};
+			scope.cmci.data.economy.id = 0;
+			//
 			
 			scope.currentPage = scope.views.currentPage;
 			scope.pageSize = 10;
@@ -90,6 +120,8 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.views.list = false;
 			
+			lgus(scope);
+			
 			mode(scope,row);
 			
 			$('#content').load('forms/cmci.html',function() {
@@ -119,6 +151,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 						scope.cmci = {};
 						scope.cmci.id = 0;
 						
+						//
+						scope.cmci.data = {};
+						
+						scope.cmci.data.economy = {};
+						scope.cmci.data.economy.id = 0;
+						//
+						
+						
 					};
 					
 					bui.hide();
@@ -128,10 +168,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 		};
 		
-		self.cancel = function(scope) {			
-			
-			scope.cmci = {};
-			scope.cmci.id = 0;			
+		self.cancel = function(scope) {		
 			
 			self.list(scope);
 			
@@ -159,7 +196,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				bui.hide();
 				if (scope.cmci.id == 0) growl.show('alert alert-info',{from: 'top', amount: 55},'New CMCI info successfully added');				
 				else growl.show('alert alert-info',{from: 'top', amount: 55},'CMCI info successfully updated');				
-				self.list(scope);								
+				// self.list(scope);								
 				
 			}, function error(response) {
 				

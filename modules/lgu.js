@@ -107,6 +107,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			bui.show();
 			
 			scope.views.list = false;
+			
 			provinces(scope);
 			
 			mode(scope,row);

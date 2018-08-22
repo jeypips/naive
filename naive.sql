@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 06, 2018 at 12:24 PM
+-- Generation Time: Aug 21, 2018 at 07:27 PM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -34,6 +34,14 @@ CREATE TABLE `cmci` (
   `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `cmci`
+--
+
+INSERT INTO `cmci` (`id`, `lgu_id`, `period_covered`, `system_log`, `update_log`) VALUES
+(1, 1, '2018', '2018-08-21 19:26:07', '2018-08-21 19:26:07'),
+(2, 2, '2018', '2018-08-21 19:26:18', '2018-08-21 19:26:18');
+
 -- --------------------------------------------------------
 
 --
@@ -45,7 +53,7 @@ CREATE TABLE `economy` (
   `cmci_id` int(11) DEFAULT NULL,
   `local_economy_size` text,
   `local_economy_growth` text,
-  `economy_structure` text,
+  `local_economy_structure` text,
   `safety_compliant_business` text,
   `increase_in_employment` text,
   `cost_of_living` text,
@@ -123,7 +131,8 @@ CREATE TABLE `lgus` (
 --
 
 INSERT INTO `lgus` (`id`, `municipality`, `province`, `classification`, `system_log`, `update_log`) VALUES
-(1, 1, 1, 'First', '2018-07-22 20:30:17', '2018-07-22 20:30:17');
+(1, 9, 1, 'First', '2018-07-22 20:30:17', '2018-07-22 20:30:17'),
+(2, 31, 2, 'Second', '2018-08-21 16:59:19', '2018-08-21 16:59:19');
 
 -- --------------------------------------------------------
 
@@ -1147,7 +1156,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cmci`
 --
 ALTER TABLE `cmci`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `economy`
 --
@@ -1167,7 +1176,7 @@ ALTER TABLE `infrastructure`
 -- AUTO_INCREMENT for table `lgus`
 --
 ALTER TABLE `lgus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `municipalities`
 --
