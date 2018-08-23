@@ -9,7 +9,7 @@ angular.module('form-validator', ['bootstrap-modal']).factory('validate', functi
 			var controls = scope.formHolder[form].$$controls;
 			
 			angular.forEach(controls,function(elem,i) {
-
+				
 				if (elem.$$attr.$attr.required) elem.$touched = elem.$invalid;
 									
 			});

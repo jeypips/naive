@@ -26,6 +26,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.cmci.data.economy = {};
 			scope.cmci.data.economy.id = 0;
+			scope.cmci.data.government = {};
+			scope.cmci.data.government.id = 0;
+			scope.cmci.data.infra = {};
+			scope.cmci.data.infra.id = 0;
+			scope.cmci.data.resiliency = {};
+			scope.cmci.data.resiliency.id = 0;
 			//
 			
 			scope.cmcis = [];
@@ -64,6 +70,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.cmci.data.economy = {};
 			scope.cmci.data.economy.id = 0;
+			scope.cmci.data.government = {};
+			scope.cmci.data.government.id = 0;
+			scope.cmci.data.infra = {};
+			scope.cmci.data.infra.id = 0;
+			scope.cmci.data.resiliency = {};
+			scope.cmci.data.resiliency.id = 0;
 			//
 			
 			scope.currentPage = scope.views.currentPage;
@@ -114,7 +126,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 		};
 		
-		self.cmci = function(scope,row) {			
+		self.cmci = function(scope,row) {
 			
 			bui.show();
 			
@@ -129,12 +141,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					
 					$compile($('#content')[0])(scope);
 					
-					if (row != null) {
+					if (row != null) {					
 						
 						$http({
 						  method: 'POST',
 						  url: 'handlers/cmcis/view.php',
-						  data: {where: {id: row.id}, model: model(scope,'cmci',["id"])}
+						  data: {id: row.id}
 						}).then(function success(response) {
 							
 							scope.cmci = angular.copy(response.data);
@@ -156,6 +168,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 						
 						scope.cmci.data.economy = {};
 						scope.cmci.data.economy.id = 0;
+						scope.cmci.data.government = {};
+						scope.cmci.data.government.id = 0;
+						scope.cmci.data.infra = {};
+						scope.cmci.data.infra.id = 0;
+						scope.cmci.data.resiliency = {};
+						scope.cmci.data.resiliency.id = 0;
 						//
 						
 						
@@ -187,6 +205,26 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				return;
 			};
 
+			if (validate.form(scope,'economy')) {
+				growl.show('danger',{from: 'top', amount: 55},'Some fields in economy are required');				
+				return;
+			};	
+
+			if (validate.form(scope,'government')) {
+				growl.show('danger',{from: 'top', amount: 55},'Some fields in government efficiency are required');				
+				return;
+			};
+			
+			if (validate.form(scope,'infra')) {
+				growl.show('danger',{from: 'top', amount: 55},'Some fields in infrastructure are required');				
+				return;
+			};
+
+			if (validate.form(scope,'resiliency')) {
+				growl.show('danger',{from: 'top', amount: 55},'Some fields in resiliency are required');				
+				return;
+			};			
+			
 			$http({
 			  method: 'POST',
 			  url: 'handlers/cmcis/save.php',
@@ -196,7 +234,8 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				bui.hide();
 				if (scope.cmci.id == 0) growl.show('alert alert-info',{from: 'top', amount: 55},'New CMCI info successfully added');				
 				else growl.show('alert alert-info',{from: 'top', amount: 55},'CMCI info successfully updated');				
-				// self.list(scope);								
+				
+				mode(scope,scope.cmci);
 				
 			}, function error(response) {
 				

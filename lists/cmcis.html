@@ -27,10 +27,10 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="cmci in filterData = (cmcis | filter:search) | pagination: currentPage:pageSize">
-						<td>{{$index+1}}</td>
-						<td>{{cmci.lgu_id.municipality}}</td>
-						<td>{{cmci.period_covered}}</td>
-						<td>{{cmci.system_log}}</td>
+						<td style="color: #676767">{{$index+1}}</td>
+						<td style="color: #676767">{{cmci.lgu_id.municipality}}</td>
+						<td style="color: #676767">{{cmci.period_covered}}</td>
+						<td style="color: #676767">{{cmci.system_log}}</td>
 						<td>
 						<button class="btn btn-info" ng-click="app.cmci(this,cmci)"><i class="fa fa-pencil-square-o"></i></button>
 						<button class="btn btn-danger" ng-click="app.delete(this,cmci)"><i class="fa fa-trash"></i></button>

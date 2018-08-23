@@ -18,7 +18,7 @@ $lgu[0]['province']['municipalities'] = $municipalities;
 //Municipality
 $municipality = $con->getData("SELECT * FROM municipalities WHERE municipality_id = ".$lgu[0]['municipality']);
 $lgu[0]['municipality'] = $municipality[0];
-		
+
 header("Content-Type: application/json");
 echo json_encode($lgu[0]);
 
