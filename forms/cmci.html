@@ -11,12 +11,14 @@
 							<div class="form-group" ng-class="{'has-error': formHolder.cmci.lgu_id.$touched && formHolder.cmci.lgu_id.$invalid}">
 								<label class="col-form-label">LGU <span class="text-danger">*</span></label>
 								<select class="form-control" name="lgu_id" ng-model="cmci.lgu_id" ng-options="lgu.municipality for lgu in lgus track by lgu.id" ng-disabled="btns.ok.disabled" required></select>
+								<span class="help-block text-danger" ng-show="formHolder.cmci.lgu_id.$touched && formHolder.cmci.lgu_id.$invalid">This field is required</span>
 							</div>
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group" ng-class="{'has-error': formHolder.cmci.period_covered.$touched && formHolder.cmci.period_covered.$invalid}">
 								<label class="col-form-label">Period Covered <span class="text-danger">*</span></label>
 								<input type="text" class="form-control" name="period_covered" ng-model="cmci.period_covered" ng-disabled="btns.ok.disabled" required>
+								<span class="help-block text-danger" ng-show="formHolder.cmci.period_covered.$touched && formHolder.cmci.period_covered.$invalid">This field is required</span>
 							</div>
 						</div>
 					</div>
@@ -39,18 +41,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.local_economy_size.$touched && formHolder.economy.local_economy_size.$invalid}">
 											<label class="col-form-label">Local Economy Size <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="local_economy_size" ng-model="cmci.data.economy.local_economy_size" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.economy.local_economy_size.$touched && formHolder.cmci.data.economy.local_economy_size.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.local_economy_growth.$touched && formHolder.economy.local_economy_growth.$invalid}">
 											<label class="col-form-label">Local Economy Growth <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="local_economy_growth" ng-model="cmci.data.economy.local_economy_growth" ng-disabled="btns.ok.disabled" required>
+											<span class="text-danger" ng-show="formHolder.cmci.data.economy.local_economy_growth.$touched && formHolder.cmci.data.economy.local_economy_growth.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.local_economy_structure.$touched && formHolder.economy.local_economy_structure.$invalid}">
 											<label class="col-form-label">Local Economy Structure <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="local_economy_structure" ng-model="cmci.data.economy.local_economy_structure" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.economy.local_economy_structure.$touched && formHolder.cmci.data.economy.local_economy_structure.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -59,18 +64,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.safety_compliant_business.$touched && formHolder.economy.safety_compliant_business.$invalid}">
 											<label class="col-form-label">Safety Compliant Business <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="safety_compliant_business" ng-model="cmci.data.economy.safety_compliant_business" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.economy.safety_compliant_business.$touched && formHolder.cmci.data.economy.safety_compliant_business.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.increase_in_employment.$touched && formHolder.economy.increase_in_employment.$invalid}">
 											<label class="col-form-label">Increase in Employment <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="increase_in_employment" ng-model="cmci.data.economy.increase_in_employment" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.economy.increase_in_employment.$touched && formHolder.cmci.data.economy.increase_in_employment.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.cost_of_living.$touched && formHolder.economy.cost_of_living.$invalid}">
 											<label class="col-form-label">Cost of Living <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="cost_of_living" ng-model="cmci.data.economy.cost_of_living" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.economy.cost_of_living.$touched && formHolder.cmci.data.economy.cost_of_living.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -79,18 +87,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.cost_of_doing_business.$touched && formHolder.economy.cost_of_doing_business.$invalid}">
 											<label class="col-form-label">Cost of Doing Business <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="cost_of_doing_business" ng-model="cmci.data.economy.cost_of_doing_business" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.economy.cost_of_doing_business.$touched && formHolder.cmci.data.economy.cost_of_doing_business.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.financial_deepening.$touched && formHolder.economy.financial_deepening.$invalid}">
 											<label class="col-form-label">Financial Deepening <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="financial_deepening" ng-model="cmci.data.economy.financial_deepening" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.economy.financial_deepening.$touched && formHolder.cmci.data.economy.financial_deepening.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.productivity.$touched && formHolder.economy.productivity.$invalid}">
 											<label class="col-form-label">Productivity <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="productivity" ng-model="cmci.data.economy.productivity" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.economy.productivity.$touched && formHolder.cmci.data.economy.productivity.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -99,6 +110,7 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.economy.presence_of_business_and_professional.$touched && formHolder.economy.presence_of_business_and_professional.$invalid}">
 											<label class="col-form-label">Presence of Business and Professional Organizations <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="presence_of_business_and_professional" ng-model="cmci.data.economy.presence_of_business_and_professional" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.economy.presence_of_business_and_professional.$touched && formHolder.cmci.data.economy.presence_of_business_and_professional.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -113,18 +125,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.government.compliance_to_national_directives.$touched && formHolder.government.compliance_to_national_directives.$invalid}">
 											<label class="col-form-label">Compliance to National Directives <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="compliance_to_national_directives" ng-model="cmci.data.government.compliance_to_national_directives" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.compliance_to_national_directives.$touched && formHolder.cmci.data.government.compliance_to_national_directives.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.government.investment_promotion_unit.$touched && formHolder.government.investment_promotion_unit.$invalid}">
 											<label class="col-form-label">Presence of Investment Promotion Unit <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="investment_promotion_unit" ng-model="cmci.data.government.investment_promotion_unit" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.investment_promotion_unit.$touched && formHolder.cmci.data.government.investment_promotion_unit.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.government.registration_efficiency.$touched && formHolder.government.registration_efficiency.$invalid}">
 											<label class="col-form-label">Business Registration Efficiency <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="registration_efficiency" ng-model="cmci.data.government.registration_efficiency" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.registration_efficiency.$touched && formHolder.cmci.data.government.registration_efficiency.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -133,18 +148,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.government.generate_local_resource.$touched && formHolder.government.generate_local_resource.$invalid}">
 											<label class="col-form-label">Capacity to Generate Local Resource <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="generate_local_resource" ng-model="cmci.data.government.generate_local_resource" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.generate_local_resource.$touched && formHolder.cmci.data.government.generate_local_resource.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.government.capacity_of_health_services.$touched && formHolder.government.capacity_of_health_services.$invalid}">
 											<label class="col-form-label">Capacity of Health Services <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="capacity_of_health_services" ng-model="cmci.data.government.capacity_of_health_services" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.capacity_of_health_services.$touched && formHolder.cmci.data.government.capacity_of_health_services.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.government.capacity_of_school_services.$touched && formHolder.government.capacity_of_school_services.$invalid}">
 											<label class="col-form-label">Capacity of School Services <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="capacity_of_school_services" ng-model="cmci.data.government.capacity_of_school_services" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.capacity_of_school_services.$touched && formHolder.cmci.data.government.capacity_of_school_services.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -153,18 +171,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.government.recognition_of_performance.$touched && formHolder.government.recognition_of_performance.$invalid}">
 											<label class="col-form-label">Recognition of Performance <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="recognition_of_performance" ng-model="cmci.data.government.recognition_of_performance" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.recognition_of_performance.$touched && formHolder.cmci.data.government.recognition_of_performance.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.government.business_permits_and_licensing.$touched && formHolder.government.business_permits_and_licensing.$invalid}">
 											<label class="col-form-label">Compliance to BPLS Standards<span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="business_permits_and_licensing" ng-model="cmci.data.government.business_permits_and_licensing" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.business_permits_and_licensing.$touched && formHolder.cmci.data.government.business_permits_and_licensing.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.government.peace_and_order.$touched && formHolder.government.peace_and_order.$invalid}">
 											<label class="col-form-label">Peace and Order <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="peace_and_order" ng-model="cmci.data.government.peace_and_order" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.peace_and_order.$touched && formHolder.cmci.data.government.peace_and_order.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -173,6 +194,7 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.government.social_protection.$touched && formHolder.government.social_protection.$invalid}">
 											<label class="col-form-label">Social Protection <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="social_protection" ng-model="cmci.data.government.social_protection" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.government.social_protection.$touched && formHolder.cmci.data.government.social_protection.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -187,18 +209,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.infra.road_network.$touched && formHolder.infra.road_network.$invalid}">
 											<label class="col-form-label">Road Network <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="road_network" ng-model="cmci.data.infra.road_network" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.infra.road_network.$touched && formHolder.cmci.data.infra.road_network.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.infra.distance_to_ports.$touched && formHolder.infra.distance_to_ports.$invalid}">
 											<label class="col-form-label">Distance to Ports <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="distance_to_ports" ng-model="cmci.data.infra.distance_to_ports" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.infra.distance_to_ports.$touched && formHolder.cmci.data.infra.distance_to_ports.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.infra.availability_of_basic_utilities.$touched && formHolder.infra.availability_of_basic_utilities.$invalid}">
 											<label class="col-form-label">Availability of Basic Utilities <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="availability_of_basic_utilities" ng-model="cmci.data.infra.availability_of_basic_utilities" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.infra.availability_of_basic_utilities.$touched && formHolder.cmci.data.infra.availability_of_basic_utilities.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -207,18 +232,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.infra.transportation_vehicles.$touched && formHolder.infra.transportation_vehicles.$invalid}">
 											<label class="col-form-label">Transportation Vehicles <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="transportation_vehicles" ng-model="cmci.data.infra.transportation_vehicles" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.infra.transportation_vehicles.$touched && formHolder.cmci.data.infra.transportation_vehicles.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.infra.education.$touched && formHolder.infra.education.$invalid}">
 											<label class="col-form-label">Education <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="education" ng-model="cmci.data.infra.education" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.infra.education.$touched && formHolder.cmci.data.infra.education.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.infra.health.$touched && formHolder.infra.health.$invalid}">
 											<label class="col-form-label">Health <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="health" ng-model="cmci.data.infra.health" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.infra.health.$touched && formHolder.cmci.data.infra.health.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -227,6 +255,7 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.infra.lgu_investment.$touched && formHolder.infra.lgu_investment.$invalid}">
 											<label class="col-form-label">LGU Investment <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="lgu_investment" ng-model="cmci.data.infra.lgu_investment" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.infra.lgu_investment.$touched && formHolder.cmci.data.infra.lgu_investment.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
@@ -239,6 +268,7 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.infra.information_technology_capacity.$touched && formHolder.infra.information_technology_capacity.$invalid}">
 											<label class="col-form-label">Information Technology Capacity <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="information_technology_capacity" ng-model="cmci.data.infra.information_technology_capacity" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.infra.information_technology_capacity.$touched && formHolder.cmci.data.infra.information_technology_capacity.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -247,6 +277,7 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.infra.financial_technology_capacity.$touched && formHolder.infra.financial_technology_capacity.$invalid}">
 											<label class="col-form-label">Financial Technology Capacity <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="financial_technology_capacity" ng-model="cmci.data.infra.financial_technology_capacity" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.infra.financial_technology_capacity.$touched && formHolder.cmci.data.infra.financial_technology_capacity.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -261,18 +292,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.resiliency.land_use_plan.$touched && formHolder.resiliency.land_use_plan.$invalid}">
 											<label class="col-form-label">Land Use Plan <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="land_use_plan" ng-model="cmci.data.resiliency.land_use_plan" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.resiliency.land_use_plan.$touched && formHolder.cmci.data.resiliency.land_use_plan.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.resiliency.disaster_risk_reduction_plan.$touched && formHolder.resiliency.disaster_risk_reduction_plan.$invalid}">
 											<label class="col-form-label">Disaster Risk Reduction Plan <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="disaster_risk_reduction_plan" ng-model="cmci.data.resiliency.disaster_risk_reduction_plan" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.resiliency.disaster_risk_reduction_plan.$touched && formHolder.cmci.data.resiliency.disaster_risk_reduction_plan.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.resiliency.annual_disaster_drill.$touched && formHolder.resiliency.annual_disaster_drill.$invalid}">
 											<label class="col-form-label">Annual Disaster Drill <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="annual_disaster_drill" ng-model="cmci.data.resiliency.annual_disaster_drill" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.resiliency.annual_disaster_drill.$touched && formHolder.cmci.data.resiliency.annual_disaster_drill.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -287,12 +321,14 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.resiliency.budget_for_drrmp.$touched && formHolder.resiliency.budget_for_drrmp.$invalid}">
 											<label class="col-form-label">Budget for DRRMP <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="budget_for_drrmp" ng-model="cmci.data.resiliency.budget_for_drrmp" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.resiliency.budget_for_drrmp.$touched && formHolder.cmci.data.resiliency.budget_for_drrmp.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.resiliency.local_risk_assessments.$touched && formHolder.resiliency.local_risk_assessments.$invalid}">
 											<label class="col-form-label">Local Risk Assessments <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="local_risk_assessments" ng-model="cmci.data.resiliency.local_risk_assessments" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.resiliency.local_risk_assessments.$touched && formHolder.cmci.data.resiliency.local_risk_assessments.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -301,18 +337,21 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.resiliency.emergency_infrastructure.$touched && formHolder.resiliency.emergency_infrastructure.$invalid}">
 											<label class="col-form-label">Emergency Infrastructure<span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="emergency_infrastructure" ng-model="cmci.data.resiliency.emergency_infrastructure" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.resiliency.emergency_infrastructure.$touched && formHolder.cmci.data.resiliency.emergency_infrastructure.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.resiliency.utilities.$touched && formHolder.resiliency.utilities.$invalid}">
 											<label class="col-form-label">Utilities <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="utilities" ng-model="cmci.data.resiliency.utilities" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.resiliency.utilities.$touched && formHolder.cmci.data.resiliency.utilities.$invalid">This field is required</span>
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="form-group" ng-class="{'has-error': formHolder.resiliency.employed_population.$touched && formHolder.resiliency.employed_population.$invalid}">
 											<label class="col-form-label">Employed Population <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="employed_population" ng-model="cmci.data.resiliency.employed_population" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.resiliency.employed_population.$touched && formHolder.cmci.data.resiliency.employed_population.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
@@ -321,6 +360,7 @@
 										<div class="form-group" ng-class="{'has-error': formHolder.resiliency.sanitary_system.$touched && formHolder.resiliency.sanitary_system.$invalid}">
 											<label class="col-form-label">Sanitary System <span class="text-danger">*</span></label>
 											<input type="text" class="form-control" name="sanitary_system" ng-model="cmci.data.resiliency.sanitary_system" ng-disabled="btns.ok.disabled" required>
+											<span class="help-block text-danger" ng-show="formHolder.cmci.data.resiliency.sanitary_system.$touched && formHolder.cmci.data.resiliency.sanitary_system.$invalid">This field is required</span>
 										</div>
 									</div>
 								</div>
