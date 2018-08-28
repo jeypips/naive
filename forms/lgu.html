@@ -12,6 +12,14 @@
 					<div class="row">
 						<div class="col-lg-4">
 							<div class="form-group">
+								<label class="col-form-label">No <span class="text-danger">*</span></label>
+								<input type="number" class="form-control" name="lgu_no" ng-model="lgu.lgu_no" ng-disabled="btns.ok.disabled">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
 								<label class="col-form-label">Province <span class="text-danger">*</span></label>
 								<select class="form-control" name="province" ng-model="lgu.province" ng-options="province.province_description for province in provinces track by province.province_id" ng-change="app.checkProvince(this,lgu.province)" ng-disabled="btns.ok.disabled"></select>
 							</div>
@@ -24,8 +32,8 @@
 						</div>
 						<div class="col-lg-4">
 							<div class="form-group">
-								<label class="col-form-label">Classification <span class="text-danger">*</span></label>
-								<input type="text" class="form-control" name="classification" ng-model="lgu.classification" ng-disabled="btns.ok.disabled">
+								<label class="col-form-label">Category <span class="text-danger">*</span></label>
+								<select class="form-control" name="classification" ng-model="lgu.classification" ng-options="cat.description for cat in categories track by cat.id" ng-disabled="btns.ok.disabled"></select>
 							</div>
 						</div>
 					</div>

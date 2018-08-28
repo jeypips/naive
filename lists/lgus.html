@@ -28,7 +28,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="lgu in filterData = (lgus | filter:search) | pagination: currentPage:pageSize">
-						<td style="color: #676767">{{$index+1}}</td>
+						<td style="color: #676767">{{lgu.lgu_no}}</td>
 						<td style="color: #676767">{{lgu.province.province_description}}</td>
 						<td style="color: #676767">{{lgu.municipality.municipality_description}}</td>
 						<td style="color: #676767">{{lgu.classification}}</td>

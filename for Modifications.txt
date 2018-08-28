@@ -1,0 +1,5 @@
+1. remove zip codes
+
+2. encode lgus with no based from excel and real classification
+
+3. discovered bugs in cmci but fixed. test again, all forms

@@ -137,6 +137,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			mode(scope,row);
 			
 			$('#content').load('forms/cmci.html',function() {
+				
 				$timeout(function() {
 					
 					$compile($('#content')[0])(scope);
@@ -182,6 +183,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					bui.hide();
 					
 				}, 500);
+				
 			});						
 			
 		};
