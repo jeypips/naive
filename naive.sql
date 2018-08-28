@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 21, 2018 at 07:27 PM
+-- Generation Time: Aug 28, 2018 at 10:52 AM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.3
 
@@ -34,14 +34,6 @@ CREATE TABLE `cmci` (
   `update_log` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `cmci`
---
-
-INSERT INTO `cmci` (`id`, `lgu_id`, `period_covered`, `system_log`, `update_log`) VALUES
-(1, 1, '2018', '2018-08-21 19:26:07', '2018-08-21 19:26:07'),
-(2, 2, '2018', '2018-08-21 19:26:18', '2018-08-21 19:26:18');
-
 -- --------------------------------------------------------
 
 --
@@ -68,10 +60,10 @@ CREATE TABLE `economy` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `governtment_efficiency`
+-- Table structure for table `government_efficiency`
 --
 
-CREATE TABLE `governtment_efficiency` (
+CREATE TABLE `government_efficiency` (
   `id` int(11) NOT NULL,
   `cmci_id` int(11) DEFAULT NULL,
   `compliance_to_national_directives` text,
@@ -119,6 +111,7 @@ CREATE TABLE `infrastructure` (
 
 CREATE TABLE `lgus` (
   `id` int(11) NOT NULL,
+  `lgu_no` int(11) DEFAULT NULL,
   `municipality` int(11) DEFAULT NULL,
   `province` int(11) DEFAULT NULL,
   `classification` varchar(50) DEFAULT NULL,
@@ -130,9 +123,8 @@ CREATE TABLE `lgus` (
 -- Dumping data for table `lgus`
 --
 
-INSERT INTO `lgus` (`id`, `municipality`, `province`, `classification`, `system_log`, `update_log`) VALUES
-(1, 9, 1, 'First', '2018-07-22 20:30:17', '2018-07-22 20:30:17'),
-(2, 31, 2, 'Second', '2018-08-21 16:59:19', '2018-08-21 16:59:19');
+INSERT INTO `lgus` (`id`, `lgu_no`, `municipality`, `province`, `classification`, `system_log`, `update_log`) VALUES
+(1, 1, 35, 2, '1', '2018-08-28 10:50:45', '2018-08-28 10:50:45');
 
 -- --------------------------------------------------------
 
@@ -1104,9 +1096,9 @@ ALTER TABLE `economy`
   ADD KEY `cmci_id` (`cmci_id`);
 
 --
--- Indexes for table `governtment_efficiency`
+-- Indexes for table `government_efficiency`
 --
-ALTER TABLE `governtment_efficiency`
+ALTER TABLE `government_efficiency`
   ADD PRIMARY KEY (`id`),
   ADD KEY `cmci_id` (`cmci_id`);
 
@@ -1163,9 +1155,9 @@ ALTER TABLE `cmci`
 ALTER TABLE `economy`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `governtment_efficiency`
+-- AUTO_INCREMENT for table `government_efficiency`
 --
-ALTER TABLE `governtment_efficiency`
+ALTER TABLE `government_efficiency`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `infrastructure`
@@ -1176,7 +1168,7 @@ ALTER TABLE `infrastructure`
 -- AUTO_INCREMENT for table `lgus`
 --
 ALTER TABLE `lgus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `municipalities`
 --
@@ -1214,10 +1206,10 @@ ALTER TABLE `economy`
   ADD CONSTRAINT `economy_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `governtment_efficiency`
+-- Constraints for table `government_efficiency`
 --
-ALTER TABLE `governtment_efficiency`
-  ADD CONSTRAINT `governtment_efficiency_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `government_efficiency`
+  ADD CONSTRAINT `government_efficiency_ibfk_1` FOREIGN KEY (`cmci_id`) REFERENCES `cmci` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `infrastructure`

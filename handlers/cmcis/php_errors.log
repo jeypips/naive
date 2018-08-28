@@ -194,3 +194,40 @@ Stack trace:
 #1 C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\cmcis.php(13): pdo_db->getData('SELECT lgus.id,...')
 #2 {main}
   thrown in C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php on line 39
+[28-Aug-2018 09:56:35 Asia/Manila] PHP Notice:  Undefined offset: 0 in C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php on line 26
+[28-Aug-2018 09:56:35 Asia/Manila] PHP Stack trace:
+[28-Aug-2018 09:56:35 Asia/Manila] PHP   1. {main}() C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php:0
+[28-Aug-2018 09:56:35 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'naive.government_efficiency' doesn't exist in C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php:39
+Stack trace:
+#0 C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php(39): PDO->query('SELECT id, comp...')
+#1 C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php(71): pdo_db->getData('SELECT id, comp...')
+#2 C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php(29): pdo_db->get(Array, Array)
+#3 {main}
+  thrown in C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php on line 39
+[28-Aug-2018 09:56:40 Asia/Manila] PHP Notice:  Undefined offset: 0 in C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php on line 26
+[28-Aug-2018 09:56:40 Asia/Manila] PHP Stack trace:
+[28-Aug-2018 09:56:40 Asia/Manila] PHP   1. {main}() C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php:0
+[28-Aug-2018 09:56:40 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'naive.government_efficiency' doesn't exist in C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php:39
+Stack trace:
+#0 C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php(39): PDO->query('SELECT id, comp...')
+#1 C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php(71): pdo_db->getData('SELECT id, comp...')
+#2 C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php(29): pdo_db->get(Array, Array)
+#3 {main}
+  thrown in C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php on line 39
+[28-Aug-2018 09:56:52 Asia/Manila] PHP Notice:  Undefined offset: 0 in C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php on line 26
+[28-Aug-2018 09:56:52 Asia/Manila] PHP Stack trace:
+[28-Aug-2018 09:56:52 Asia/Manila] PHP   1. {main}() C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php:0
+[28-Aug-2018 09:56:52 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'naive.government_efficiency' doesn't exist in C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php:39
+Stack trace:
+#0 C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php(39): PDO->query('SELECT id, comp...')
+#1 C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php(71): pdo_db->getData('SELECT id, comp...')
+#2 C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php(29): pdo_db->get(Array, Array)
+#3 {main}
+  thrown in C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php on line 39
+[28-Aug-2018 09:59:14 Asia/Manila] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'naive.government_efficiency' doesn't exist in C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php:39
+Stack trace:
+#0 C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php(39): PDO->query('SELECT id, comp...')
+#1 C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php(71): pdo_db->getData('SELECT id, comp...')
+#2 C:\Users\SLY One\Desktop\UwAmp310\www\naive\handlers\cmcis\view.php(29): pdo_db->get(Array, Array)
+#3 {main}
+  thrown in C:\Users\SLY One\Desktop\UwAmp310\www\naive\db.php on line 39

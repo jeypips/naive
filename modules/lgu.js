@@ -21,9 +21,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			scope.lgu = {};
 			scope.lgu.id = 0;			
 			
+			scope.categories = [
+				{id: 1, description: "(1) City"},
+				{id: 2, description: "(2) 1st-2nd Class"},
+				{id: 3, description: "(3) 3rd-4th Class"},
+			];
+			
 			scope.lgus = [];
-			
-			
+
 		};
 		
 		function provinces(scope){
