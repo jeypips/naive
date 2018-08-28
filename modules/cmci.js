@@ -36,6 +36,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.cmcis = [];
 			
+			var d = new Date();
+
+			scope.filter = {
+				year: d.getFullYear()
+			};
+			
 		};
 		
 		function lgus(scope){
@@ -84,7 +90,8 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			$http({
 			  method: 'POST',
-			  url: 'handlers/cmcis/cmcis.php'
+			  url: 'handlers/cmcis/cmcis.php',
+			  data: scope.filter
 			}).then(function success(response) {
 				
 				scope.cmcis = angular.copy(response.data);
