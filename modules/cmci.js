@@ -282,6 +282,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 		};
 		
+		self.import = function(scope) {
+			
+			bootstrapModal.box2(scope,'Import from Excel','dialogs/import.html',function() {});
+			
+		};
+		
 	};
 	
 	return new app();
