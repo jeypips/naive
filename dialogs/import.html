@@ -1,16 +1,34 @@
-<form name="formHolder.import" novalidate autocomplete=off>
+<form name="formHolder.upload" novalidate autocomplete=off>
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="form-group">
 				<label>Upload excel file</label>
 				<input type="file" name="excel" id="excel" file-model="views.excel">
-				<div class="progress" ng-show="views.startUpload">
-                    <div role="progressbar" style="width: {{views.progress}}%; height:10px;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">{{views.progress}}% Complete</span> </div>
+				<div class="progress" ng-show="progress.startUpload">
+                    <div role="progressbar" style="width: {{progress.upload}}%; height:10px;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">{{progress.upload}}% Complete</span> </div>
                 </div>
 				<br>
-				<button type="button" style="margin-top: 5px;" class="btn btn-default" ng-click="app.uploadFile(this)">Upload</button>		
+				<div class="alert alert-danger" ng-show="alert.upload.show">{{alert.upload.msg}}</div>
+				<button type="button" style="margin-top: 5px;" class="btn btn-default" ng-click="app.uploadFile(this)">Upload</button>
 			</div>
 		</div>
 	</div>
-	<hr>
 </form>
+<hr>
+<h4 style="margin-bottom: 25px;">Import data</h4>
+<p style="text-align: center;" ng-show="progress.startImport">{{progress.importStatus}}</p>
+<div class="progress" ng-show="progress.startImport" style="margin-bottom: 20px;">
+	<div role="progressbar" style="width: {{progress.import}}%; height:10px;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">{{progress.import}}% Complete</span> </div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="alert alert-danger" style="margin-top: 5px;" ng-show="alert.import.show">{{alert.import.msg}}</div>	
+		<form name="formHolder.import" class="form-inline" novalidate autocomplete=off>
+			<div class="form-group">
+				<label>Period:&nbsp;</label>
+				<input type="text" class="form-control" ng-model="views.period">
+				&nbsp;<button type="button" class="btn btn-default" ng-click="app.initImport(this)" ng-disabled="progress.startImport">Start</button>
+			</div>
+		</form>
+	</div>
+</div>

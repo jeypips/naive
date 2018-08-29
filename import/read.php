@@ -10,15 +10,16 @@ $reader = new Xlsx();
 $spreadsheet = $reader->load($inputFileName);
 $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 
-foreach ($sheetData as $i => $data) {
-	
-	if ($i<3) continue;
-	if ($i>3) break;	
+$row = [];
 
-	var_dump($data);
+foreach ($sheetData as $i => $data) {
+
+	if ($i<3) continue;
+	
+	if ($data['A']!=null) $rows[] = $data;
 
 };
 
-// var_dump($sheetData);
+echo json_encode($rows);
 
 ?>
