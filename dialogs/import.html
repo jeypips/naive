@@ -1,0 +1,16 @@
+<form name="formHolder.import" novalidate autocomplete=off>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="form-group">
+				<label>Upload excel file</label>
+				<input type="file" name="excel" id="excel" file-model="views.excel">
+				<div class="progress" ng-show="views.startUpload">
+                    <div role="progressbar" style="width: {{views.progress}}%; height:10px;" class="progress-bar bg-danger wow animated progress-animated"> <span class="sr-only">{{views.progress}}% Complete</span> </div>
+                </div>
+				<br>
+				<button type="button" style="margin-top: 5px;" class="btn btn-default" ng-click="app.uploadFile(this)">Upload</button>		
+			</div>
+		</div>
+	</div>
+	<hr>
+</form>

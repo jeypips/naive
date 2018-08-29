@@ -1,9 +1,64 @@
-angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','bootstrap-growl','bootstrap-modal','form-validator','window-open-post']).factory('app', function($http,$timeout,$compile,bui,growl,bootstrapModal,validate,printPost) {
+angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','bootstrap-growl','bootstrap-modal','form-validator','window-open-post']).directive('fileModel', function($parse) {
+	return {
+	   restrict: 'A',
+	   link: function(scope, element, attrs) {
+		  var model = $parse(attrs.fileModel);
+		  var modelSetter = model.assign;
+		  
+		  element.bind('change', function(){
+			 scope.$apply(function(){
+				modelSetter(scope, element[0].files[0]);
+			 });
+		  });
+
+		  // scope.$watch(attrs.fileModel, function(file) {
+			// $('#'+element['context']['id']).val(null);
+		  // });
+	   }
+	};
+}).factory('app', function($http,$timeout,$compile,bui,growl,bootstrapModal,validate,printPost) {
 
 	function app() {
 
 		var self = this;				
 
+		function uploadFileToUrl(file, uploadUrl, scope) {
+			
+			var fd = new FormData();
+		   
+			fd.append('file', file);
+		
+			var xhr = new XMLHttpRequest();
+			xhr.upload.addEventListener("progress", uploadProgress, false);
+			xhr.addEventListener("load", uploadComplete, false);
+			xhr.open("POST", uploadUrl)
+			scope.progressVisible = true;
+			xhr.send(fd);
+		   
+			// upload progress
+			function uploadProgress(evt) {
+				scope.views.startUpload = true;
+				scope.$apply(function(){
+					scope.views.progress = 0;				
+					if (evt.lengthComputable) {
+						scope.views.progress = Math.round(evt.loaded * 100 / evt.total);
+					} else {
+						scope.views.progress = 'unable to compute';
+					}
+				});
+			}
+
+			function uploadComplete(evt) {
+				/* This event is raised when the server send back a response */
+				scope.$apply(function() {			
+
+				});			
+
+				$('#excel').val(null);
+			}
+
+		};
+		
 		self.data = function(scope) {
 
 			scope.formHolder = {};
@@ -11,6 +66,9 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			scope.views = {};
 			scope.views.currentPage = 1;
 
+			scope.views.progress = 0;
+			scope.views.startUpload = false;			
+			
 			scope.views.list = true;
 			
 			scope.btns = {
@@ -288,6 +346,30 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			return model;
 			
 		};
+		
+		self.import = function(scope) {
+			
+			scope.views.progress = 0;
+			scope.views.startUpload = false;			
+			
+			bootstrapModal.box2(scope,'Import from Excel','dialogs/import.html',function() {});
+			
+		};
+		
+		self.uploadFile = function(scope) {
+
+		   var file = scope.views.excel;
+		   
+		   if (file == undefined) return;
+		   console.log(file);
+		   
+		   var f = file['name'];
+		   var en = f.substring(f.indexOf("."),f.length);
+
+		   var uploadUrl = "handlers/cmcis/upload-excel.php";
+		   uploadFileToUrl(file, uploadUrl, scope);
+		   
+		}		
 		
 	};
 	
