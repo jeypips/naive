@@ -373,6 +373,16 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			scope.progress.upload = 0;
 			scope.progress.startUpload = false;		
 			
+			scope.progress.import = 0;
+			scope.progress.startImport = false;	
+			scope.progress.importStatus = '';
+			
+			scope.alert.upload.show = false;
+			scope.alert.upload.msg = '';
+			
+			scope.alert.import.show = false;
+			scope.alert.import.msg = '';			
+			
 			bootstrapModal.box2(scope,'Import from Excel','dialogs/import.html',function() {});
 			
 		};
@@ -459,8 +469,9 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			scope.progress.importStatus = 'Analyzing data please wait...';			
 			
 			$http({
-				method: 'GET',
-				url: 'import/read.php'
+				method: 'POST',
+				url: 'import/read.php',
+				data: {period: scope.views.period}
 			}).then(function success(response) {
 				
 				scope.imports = response.data;
@@ -489,12 +500,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			  url: 'import/process-import.php',
 			  data: {i: i, import: scope.imports[i]}
 			}).then(function mySucces(response) {
-
-				scope.progress.importStatus = 'Importing...';			
 			
 				++i;
 				
 				$timeout(function() {
+		
+					scope.progress.importStatus = 'Imported '+i+'/'+scope.imports.length;
 		
 					scope.progress.import = Math.ceil(i*100/(scope.imports.length));		
 		
@@ -507,6 +518,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 						$timeout(function() {
 						
 							scope.progress.importStatus = 'Importing data completed';
+							self.list(scope);
 							
 						}, 500);
 						
