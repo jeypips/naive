@@ -24,6 +24,8 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 
 		function uploadFileToUrl(file, uploadUrl, scope) {
 			
+			scope.views.progress = 0;
+			
 			var fd = new FormData();
 		   
 			fd.append('file', file);
@@ -37,13 +39,13 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		   
 			// upload progress
 			function uploadProgress(evt) {
-				scope.views.startUpload = true;
+				scope.progress.startUpload = true;					
 				scope.$apply(function(){
 					scope.views.progress = 0;				
 					if (evt.lengthComputable) {
-						scope.views.progress = Math.round(evt.loaded * 100 / evt.total);
+						scope.progress.upload = Math.round(evt.loaded * 100 / evt.total);
 					} else {
-						scope.views.progress = 'unable to compute';
+						scope.progress.upload = 'unable to compute';
 					}
 				});
 			}
@@ -54,7 +56,8 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 
 				});			
 
-				$('#excel').val(null);
+				// $('#excel').val(null);
+
 			}
 
 		};
@@ -65,9 +68,27 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.views = {};
 			scope.views.currentPage = 1;
-
-			scope.views.progress = 0;
-			scope.views.startUpload = false;			
+			
+			scope.imports = [];
+			
+			scope.progress = {};
+			
+			scope.progress.upload = 0;
+			scope.progress.startUpload = false;			
+			
+			scope.progress.import = 0;
+			scope.progress.startImport = false;	
+			scope.progress.importStatus = '';	
+			
+			scope.alert = {};
+			scope.alert.upload = {};
+			scope.alert.import = {};
+			
+			scope.alert.upload.show = false;
+			scope.alert.upload.msg = '';
+			
+			scope.alert.import.show = false;
+			scope.alert.import.msg = '';			
 			
 			scope.views.list = true;
 			
@@ -349,8 +370,18 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.import = function(scope) {
 			
-			scope.views.progress = 0;
-			scope.views.startUpload = false;			
+			scope.progress.upload = 0;
+			scope.progress.startUpload = false;		
+			
+			scope.progress.import = 0;
+			scope.progress.startImport = false;	
+			scope.progress.importStatus = '';
+			
+			scope.alert.upload.show = false;
+			scope.alert.upload.msg = '';
+			
+			scope.alert.import.show = false;
+			scope.alert.import.msg = '';			
 			
 			bootstrapModal.box2(scope,'Import from Excel','dialogs/import.html',function() {});
 			
@@ -358,18 +389,149 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.uploadFile = function(scope) {
 
+		   scope.alert.upload.show = false;
+		   scope.alert.upload.msg = '';
+		
 		   var file = scope.views.excel;
 		   
-		   if (file == undefined) return;
-		   console.log(file);
+		   if (file == undefined) {
+				scope.alert.upload.show = true;
+				scope.alert.upload.msg = 'No file selected';		   
+				return;
+		   };
 		   
 		   var f = file['name'];
 		   var en = f.substring(f.indexOf("."),f.length);
 
-		   var uploadUrl = "handlers/cmcis/upload-excel.php";
+		   if (en != ".xlsx") {
+				scope.alert.upload.show = true;
+				scope.alert.upload.msg = 'Only xlsx file is supported';		   
+				return;
+		   };		   
+
+		   var uploadUrl = "import/upload-excel.php";
 		   uploadFileToUrl(file, uploadUrl, scope);
 		   
-		}		
+		};
+
+		self.initImport = function(scope) {
+			
+			scope.alert.import.show = false;
+			scope.alert.import.msg = '';			
+			
+			scope.progress.import = 0;
+			scope.progress.startImport = false;	
+			scope.progress.importStatus = '';			
+			
+			// check if file exists
+			$http({
+				method: 'GET',
+				url: 'import/check-file.php'
+			}).then(function success(response) {
+				
+				if (response.data['exists']) {
+					
+					fetchData(scope);
+					
+				} else {
+					
+					scope.alert.import.show = true;
+					scope.alert.import.msg = 'Please file upload excel (xlsx) file';					
+					
+				};
+				
+			}, function error(response) {
+				
+			});
+			
+			
+		};
+		
+		function fetchData(scope) {
+			
+			scope.alert.import.show = false;
+			scope.alert.import.msg = '';
+			
+			scope.progress.import = 0;
+			scope.progress.startImport = false;	
+			scope.progress.importStatus = '';			
+
+			if ((scope.views.period == undefined) || (scope.views.period == "")) {
+				
+				scope.alert.import.show = true;
+				scope.alert.import.msg = 'Plese enter period';
+				
+				return;
+				
+			};						
+			
+			scope.progress.startImport = true;	
+			scope.progress.importStatus = 'Analyzing data please wait...';			
+			
+			$http({
+				method: 'POST',
+				url: 'import/read.php',
+				data: {period: scope.views.period}
+			}).then(function success(response) {
+				
+				scope.imports = response.data;
+				
+				startImport(scope,0);
+				
+			}, function error(response) {
+				
+			});			
+			
+		};
+		
+		function startImport(scope) {
+			
+			scope.progress.startImport = true;
+			scope.progress.importStatus = 'Initiating import...';
+
+			processImport(scope,0);			
+			
+		};
+		
+		function processImport(scope,i) {
+			
+			$http({
+			  method: 'POST',
+			  url: 'import/process-import.php',
+			  data: {i: i, import: scope.imports[i]}
+			}).then(function mySucces(response) {
+			
+				++i;
+				
+				$timeout(function() {
+		
+					scope.progress.importStatus = 'Imported '+i+'/'+scope.imports.length;
+		
+					scope.progress.import = Math.ceil(i*100/(scope.imports.length));		
+		
+					if (i < scope.imports.length) {
+						
+						processImport(scope,i);
+						
+					} else {
+						
+						$timeout(function() {
+						
+							scope.progress.importStatus = 'Importing data completed';
+							self.list(scope);
+							
+						}, 500);
+						
+					};
+	
+				}, 100);
+				
+			}, function myError(response) {
+						  
+				
+			});			
+			
+		};
 		
 	};
 	
