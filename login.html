@@ -15,8 +15,8 @@ if (isset($_SESSION['id'])) header("location: index.html");
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <title>Ela - Bootstrap Admin Dashboard Template</title>
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png"> -->
+    <title>PDCI</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -46,6 +46,8 @@ if (isset($_SESSION['id'])) header("location: index.html");
                         <div class="login-content card">
                             <div class="login-form">
                                 <h4>Login</h4>
+                                <center><h3 class="text-warning">Predicting Development Competitiveness Index</h3></center>
+								<hr>
                                 <form ng-submit="login(this)" novalidate autocomplete="off">
                                     <div class="form-group">
                                         <label>Username</label>
@@ -58,17 +60,17 @@ if (isset($_SESSION['id'])) header("location: index.html");
 									<div class="alert alert-danger" ng-show="views.incorrect">Username or password incorrect</div>
                                     <div class="checkbox">
                                         <label>
-        										<input type="checkbox"> Remember Me
-        									</label>
-                                        <label class="pull-right">
+											<input type="checkbox"> Remember Me
+										</label>
+                                        <!-- <label class="pull-right">
         										<a href="#">Forgotten Password?</a>
-        									</label>
-
+        									</label> -->
                                     </div>
+									
                                     <button type="submit" value="Login" name="submit" class="btn btn-info btn-flat m-b-30 m-t-30">Sign in</button>
-                                    <div class="register-link m-t-15 text-center">
+                                   <!--  <div class="register-link m-t-15 text-center">
                                         <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                         </div>
