@@ -1,0 +1,79 @@
+<!-- <div class="row">
+	<div class="col-lg-4">
+		<h5>Period:</h5>
+	</div>
+	<div class="col-lg-1">
+		<h5>Top:</h5>
+	</div>
+</div> -->
+<div class="row">
+	<div class="col-lg-4 col-md-5 col-sm-5">
+		<div class="form-group">
+			<span>Period:</span>
+			<input type="text" class="form-control" ng-model="filter.year">
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-5 col-sm-5">
+		<div class="form-group">
+			<span>Top:</span>
+			<input type="text" class="form-control">
+		</div>
+	</div>
+	<div class="col-lg-4 col-md-2 col-sm-2">
+		<h6>&nbsp;</h6>
+		<button class="btn btn-info" ng-click="app.list(this)">Go!</button>
+	</div>
+</div>
+<h3>Datasets</h3>
+<ul class="nav nav-tabs customtab2" role="tablist">
+	<li class="nav-item"> <a class="nav-link active show" data-toggle="tab" href="#economy" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Economy</span></a> </li>
+	<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#government" role="tab" aria-selected="true"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Government</span></a> </li>
+	<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#infra" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Infrastructure</span></a> </li>
+	<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#resiliency" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Resiliency</span></a> </li>
+	<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#overall" role="tab"><span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Overall</span></a> </li>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane active show" id="economy" role="tabpanel">
+		<div class="table-bordered">
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="4"></th>
+					<th colspan="2">Local Economy</th>
+					<th>Total</th>
+				</tr>
+				<tr>
+					<th>No</th>
+					<th>Province</th>
+					<th>LGU</th>
+					<th>Category</th>
+					<th>Actual Value</th>
+					<th>Competitive</th>
+					<th>Rank Value</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Sample</td>
+					<td>Sample</td>
+					<td>Sample</td>
+					<td>sam</td>
+					<td>sam</td>
+					<td>sam</td>
+				</tr>
+			</tbody>
+			
+		</table>
+	</div>
+	</div>
+	<div class="tab-pane p-20" id="government" role="tabpanel">government
+	</div>
+	<div class="tab-pane p-20" id="infra" role="tabpanel">infra
+	</div>
+	<div class="tab-pane p-20" id="resiliency" role="tabpanel">resiliency
+	</div>
+	<div class="tab-pane p-20" id="overall" role="tabpanel">Overall
+	</div>
+</div>
