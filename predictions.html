@@ -24,7 +24,7 @@
 <![endif]-->
 </head>
 
-<body class="fix-header fix-sidebar" ng-app="lgu" ng-controller="lguCtrl" account-profile>
+<body class="fix-header fix-sidebar" ng-app="prediction" ng-controller="predictionCtrl" account-profile>
     <!-- Preloader - style you can find in spinners.css -->
     <div class="preloader">
         <svg class="circular" viewBox="25 25 50 50">
@@ -41,7 +41,7 @@
                         <!-- <b><img src="images/logo.png" alt="homepage" class="dark-logo" /></b> -->
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                         <span>PDCI</span>
+                        <span>PDCI</span>
                     </a>
                 </div>
                 <!-- End Logo -->
@@ -50,7 +50,7 @@
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- This is  -->
                         <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
-                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                     </ul>
                     <!-- User profile and search -->
                     <ul class="navbar-nav my-lg-0">
@@ -58,7 +58,7 @@
 					
                         <!-- Profile -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{profile.picture}}" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link dropdown-toggle text-muted" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{profile.picture}}" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user" drop-down></ul>
                             </div>
@@ -92,12 +92,10 @@
         <div class="page-wrapper">
             <!-- Bread crumb -->
             <div class="row page-titles">
-                <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">LGU</h3> </div>
-                <div class="col-md-7 align-self-center">
+                <div class="col-md-12 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">PDCI</a></li>
-                        <li class="breadcrumb-item active"><a href="lgu.html">LGU</a></li>
+                        <li class="breadcrumb-item active"><a href="predictions.html">Predictions</a></li>
                     </ol>
                 </div>
             </div>
@@ -154,10 +152,10 @@
 	<script src="angular/modules/account/account.js"></script>
 	<script src="angular/modules/validation/validate.js"></script>
 	<script src="angular/modules/post/window-open-post.js"></script>	
-	<script src="modules/lgu.js"></script>
+	<script src="modules/prediction.js"></script>
 
 	<!-- controller -->
-	<script src="controllers/lgu.js"></script>
+	<script src="controllers/prediction.js"></script>
 	
 </body>
 
