@@ -4,7 +4,10 @@ require_once '../../../db.php';
 
 session_start();
 
-if (!isset($_SESSION['id'])) header('X-Error-Message: Session timeout', true, 500);
+if (!isset($_SESSION['id'])) {
+	header('X-Error-Message: Session timeout', true, 500);
+	exit();
+};
 
 $con = new pdo_db("users");
 
