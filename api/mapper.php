@@ -1,6 +1,6 @@
 <?php
 
-$indicators = array(
+$pillars = array(
 	"economy"=>array(
 		"local_economy_size",
 		"local_economy_growth",

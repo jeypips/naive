@@ -10,10 +10,34 @@ class dataset {
 
 		$this->data = $cmcis;
 		$this->pillars_indicators = $pillars_indicators;
+		
+		$this->pillars();
 
 	}
 	
-	function indicators() {
+	function get() {
+			
+		foreach ($this->data as $i => $lgu) {
+
+			foreach ($this->pillars_indicators as $pillar => $indicators) {
+				
+				foreach ($lgu[$pillar] as $key => $indicator) {
+					
+					$this->data[$i][$pillar][$key]['rank'] = $this->minimum($pillar,$key);
+					
+				};
+				
+			};
+
+			break;
+			
+		};
+
+		return $this->data;
+
+	}
+	
+	function pillars() {
 
 		foreach ($this->pillars_indicators as $pi_key => $pi) {
 			
@@ -28,7 +52,7 @@ class dataset {
 			};
 
 		};
-		
+
 		return $this->pillars;
 
 	}
@@ -61,14 +85,36 @@ class dataset {
 		
 	}
 	
-	function highest($indicator,$rank = null) {
+	function maximum($pillar,$indicator) {
+	
+		$rank = [];
+	
+		foreach ($this->pillars[$pillar][$indicator] as $i => $value) {
+
+			$rank[] = $value['value'];
+
+		};
 		
-		// array_multisort($rank_per_judge, SORT_DESC, $portions[$ip]['judges'][$ij]['contestants']);		
-		
+		array_multisort($rank, SORT_DESC, $this->pillars[$pillar][$indicator]);
+
+		return $this->pillars[$pillar][$indicator][0]['value'];
+
 	}
 	
-	function lowest($indicator,$rank = null) {
+	function minimum($pillar,$indicator) {
 		
+		$rank = [];
+	
+		foreach ($this->pillars[$pillar][$indicator] as $i => $value) {
+
+			$rank[] = $value['value'];
+
+		};
+
+		array_multisort($rank, SORT_ASC, $this->pillars[$pillar][$indicator]);
+
+		return $this->pillars[$pillar][$indicator][0]['value'];	
+
 	}
 	
 };

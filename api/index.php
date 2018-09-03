@@ -20,16 +20,11 @@ $container['con'] = function ($container) {
 	return $con;
 };
 
-/* $container['dataset'] = function ($container) {
-	$dataset = new dataset();
-	return $dataset;
-}; */
-
 $app->get('/datasets/{period}', function (Request $request, Response $response, array $args) {
 
 	$con = $this->con;
 
-	global $indicators;
+	global $pillars;
 
 	$period = $args['period'];		
 
@@ -41,14 +36,14 @@ $app->get('/datasets/{period}', function (Request $request, Response $response, 
 
 		$cmcis[$i]['category'] = $categories[$cmci['category']-1];
 
-		foreach ($indicators as $key => $indictator) {
+		foreach ($pillars as $key => $pillar) {
 
-			foreach ($indictator as $p => $v) {
+			foreach ($pillar as $p => $v) {
 				
 				$sql = "SELECT $v FROM $key WHERE cmci_id = ".$cmci['id'];
 				$actual = $con->getData($sql);
 				$actual_value = (count($actual))?$actual[0][$v]:0;
-				
+
 				$cmcis[$i][$key][$v]['actual'] = $actual_value;
 				$cmcis[$i][$key][$v]['rank'] = 0;
 				$cmcis[$i][$key][$v]['competitive'] = 0;
@@ -59,10 +54,12 @@ $app->get('/datasets/{period}', function (Request $request, Response $response, 
 
 	};	
 	
-	$dataset = new dataset($cmcis,$indicators);	
+	$dataset = new dataset($cmcis,$pillars);
 	
     // return $response->withJson($cmcis);
-    return $response->withJson($dataset->indicators());
+	// $dataset->get();
+	// $dataset->pillars();
+    return $response->withJson($dataset->get());
 
 });
 
