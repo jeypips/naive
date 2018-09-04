@@ -34,7 +34,7 @@ $app->get('/datasets/{period}', function (Request $request, Response $response, 
 
 	foreach ($cmcis as $i => $cmci) {
 
-		$cmcis[$i]['category'] = $categories[$cmci['category']-1];
+		$cmcis[$i]['category'] = $categories[$cmci['category']-1];		
 
 		foreach ($pillars as $key => $pillar) {
 
@@ -51,6 +51,10 @@ $app->get('/datasets/{period}', function (Request $request, Response $response, 
 			};
 
 		};
+	
+		$cmcis[$i]['total']['actual'] = 0;
+		$cmcis[$i]['total']['rank'] = 0;
+		$cmcis[$i]['total']['competitive'] = 0;
 
 	};	
 	
@@ -58,8 +62,15 @@ $app->get('/datasets/{period}', function (Request $request, Response $response, 
 	
     // return $response->withJson($cmcis);
 	// $dataset->get(10);
-	// $dataset->actual_values();
+	// $dataset->ranks(10);
+	// $dataset->rank_values();
+	// $dataset->actual_values_min_max();
     return $response->withJson($dataset->get(10));
+    // return $response->withJson($dataset->ranks(10));
+    // return $response->withJson($dataset->get_rank_values());
+	
+	// total
+	// resolve ties
 
 });
 
