@@ -39,7 +39,7 @@ $app->get('/datasets/{period}', function (Request $request, Response $response, 
 		foreach ($pillars as $key => $pillar) {
 
 			foreach ($pillar as $p => $v) {
-				
+
 				$sql = "SELECT $v FROM $key WHERE cmci_id = ".$cmci['id'];
 				$actual = $con->getData($sql);
 				$actual_value = (count($actual))?$actual[0][$v]:0;
@@ -47,7 +47,7 @@ $app->get('/datasets/{period}', function (Request $request, Response $response, 
 				$cmcis[$i][$key][$v]['actual'] = $actual_value;
 				$cmcis[$i][$key][$v]['rank'] = 0;
 				$cmcis[$i][$key][$v]['competitive'] = 0;
-				
+
 			};
 
 		};
@@ -57,9 +57,9 @@ $app->get('/datasets/{period}', function (Request $request, Response $response, 
 	$dataset = new dataset($cmcis,$pillars);
 	
     // return $response->withJson($cmcis);
-	// $dataset->get();
-	// $dataset->pillars();
-    return $response->withJson($dataset->get());
+	// $dataset->get(10);
+	// $dataset->actual_values();
+    return $response->withJson($dataset->get(10));
 
 });
 
