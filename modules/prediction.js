@@ -41,9 +41,18 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.views.list = true;			
 
-			$('#content').load('lists/predictions.html',function() {
-				$timeout(function() { $compile($('#content')[0])(scope); }, 500);
-			});			
+			$('#content').load('lists/predictions.html', function() {
+				$timeout(function() { $compile($('#content')[0])(scope); },100);								
+				// instantiate datable
+				$timeout(function() {
+					$('#predictions').DataTable({
+						"ordering": false,
+						"processing": true,
+						"lengthChange": false
+					});	
+				},200);
+				
+			});		
 			
 		};
 		
