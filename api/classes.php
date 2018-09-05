@@ -8,6 +8,7 @@ class dataset {
 	var $actual_values_min_max; # rows of actual values maximum and minimum
 	var $rank_values; # rows of rank values per indicators per pillar
 	var $ranks; # rows of top ex. 10 ranks per indicators per pillar
+	var $test;
 	
 	function __construct($cmcis,$pillars_indicators) {
 
@@ -29,7 +30,6 @@ class dataset {
 				foreach ($lgu[$pillar] as $key => $indicator) {
 
 					// $rank = (floatval($indicator['actual'])-floatval($this->minimum($pillar,$key)))/(floatval($this->maximum($pillar,$key))-floatval($this->minimum($pillar,$key)));
-
 					$rank = (floatval($indicator['actual'])-floatval($this->actual_values_min_max[$pillar][$key]['min']))/(floatval($this->actual_values_min_max[$pillar][$key]['max'])-floatval($this->actual_values_min_max[$pillar][$key]['min']));
 					$this->data[$i][$pillar][$key]['rank'] = (string)$rank;
 
@@ -49,8 +49,7 @@ class dataset {
 
 				foreach ($lgu[$pillar] as $key => $indicator) {
 
-					// $competitive = $this->competitive($top,$indicator['rank'],$pillar,$key);
-					
+					// $competitive = $this->competitive($top,$indicator['rank'],$pillar,$key);					
 					$competitive = $this->is_competitive($indicator['rank'],$pillar,$key);
 					$this->data[$i][$pillar][$key]['competitive'] = $competitive;
 
@@ -59,8 +58,9 @@ class dataset {
 			};
 			
 		};		
-		
+
 		return $this->data;
+		// return $this->test;		
 
 	}
 	
@@ -133,13 +133,19 @@ class dataset {
 				$tops = [];
 				foreach ($all as $i => $value) {
 					
-					if ($i<$top) {
-						
-						$tops[] = $value;
-						
+					if (count($tops)<=$top) {
+
+						if (!$this->hasTieInRank($tops,$value)) $tops[] = $value;
+
 					};
 					
 				};				
+				
+				if ($indicator == "cost_of_living") {
+
+					// $this->test = $tops;
+
+				};
 				
 				$this->ranks[$pillar][$indicator] = array(
 					"max"=>$tops[0]['rank_value'],
@@ -167,13 +173,13 @@ class dataset {
 		array_multisort($rank, SORT_DESC, $all);
 		
 		$tops = [];
-		
-		$top = $top-1;
 		foreach ($all as $i => $value) {
 			
-			if ($i>$top) break;
-			
-			$tops[] = $value;
+			if (count($tops)<=$top) {
+
+				if (!$this->hasTieInRank($tops,$value)) $tops[] = $value;
+
+			};
 			
 		};
 
@@ -192,7 +198,7 @@ class dataset {
 	function is_competitive($rank_value,$pillar,$indicator) {
 		
 		$competitive = "No";
-		if ( ((floatval($rank_value))>=floatval($this->ranks[$pillar][$indicator]['min']))&&((floatval($rank_value))<=floatval($this->ranks[$pillar][$indicator]['max'])) ) $competitive = "Yes";
+		if ( ((floatval($rank_value))<=floatval($this->ranks[$pillar][$indicator]['max'])) && ((floatval($rank_value))>floatval($this->ranks[$pillar][$indicator]['min'])) ) $competitive = "Yes";
 		
 		return $competitive;		
 		
@@ -234,6 +240,23 @@ class dataset {
 	function get_actual_values_min_max() {
 		
 		return $this->actual_values_min_max;		
+		
+	}
+	
+	function hasTieInRank($rows,$row) {
+		
+		$hasTieInRank = false;
+		
+		foreach ($rows as $i => $value) {
+			
+			if ($value['rank_value'] == $row['rank_value']) {
+				$hasTieInRank = true;
+				break;
+			};
+			
+		};
+		
+		return $hasTieInRank;
 		
 	}
 	

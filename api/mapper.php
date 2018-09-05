@@ -12,6 +12,7 @@ $pillars = array(
 		"financial_deepening",
 		"productivity",
 		"presence_of_business_and_professional",
+		"total",
 	),
 	"government_efficiency"=>array(
 		"compliance_to_national_directives",
@@ -24,6 +25,7 @@ $pillars = array(
 		"business_permits_and_licensing",
 		"peace_and_order",
 		"social_protection",
+		"total",
 	),
 	"infrastructure"=>array(
 		"road_network",
@@ -36,6 +38,7 @@ $pillars = array(
 		"accommodation_capacity",
 		"information_technology_capacity",
 		"financial_technology_capacity",
+		"total",
 	),
 	"resiliency"=>array(
 		"land_use_plan",
@@ -48,6 +51,7 @@ $pillars = array(
 		"utilities",
 		"employed_population",
 		"sanitary_system",
+		"total",
 	)
 );
 
