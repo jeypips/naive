@@ -1,0 +1,38 @@
+[05-Sep-2018 16:43:10 Asia/Manila] PHP Notice:  Undefined variable: response in C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php on line 56
+[05-Sep-2018 16:43:10 Asia/Manila] PHP Stack trace:
+[05-Sep-2018 16:43:10 Asia/Manila] PHP   1. {main}() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:0
+[05-Sep-2018 16:43:41 Asia/Manila] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php on line 218
+[05-Sep-2018 16:43:41 Asia/Manila] PHP Stack trace:
+[05-Sep-2018 16:43:41 Asia/Manila] PHP   1. {main}() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:0
+[05-Sep-2018 16:43:41 Asia/Manila] PHP   2. dataset->__construct() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:50
+[05-Sep-2018 16:43:41 Asia/Manila] PHP   3. dataset->actual_values_min_max() C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php:19
+[05-Sep-2018 16:43:41 Asia/Manila] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php on line 116
+[05-Sep-2018 16:43:41 Asia/Manila] PHP Stack trace:
+[05-Sep-2018 16:43:41 Asia/Manila] PHP   1. {main}() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:0
+[05-Sep-2018 16:43:41 Asia/Manila] PHP   2. dataset->get() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:51
+[05-Sep-2018 16:43:41 Asia/Manila] PHP   3. dataset->ranks() C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php:43
+[05-Sep-2018 16:44:23 Asia/Manila] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php on line 218
+[05-Sep-2018 16:44:23 Asia/Manila] PHP Stack trace:
+[05-Sep-2018 16:44:23 Asia/Manila] PHP   1. {main}() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:0
+[05-Sep-2018 16:44:23 Asia/Manila] PHP   2. dataset->__construct() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:50
+[05-Sep-2018 16:44:23 Asia/Manila] PHP   3. dataset->actual_values_min_max() C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php:19
+[05-Sep-2018 16:44:23 Asia/Manila] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php on line 116
+[05-Sep-2018 16:44:23 Asia/Manila] PHP Stack trace:
+[05-Sep-2018 16:44:23 Asia/Manila] PHP   1. {main}() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:0
+[05-Sep-2018 16:44:23 Asia/Manila] PHP   2. dataset->get() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:51
+[05-Sep-2018 16:44:23 Asia/Manila] PHP   3. dataset->ranks() C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php:43
+[05-Sep-2018 16:47:03 Asia/Manila] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php on line 218
+[05-Sep-2018 16:47:03 Asia/Manila] PHP Stack trace:
+[05-Sep-2018 16:47:03 Asia/Manila] PHP   1. {main}() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:0
+[05-Sep-2018 16:47:03 Asia/Manila] PHP   2. dataset->__construct() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:50
+[05-Sep-2018 16:47:03 Asia/Manila] PHP   3. dataset->actual_values_min_max() C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php:19
+[05-Sep-2018 16:47:03 Asia/Manila] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php on line 116
+[05-Sep-2018 16:47:03 Asia/Manila] PHP Stack trace:
+[05-Sep-2018 16:47:03 Asia/Manila] PHP   1. {main}() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:0
+[05-Sep-2018 16:47:03 Asia/Manila] PHP   2. dataset->get() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:51
+[05-Sep-2018 16:47:03 Asia/Manila] PHP   3. dataset->ranks() C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php:43
+[05-Sep-2018 16:49:47 Asia/Manila] PHP Warning:  Invalid argument supplied for foreach() in C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php on line 125
+[05-Sep-2018 16:49:47 Asia/Manila] PHP Stack trace:
+[05-Sep-2018 16:49:47 Asia/Manila] PHP   1. {main}() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:0
+[05-Sep-2018 16:49:47 Asia/Manila] PHP   2. dataset->get() C:\Users\sly\Desktop\UwAmp310\www\naive\api\prediction.php:51
+[05-Sep-2018 16:49:47 Asia/Manila] PHP   3. dataset->ranks() C:\Users\sly\Desktop\UwAmp310\www\naive\api\classes.php:52
