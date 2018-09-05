@@ -64,134 +64,53 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		function print(scope) {
 			
-		var doc = new jsPDF({
-			orientation: 'landscape',
-			unit: 'pt',
-			format: [612, 792]
-		});	
-		var doc = new jsPDF('l','mm','legal');
+			var doc = new jsPDF({
+				orientation: 'landscape',
+				unit: 'pt',
+				format: [612, 792]
+			});	
+			var doc = new jsPDF('l','mm','legal');
 		
-		//X-axis, Y-axis
-		doc.setFontSize(12)
-		doc.setFont('helvetica');
-		doc.setFontType('bold');
-		doc.text(10, 10, 'Economy');
-		
-		var columns = 
-		["No", 
-		"Province", 
-		"LGU", 
-		"Category", 
-		"Sample"]		   	
-		
-		var rows = [
-		["10","La Union","San Fernando City","First","dadsddadsddsasasddsasasasasdadsddsasasasdasdsdasddsasasddsasasasasasasasasasasasasasassadsadsadsadsadsasadsadsadsadsadsa"]	
-		];	
-		
-	
-		doc.autoTable(columns, rows,{
-			theme: 'striped',
-			margin: {top: 15, left: 10, },
-			tableWidth: 335,
-			columnStyles: {
-				"No": {columnWidth: 100},
-				"Province": {columnWidth: 100},					
-				"LGU": {columnWidth: 100},
-				"Category": {columnWidth: 100},
-				"Sample": {columnWidth: 100}
-			},
-			styles: {
-				lineColor: [75, 75, 75],
-				lineWidth: 0.2,
-				cellPadding: 5
-			},
-			headerStyles: {
-				halign: 'center',		
-				fillColor: [191, 191, 191],
-				textColor: 50,
-				fontSize: 10
-			},
-			bodyStyles: {
-				halign: 'left',
-				fillColor: [255, 255, 255],
-				textColor: 50,
-				fontSize: 10
-			},
-			alternateRowStyles: {
-				fillColor: [255, 255, 255]
-			}
-		});
-		
-		doc.addPage(); // add
-		
-		//X-axis, Y-axis
-		doc.setFontSize(12)
-		doc.setFont('helvetica');
-		doc.setFontType('bold');
-		doc.text(10, 10, 'Government');
-		
-		var columns = 
-		["No", 
-		"Province", 
-		"LGU", 
-		"Category", 
-		"Sample"]		   	
-		
-		var rows = [
-		["10","La Union","San Fernando City","First","dadsddadsddsasasddsasasasasdadsddsasasasdasdsdasddsasasddsasasasasasasasasasasasasasassadsadsadsadsadsasadsadsadsadsadsa"]	
-		];	
-		
-	
-		doc.autoTable(columns, rows,{
-			theme: 'striped',
-			margin: {top: 15, left: 10, },
-			tableWidth: 335,
-			columnStyles: {
-				"No": {columnWidth: 100},
-				"Province": {columnWidth: 100},					
-				"LGU": {columnWidth: 100},
-				"Category": {columnWidth: 100},
-				"Sample": {columnWidth: 100}
-			},
-			styles: {
-				lineColor: [75, 75, 75],
-				lineWidth: 0.2,
-				cellPadding: 5
-			},
-			headerStyles: {
-				halign: 'center',		
-				fillColor: [191, 191, 191],
-				textColor: 50,
-				fontSize: 10
-			},
-			bodyStyles: {
-				halign: 'left',
-				fillColor: [255, 255, 255],
-				textColor: 50,
-				fontSize: 10
-			},
-			alternateRowStyles: {
-				fillColor: [255, 255, 255]
-			}
-		});
-		/* var columns = ["No", "Province", "LGU", "Category", "Date of Release"];			
+			//X-axis, Y-axis
+			doc.setFontSize(16)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(10, 10, 'Datasets');
 			
- 			doc.autoTable(columns, overall,{
-				// tableLineColor: [189, 195, 199],
-				// tableLineWidth: 0.75,
-				margin: {top: 560, left: 50},
-				tableWidth: 500,
-				columnStyles: {
-					"sa": {columnWidth: 100},
-					"sa": {columnWidth: 100},					
-					"sa": {columnWidth: 100},
-					"sa": {columnWidth: 100},
-					"sa": {columnWidth: 100}
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(10, 20, 'Economy');
+			
+			var economy = 
+			["No", 
+			"Province", 
+			"LGU", 
+			"Category", 
+			"Sample"];		   	
+			
+			var rows = [
+			["10",
+			"La Union",
+			"San Fernando City",
+			"First",
+			"SAMPLE SAMPLE SAMPLE"]
+			];	
+		
+	
+			doc.autoTable(economy, rows,{
+				theme: 'striped',
+				margin: {
+					top: 22, 
+					left: 10 
 				},
+				tableWidth: 500,
 				styles: {
 					lineColor: [75, 75, 75],
 					lineWidth: 0.50,
-					cellPadding: 5
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap'
 				},
 				headerStyles: {
 					halign: 'center',		
@@ -208,7 +127,54 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				alternateRowStyles: {
 					fillColor: [255, 255, 255]
 				}
-			}); */
+			});
+			
+			doc.addPage(); // add
+			
+			//X-axis, Y-axis
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(10, 10, 'Government Efficiency');
+		
+			var government = 
+			["No","Province","LGU","Category","Sample"]		   	
+			
+			var rows = [
+			["10","La Union","San Fernando City","First","dadsddadsddsasasddsasasasasdadsddsasasasdasdsdasddsasasddsasasasasasasasasasasasasasassadsadsadsadsadsasadsadsadsadsadsa"]	
+			];	
+		
+	
+			doc.autoTable(government, rows,{
+				theme: 'striped',
+				margin: {
+					top: 12, 
+					left: 10 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.50,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap'
+				},
+				headerStyles: {
+					halign: 'center',		
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 10
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 10
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});
 		
 			var blob = doc.output('blob');
 			window.open(URL.createObjectURL(blob));
