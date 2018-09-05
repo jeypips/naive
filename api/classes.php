@@ -14,7 +14,7 @@ class dataset {
 
 		$this->data = $cmcis;
 		$this->pillars_indicators = $pillars_indicators;
-		
+
 		$this->actual_values();
 		$this->actual_values_min_max();
 

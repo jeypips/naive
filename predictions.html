@@ -101,12 +101,34 @@
             <!-- End Bread crumb -->
             <!-- Container fluid  -->
             <div class="container-fluid">
-				
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="content" id="content"></div> <!-- display -->
+				<!-- <div class="row">
+					<div class="col-lg-4">
+						<h5>Period:</h5>
 					</div>
-                </div>
+					<div class="col-lg-1">
+						<h5>Top:</h5>
+					</div>
+				</div> -->
+				<div class="row">
+					<div class="col-lg-4 col-md-5 col-sm-5">
+						<div class="form-group">
+							<span>Period:</span>
+							<input type="text" class="form-control" ng-model="filter.prediction.period">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-5 col-sm-5">
+						<div class="form-group">
+							<span>Top:</span>
+							<input type="text" class="form-control" ng-model="filter.prediction.top">
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-2 col-sm-2">
+						<h6>&nbsp;</h6>
+						<button class="btn btn-info" ng-click="app.prediction(this)">Go!</button>
+					</div>
+				</div>
+				<hr>					
+				<div class="content" id="content"></div> <!-- display -->
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid  -->

@@ -6,7 +6,8 @@ require_once '../db.php';
 require_once 'mapper.php';
 require_once 'classes.php';
 
-$period = "2017";
+$period = $_POST['period'];
+$top = intval($_POST['top']);
 
 $categories = array("(1) City","(2) 1st-2nd Class","(3) 3rd-4th Class");
 
@@ -46,14 +47,15 @@ foreach ($cmcis as $i => $cmci) {
 
 };
 
-// $response = $cmcis;
-$dataset = new dataset($cmcis,$pillars);
-$response = $dataset->get(10);
-// $response = $dataset->get_actual_values();
-// $response = $dataset->total_per_total();
-// $dataset->total_per_total();
+$dataset_response = [];
+if (count($cmcis)) {
+	$dataset = new dataset($cmcis,$pillars);
+	$dataset_response = $dataset->get($top);
+};
+
+$prediction = array("dataset"=>$dataset_response);
 
 header("Content-Type: application/json");
-echo json_encode($response);
+echo json_encode($prediction);
 
 ?>

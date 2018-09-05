@@ -1,22 +1,4 @@
-angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','bootstrap-growl','bootstrap-modal','form-validator','window-open-post']).directive('fileModel', function($parse) {
-	return {
-	   restrict: 'A',
-	   link: function(scope, element, attrs) {
-		  var model = $parse(attrs.fileModel);
-		  var modelSetter = model.assign;
-		  
-		  element.bind('change', function(){
-			 scope.$apply(function(){
-				modelSetter(scope, element[0].files[0]);
-			 });
-		  });
-
-		  // scope.$watch(attrs.fileModel, function(file) {
-			// $('#'+element['context']['id']).val(null);
-		  // });
-	   }
-	};
-}).factory('app', function($http,$timeout,$compile,bui,growl,bootstrapModal,validate,printPost) {
+angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','bootstrap-growl','bootstrap-modal','form-validator','window-open-post']).factory('app', function($http,$timeout,$compile,bui,growl,bootstrapModal,validate,printPost) {
 
 	function app() {
 
@@ -30,29 +12,55 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			var d = new Date();
 
-			scope.filter = {
-				year: d.getFullYear()
-			};
+			scope.filter = {};
+			scope.filter.prediction = {};
+			scope.filter.prediction.period = d.getFullYear();
 		
+			scope.prediction = [];
 			
 		};
 		
-		self.list = function(scope) {
+		self.prediction = function(scope) {
 			
-			scope.views.list = true;			
-
+			if ((scope.filter.prediction.period == undefined) || (scope.filter.prediction.period == "")) {			
+				growl.show('danger',{from: 'top', amount: 55}, 'Please enter period');				
+				return;
+			};
+			
+			if ((scope.filter.prediction.top == undefined) || (scope.filter.prediction.top == "")) {			
+				growl.show('danger',{from: 'top', amount: 55}, 'Please enter top');				
+				return;
+			};			
+			
+			$http({
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: scope.filter.prediction
+			}).then(function success(response) {
+				
+				scope.prediction = angular.copy(response.data);
+				
+			}, function error(response) {
+				
+			});
+		
 			$('#content').load('lists/predictions.html', function() {
-				$timeout(function() { $compile($('#content')[0])(scope); },100);								
+				
+				$timeout(function() {
+					$compile($('#predictions')[0])(scope);
+				}, 500);				
+				
 				// instantiate datable
 				$timeout(function() {
-					$('#predictions').DataTable({
+					$('#table-economy').DataTable({
 						"ordering": false,
 						"processing": true,
-						"lengthChange": false
-					});	
-				},200);
+						"lengthChange": false,
+						"scrollX": true
+					});
+				}, 1000);
 				
-			});		
+			});
 			
 		};
 		
