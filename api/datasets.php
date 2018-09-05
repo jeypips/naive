@@ -3,7 +3,8 @@
 $_POST = json_decode(file_get_contents('php://input'), true);
 
 require_once '../db.php';
-require_once '../handlers/mapper.php';
+require_once 'mapper.php';
+require_once 'classes.php';
 
 $period = "2017";
 
@@ -17,9 +18,13 @@ foreach ($cmcis as $i => $cmci) {
 
 	$cmcis[$i]['category'] = $categories[$cmci['category']-1];
 
-	foreach ($indicators as $key => $indictator) {
-
-		foreach ($indictator as $p => $v) {
+	foreach ($pillars as $key => $pillar) {
+	
+		$pillar_total = 0;
+	
+		foreach ($pillar as $p => $v) {
+			
+			if ($v == "total") continue;
 			
 			$sql = "SELECT $v FROM $key WHERE cmci_id = ".$cmci['id'];
 			$actual = $con->getData($sql);
@@ -28,15 +33,27 @@ foreach ($cmcis as $i => $cmci) {
 			$cmcis[$i][$key][$v]['actual'] = $actual_value;
 			$cmcis[$i][$key][$v]['rank'] = 0;
 			$cmcis[$i][$key][$v]['competitive'] = 0;
+
+			$pillar_total = $pillar_total + ($actual_value*2.5);
 			
 		};
 
+		$cmcis[$i][$key]['total']['actual'] = $pillar_total;
+		$cmcis[$i][$key]['total']['rank'] = 0;
+		$cmcis[$i][$key]['total']['competitive'] = 0;		
+		
 	};
 
 };
 
+// $response = $cmcis;
+$dataset = new dataset($cmcis,$pillars);
+$response = $dataset->get(10);
+// $response = $dataset->get_actual_values();
+// $response = $dataset->total_per_total();
+// $dataset->total_per_total();
 
 header("Content-Type: application/json");
-echo json_encode($cmcis);
+echo json_encode($response);
 
 ?>
