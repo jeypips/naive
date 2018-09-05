@@ -53,9 +53,8 @@
                         <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                     </ul>
                     <!-- User profile and search -->
+					<li><span>{{profile.name}}&nbsp;</span></li>
                     <ul class="navbar-nav my-lg-0">
-
-					
                         <!-- Profile -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{profile.picture}}" alt="user" class="profile-pic" /></a>
@@ -130,9 +129,27 @@
     <!--stickey kit -->
     <script src="js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
 
+	<!-- datatables -->
+	<script src="js/lib/datatables/datatables.min.js"></script>
+    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script src="js/lib/datatables/datatables-init.js"></script>
+	
     <!--Custom JavaScript -->
     <script src="js/scripts.js"></script>
-
+	
+	<!-- pdf -->
+	<script src="js/pdfmake/build/pdfmake.min.js"></script>
+    <script src="js/pdfmake/build/vfs_fonts.js"></script>
+	<!-- jQuery  -->
+	<script src="dist/jspdf.min.js"></script>
+	<script src="dist/jspdf.debug.js"></script>
+	<script src="dist/jspdf.plugin.autotable.js"></script>
 	<!-- dependencies -->
 	<link rel="stylesheet" href="angular/modules/bootbox/bs4-fix.css">	
 	<script src="angular/modules/bootbox/bootbox.min.js"></script>
