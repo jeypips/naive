@@ -59,8 +59,7 @@ class dataset {
 			
 		};		
 
-		return $this->data;
-		// return $this->test;		
+		return $this->data;	
 
 	}
 	
@@ -139,12 +138,6 @@ class dataset {
 
 					};
 					
-				};				
-				
-				if ($indicator == "cost_of_living") {
-
-					// $this->test = $tops;
-
 				};
 				
 				$this->ranks[$pillar][$indicator] = array(
