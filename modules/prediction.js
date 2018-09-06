@@ -196,11 +196,19 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.print = function(scope) {
 			
-			print(scope);
+			$http({
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: scope.filter.prediction
+			}).then(function success(response) {
+
+				print(response.data);
+			
+			});
 				
 		};
 		
-		function print(scope) {
+		function print(prediction) {			
 			
 			var doc = new jsPDF({
 				orientation: 'landscape',
@@ -220,21 +228,34 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			doc.setFontType('normal');
 			doc.text(10, 20, 'Economy');
 			
-			var economy = 
-			["No", 
-			"Province", 
-			"LGU", 
-			"Category", 
-			"Sample"];		   	
+			var economy = ["No","Province","LGU","Category"];
 			
-			var rows = [
-			["10",
-			"La Union",
-			"San Fernando City",
-			"First",
-			"SAMPLE SAMPLE SAMPLE"]
-			];	
-		
+			angular.forEach(prediction.headers.economy, function(economy_h,i) {
+
+				if (i<6) {
+					economy.push(economy_h.header);
+				};
+				
+			});
+			
+			var rows = [];
+			angular.forEach(prediction.dataset, function(lgu,i) {
+				
+				var row = [];
+				row.push(lgu.lgu_no);
+				row.push(lgu.province);
+				row.push(lgu.lgu);
+				row.push(lgu.category);
+				row.push(lgu.economy.local_economy_size.actual);
+				row.push(lgu.economy.local_economy_size.rank);
+				row.push(lgu.economy.local_economy_size.competitive);
+				row.push(lgu.economy.local_economy_growth.actual);
+				row.push(lgu.economy.local_economy_growth.rank);
+				row.push(lgu.economy.local_economy_growth.competitive);				
+				
+				rows.push(row);
+				
+			});		
 	
 			doc.autoTable(economy, rows,{
 				theme: 'striped',
