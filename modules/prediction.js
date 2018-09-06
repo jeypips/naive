@@ -18,6 +18,119 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 			scope.prediction = [];
 			
+			scope.tables = {};			
+			scope.tables.headers = [
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},				
+			];
+			
+		};
+		
+		self.prediction_ = function(scope) {
+			
+			if ((scope.filter.prediction.period == undefined) || (scope.filter.prediction.period == "")) {			
+				growl.show('danger',{from: 'top', amount: 55}, 'Please enter period');				
+				return;
+			};
+			
+			if ((scope.filter.prediction.top == undefined) || (scope.filter.prediction.top == "")) {			
+				growl.show('danger',{from: 'top', amount: 55}, 'Please enter top');				
+				return;
+			};			
+			
+			bui.show("Analyzing data please wait...");
+			
+			$http({
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: scope.filter.prediction
+			}).then(function success(response) {
+
+				scope.prediction = angular.copy(response.data);
+				
+				$('#content').load('lists/predictions.html', function() {
+					
+					$timeout(function() {
+						$compile($('#predictions')[0])(scope);
+					}, 500);				
+					
+					// instantiate datable
+					$timeout(function() {
+						$('#table-economy').DataTable({
+							"ordering": false,
+							"processing": true,
+							"lengthChange": true,
+							"scrollX": true
+						});
+					}, 4000);
+					$timeout(function() {					
+						$('#table-government').DataTable({
+							"ordering": false,
+							"processing": true,
+							"lengthChange": true,
+							"scrollX": true
+						});
+					}, 4000);	
+					$timeout(function() {					
+						$('#table-infrastructure').DataTable({
+							"ordering": false,
+							"processing": true,
+							"lengthChange": true,
+							"scrollX": true
+						});
+					}, 4000);
+					$timeout(function() {					
+						$('#table-resiliency').DataTable({
+							"ordering": false,
+							"processing": true,
+							"lengthChange": true,
+							"scrollX": true
+						});						
+					}, 4000);
+
+					$timeout(function() {
+						bui.hide();
+					},5000);
+					
+				});					
+				
+			}, function error(response) {
+				
+				bui.hide();				
+				
+			});
+			
 		};
 		
 		self.prediction = function(scope) {
@@ -32,33 +145,50 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				return;
 			};			
 			
-			$http({
-				method: 'POST',
-				url: 'api/prediction.php',
-				data: scope.filter.prediction
-			}).then(function success(response) {
+			bui.show("Analyzing data please wait...");
+
 				
-				scope.prediction = angular.copy(response.data);
-				
-			}, function error(response) {
-				
-			});
-		
-			$('#content').load('lists/predictions.html', function() {
+			$('#content').load('lists/predictions.php?period='+scope.filter.prediction.period+'&top='+scope.filter.prediction.top, function() {
 				
 				$timeout(function() {
-					$compile($('#predictions')[0])(scope);
-				}, 500);				
+					$compile($('#print-datasets')[0])(scope);
+				}, 500);			
 				
 				// instantiate datable
-				$timeout(function() {
+ 				// $timeout(function() {
 					$('#table-economy').DataTable({
 						"ordering": false,
-						"processing": true,
-						"lengthChange": false,
+						"processing": false,
+						"lengthChange": true,
 						"scrollX": true
 					});
-				}, 1000);
+				// }, 1000);
+				// $timeout(function() {					
+					$('#table-government').DataTable({
+						"ordering": false,
+						"processing": false,
+						"lengthChange": true,
+						"scrollX": true
+					});
+				// }, 1000);	
+				// $timeout(function() {					
+					$('#table-infrastructure').DataTable({
+						"ordering": false,
+						"processing": false,
+						"lengthChange": true,
+						"scrollX": true
+					});
+				// }, 1000);
+				// $timeout(function() {					
+					$('#table-resiliency').DataTable({
+						"ordering": false,
+						"processing": false,
+						"lengthChange": true,
+						"scrollX": true
+					});						
+				// }, 1000);
+
+				bui.hide();
 				
 			});
 			
