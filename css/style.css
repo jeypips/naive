@@ -5403,7 +5403,7 @@ tbody tr th {
 }
 tbody tr td {
   font-family: 'Poppins', sans-serif;
-  color: #99abb4;
+  color: black;
 }
 tbody tr td:last-child {
   text-align: right;
@@ -6920,4 +6920,9 @@ tbody tr td:last-child {
   .retina-logo {
     display: inline-block !important;
   }
+}
+
+/* custom declarations */
+.striped-column {
+	background-color: #bfbfbf;
 }

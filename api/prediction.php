@@ -53,7 +53,7 @@ if (count($cmcis)) {
 	$dataset_response = $dataset->get($top);
 };
 
-$prediction = array("dataset"=>$dataset_response);
+$prediction = array("headers"=>$headers,"dataset"=>$dataset_response);
 
 header("Content-Type: application/json");
 echo json_encode($prediction);
