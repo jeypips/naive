@@ -18,6 +18,119 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 			scope.prediction = [];
 			
+			scope.tables = {};			
+			scope.tables.headers = [
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},
+				{"striped":false},
+				{"striped":false},
+				{"striped":false},
+				{"striped":true},
+				{"striped":true},
+				{"striped":true},				
+			];
+			
+		};
+		
+		self.prediction_ = function(scope) {
+			
+			if ((scope.filter.prediction.period == undefined) || (scope.filter.prediction.period == "")) {			
+				growl.show('danger',{from: 'top', amount: 55}, 'Please enter period');				
+				return;
+			};
+			
+			if ((scope.filter.prediction.top == undefined) || (scope.filter.prediction.top == "")) {			
+				growl.show('danger',{from: 'top', amount: 55}, 'Please enter top');				
+				return;
+			};			
+			
+			bui.show("Analyzing data please wait...");
+			
+			$http({
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: scope.filter.prediction
+			}).then(function success(response) {
+
+				scope.prediction = angular.copy(response.data);
+				
+				$('#content').load('lists/predictions.html', function() {
+					
+					$timeout(function() {
+						$compile($('#predictions')[0])(scope);
+					}, 500);				
+					
+					// instantiate datable
+					$timeout(function() {
+						$('#table-economy').DataTable({
+							"ordering": false,
+							"processing": true,
+							"lengthChange": true,
+							"scrollX": true
+						});
+					}, 4000);
+					$timeout(function() {					
+						$('#table-government').DataTable({
+							"ordering": false,
+							"processing": true,
+							"lengthChange": true,
+							"scrollX": true
+						});
+					}, 4000);	
+					$timeout(function() {					
+						$('#table-infrastructure').DataTable({
+							"ordering": false,
+							"processing": true,
+							"lengthChange": true,
+							"scrollX": true
+						});
+					}, 4000);
+					$timeout(function() {					
+						$('#table-resiliency').DataTable({
+							"ordering": false,
+							"processing": true,
+							"lengthChange": true,
+							"scrollX": true
+						});						
+					}, 4000);
+
+					$timeout(function() {
+						bui.hide();
+					},5000);
+					
+				});					
+				
+			}, function error(response) {
+				
+				bui.hide();				
+				
+			});
+			
 		};
 		
 		self.prediction = function(scope) {
@@ -32,33 +145,50 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				return;
 			};			
 			
-			$http({
-				method: 'POST',
-				url: 'api/prediction.php',
-				data: scope.filter.prediction
-			}).then(function success(response) {
+			bui.show("Analyzing data please wait...");
+
 				
-				scope.prediction = angular.copy(response.data);
-				
-			}, function error(response) {
-				
-			});
-		
-			$('#content').load('lists/predictions.html', function() {
+			$('#content').load('lists/predictions.php?period='+scope.filter.prediction.period+'&top='+scope.filter.prediction.top, function() {
 				
 				$timeout(function() {
-					$compile($('#predictions')[0])(scope);
-				}, 500);				
+					$compile($('#print-datasets')[0])(scope);
+				}, 500);			
 				
 				// instantiate datable
-				$timeout(function() {
+ 				// $timeout(function() {
 					$('#table-economy').DataTable({
 						"ordering": false,
-						"processing": true,
-						"lengthChange": false,
+						"processing": false,
+						"lengthChange": true,
 						"scrollX": true
 					});
-				}, 1000);
+				// }, 1000);
+				// $timeout(function() {					
+					$('#table-government').DataTable({
+						"ordering": false,
+						"processing": false,
+						"lengthChange": true,
+						"scrollX": true
+					});
+				// }, 1000);	
+				// $timeout(function() {					
+					$('#table-infrastructure').DataTable({
+						"ordering": false,
+						"processing": false,
+						"lengthChange": true,
+						"scrollX": true
+					});
+				// }, 1000);
+				// $timeout(function() {					
+					$('#table-resiliency').DataTable({
+						"ordering": false,
+						"processing": false,
+						"lengthChange": true,
+						"scrollX": true
+					});						
+				// }, 1000);
+
+				bui.hide();
 				
 			});
 			
@@ -66,11 +196,19 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.print = function(scope) {
 			
-			print(scope);
+			$http({
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: scope.filter.prediction
+			}).then(function success(response) {
+
+				print(response.data);
+			
+			});
 				
 		};
 		
-		function print(scope) {
+		function print(prediction) {			
 			
 			var doc = new jsPDF({
 				orientation: 'landscape',
@@ -90,21 +228,34 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			doc.setFontType('normal');
 			doc.text(10, 20, 'Economy');
 			
-			var economy = 
-			["No", 
-			"Province", 
-			"LGU", 
-			"Category", 
-			"Sample"];		   	
+			var economy = ["No","Province","LGU","Category"];
 			
-			var rows = [
-			["10",
-			"La Union",
-			"San Fernando City",
-			"First",
-			"SAMPLE SAMPLE SAMPLE"]
-			];	
-		
+			angular.forEach(prediction.headers.economy, function(economy_h,i) {
+
+				if (i<6) {
+					economy.push(economy_h.header);
+				};
+				
+			});
+			
+			var rows = [];
+			angular.forEach(prediction.dataset, function(lgu,i) {
+				
+				var row = [];
+				row.push(lgu.lgu_no);
+				row.push(lgu.province);
+				row.push(lgu.lgu);
+				row.push(lgu.category);
+				row.push(lgu.economy.local_economy_size.actual);
+				row.push(lgu.economy.local_economy_size.rank);
+				row.push(lgu.economy.local_economy_size.competitive);
+				row.push(lgu.economy.local_economy_growth.actual);
+				row.push(lgu.economy.local_economy_growth.rank);
+				row.push(lgu.economy.local_economy_growth.competitive);				
+				
+				rows.push(row);
+				
+			});		
 	
 			doc.autoTable(economy, rows,{
 				theme: 'striped',
