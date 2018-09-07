@@ -7,7 +7,7 @@ $check_dataset = $con->get(array("period"=>"'$period'","top"=>$top));
 if (count($check_dataset)) {
 	
 	$dataset_response = $check_dataset[0]['dataset'];
-	$prediction = array("headers"=>$headers,"dataset"=>json_decode($dataset_response,true));	
+	$prediction = array("headers"=>$headers,"dataset"=>json_decode($dataset_response,true),"year"=>$period);	
 	
 } else {
 
