@@ -6926,3 +6926,10 @@ tbody tr td:last-child {
 .striped-column {
 	background-color: #bfbfbf;
 }
+
+.table_datasets {
+	overflow: auto;
+}
+.dataTables_scroll {
+	overflow: auto;
+};

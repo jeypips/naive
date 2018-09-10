@@ -8,7 +8,6 @@ class dataset {
 	var $actual_values_min_max; # rows of actual values maximum and minimum
 	var $rank_values; # rows of rank values per indicators per pillar
 	var $ranks; # rows of top ex. 10 ranks per indicators per pillar
-	var $test;
 	
 	function __construct($cmcis,$pillars_indicators) {
 
@@ -250,6 +249,93 @@ class dataset {
 		};
 		
 		return $hasTieInRank;
+		
+	}
+	
+};
+
+class frequency_tables {
+	
+	var $dataset;
+	var $pillars_indicators; # pillars indicators structure
+	var $frequencies;
+	var $headers;
+	
+	function __construct($dataset,$pillars_indicators,$headers) {
+		
+		$this->dataset = $dataset;		
+		$this->pillars_indicators = $pillars_indicators;	
+		$this->headers = $headers;	
+		
+		$this->frequencies = [];
+		
+		$this->frequency();
+		
+	}
+	
+	private function frequency() {		
+		
+		# headers
+		$table_headers = array(
+			"economy"=>"Economic Dynamism",
+			"government_efficiency"=>"Government Efficiency",
+			"infrastructure"=>"Infrastructure",
+			"resiliency"=>"Resiliency",
+		);
+		
+		foreach ($this->pillars_indicators as $pillar => $indicators) {
+
+			$frequency_indicators = [];
+			
+			$data = array(
+				"city"=>array("yes"=>0,"no"=>0),
+				"first_second"=>array("yes"=>0,"no"=>0),
+				"third_fourth"=>array("yes"=>0,"no"=>0),
+			);
+			
+			$frequency_indicators[] = array("indicator"=>"category","header"=>"LGU Category","data"=>$data);
+			
+			foreach ($indicators as $indicator) {
+				
+				if ($indicator=="total") continue;
+				$data = array(
+					"yes"=>array("yes"=>0,"no"=>0),
+					"no"=>array("yes"=>0,"no"=>0),
+				);				
+				$frequency_indicators[] = array("indicator"=>$indicator,"header"=>$this->get_header_description($pillar,$indicator),"data"=>$data);
+
+			};		
+			
+			$this->frequencies[] = array("header"=>$table_headers[$pillar],"indicators"=>$frequency_indicators);
+			
+		};
+		
+		// echo json_encode($this->frequencies);
+		
+		// exit();
+		
+	}
+	
+	function get_frequency() {
+		
+		return $this->frequencies;
+		
+	}
+	
+	private function get_header_description($pillar,$indicator) {
+		
+		$header = "";
+		
+		foreach ($this->headers[$pillar] as $h) {
+
+			if ($h['indicator'] == $indicator) {
+				if ( ($h['header']=="Rank Value") || ($h['header']=="Competitive") ) continue;				
+				$header = $h['header'];
+			};
+			
+		};
+		
+		return $header;
 		
 	}
 	
