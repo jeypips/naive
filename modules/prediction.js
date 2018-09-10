@@ -152,7 +152,11 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 				$timeout(function() {
 					$compile($('#print-datasets')[0])(scope);
-				}, 500);		
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#print-frequency')[0])(scope);
+				}, 500);
 				
 				// instantiate datable
 				$('table.datasets').DataTable({
@@ -171,6 +175,77 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 			});
 			
+		};
+		
+		//print frequency tables
+		self.print_frequency = function(scope) {
+			
+			$http({
+			method: 'POST',
+			url: 'api/prediction.php',
+			data: scope.filter.prediction
+			}).then(function success(response) {
+
+				print_frequency(response.data);
+			
+			});
+		};
+		
+		function print_frequency(prediction) {			
+			
+			var doc = new jsPDF({
+				orientation: 'landscape',
+				unit: 'pt',
+				format: [612, 792]
+			});	
+			var doc = new jsPDF('l','mm','legal');
+		
+			//X-axis, Y-axis
+			doc.setFontSize(16)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(10, 10, 'Frequency Tables');
+			
+			var frequency = ["Frequency Table","Competitive"];
+
+			var frequency_rows = [];
+				
+			doc.autoTable(frequency, frequency_rows,{
+				theme: 'striped',
+				margin: {
+					top: 15, 
+					left: 10 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.50,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap',
+					
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 10
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 10
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});
+			
+			var blob = doc.output('blob');
+			window.open(URL.createObjectURL(blob));
+		
+		
 		};
 		
 		self.print = function(scope) {
@@ -219,7 +294,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row = [];
 				row.push(lgu.lgu_no);
@@ -294,7 +369,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows1 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row1 = [];
 				row1.push(lgu.lgu_no);
@@ -368,7 +443,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows2 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row2 = [];
 				row2.push(lgu.lgu_no);
@@ -442,7 +517,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows3 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row3 = [];
 				row3.push(lgu.lgu_no);
@@ -516,7 +591,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows4 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row4 = [];
 				row4.push(lgu.lgu_no);
@@ -590,7 +665,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows5 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row5 = [];
 				row5.push(lgu.lgu_no);
@@ -661,7 +736,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows6 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row6 = [];
 				row6.push(lgu.lgu_no);
@@ -735,7 +810,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows7 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row7 = [];
 				row7.push(lgu.lgu_no);
@@ -809,7 +884,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows8 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row8 = [];
 				row8.push(lgu.lgu_no);
@@ -883,7 +958,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows9 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row9 = [];
 				row9.push(lgu.lgu_no);
@@ -957,7 +1032,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows10 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row10 = [];
 				row10.push(lgu.lgu_no);
@@ -1031,7 +1106,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows11 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row11 = [];
 				row11.push(lgu.lgu_no);
@@ -1102,7 +1177,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows12 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row12 = [];
 				row12.push(lgu.lgu_no);
@@ -1176,7 +1251,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 			
 			var rows13 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row13 = [];
 				row13.push(lgu.lgu_no);
@@ -1249,94 +1324,20 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 			});
 			
-			var rows13 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
-				
-				var row13 = [];
-				row13.push(lgu.lgu_no);
-				row13.push(lgu.province);
-				row13.push(lgu.lgu);
-				row13.push(lgu.category);
-				row13.push(lgu.infrastructure.education.actual);
-				row13.push(lgu.infrastructure.education.rank);
-				row13.push(lgu.infrastructure.education.competitive);
-				row13.push(lgu.infrastructure.health.actual);
-				row13.push(lgu.infrastructure.health.rank);
-				row13.push(lgu.infrastructure.health.competitive);
-				
-				rows13.push(row13);
-				
-			});		
-	
-			doc.autoTable(infrastructure, rows13,{
-				theme: 'striped',
-				margin: {
-					top: 22, 
-					left: 10 
-				},
-				tableWidth: 500,
-				styles: {
-					lineColor: [75, 75, 75],
-					lineWidth: 0.50,
-					cellPadding: 3,
-					overflow: 'linebreak',
-					columnWidth: 'wrap'
-				},
-				headerStyles: {
-					halign: 'center',
-					fillColor: [191, 191, 191],
-					textColor: 50,
-					fontSize: 10
-				},
-				bodyStyles: {
-					halign: 'left',
-					fillColor: [255, 255, 255],
-					textColor: 50,
-					fontSize: 10
-				},
-				alternateRowStyles: {
-					fillColor: [255, 255, 255]
-				}
-			});
-			
-			doc.addPage(); // add //infrastructure
-			
-			//X-axis, Y-axis
-			doc.setFontSize(16)
-			doc.setFont('helvetica');
-			doc.setFontType('bold');
-			doc.text(10, 10, 'Datasets');
-			doc.text(35, 10, ''+prediction.year);
-			
-			doc.setFontSize(12)
-			doc.setFont('helvetica');
-			doc.setFontType('normal');
-			doc.text(10, 20, 'Infrastructure');
-			
-			var infrastructure = ["No","Province","LGU","Category"];
-			
-			angular.forEach(prediction.headers.infrastructure, function(infrastructure_h,i) {
-
-				if ((i<24) && (i=>6) && (i>17)) {
-					infrastructure.push(infrastructure_h.header);
-				};
-				
-			});
-			
 			var rows14 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row14 = [];
 				row14.push(lgu.lgu_no);
 				row14.push(lgu.province);
 				row14.push(lgu.lgu);
 				row14.push(lgu.category);
-				row14.push(lgu.infrastructure.lgu_investment.actual);
-				row14.push(lgu.infrastructure.lgu_investment.rank);
-				row14.push(lgu.infrastructure.lgu_investment.competitive);
-				row14.push(lgu.infrastructure.accommodation_capacity.actual);
-				row14.push(lgu.infrastructure.accommodation_capacity.rank);
-				row14.push(lgu.infrastructure.accommodation_capacity.competitive);
+				row14.push(lgu.infrastructure.education.actual);
+				row14.push(lgu.infrastructure.education.rank);
+				row14.push(lgu.infrastructure.education.competitive);
+				row14.push(lgu.infrastructure.health.actual);
+				row14.push(lgu.infrastructure.health.rank);
+				row14.push(lgu.infrastructure.health.competitive);
 				
 				rows14.push(row14);
 				
@@ -1391,32 +1392,106 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			angular.forEach(prediction.headers.infrastructure, function(infrastructure_h,i) {
 
-				if ((i<30) && (i=>6) && (i>23)) {
+				if ((i<24) && (i=>6) && (i>17)) {
 					infrastructure.push(infrastructure_h.header);
 				};
 				
 			});
 			
 			var rows15 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
 				var row15 = [];
 				row15.push(lgu.lgu_no);
 				row15.push(lgu.province);
 				row15.push(lgu.lgu);
 				row15.push(lgu.category);
-				row15.push(lgu.infrastructure.information_technology_capacity.actual);
-				row15.push(lgu.infrastructure.information_technology_capacity.rank);
-				row15.push(lgu.infrastructure.information_technology_capacity.competitive);
-				row15.push(lgu.infrastructure.financial_technology_capacity.actual);
-				row15.push(lgu.infrastructure.financial_technology_capacity.rank);
-				row15.push(lgu.infrastructure.financial_technology_capacity.competitive);
+				row15.push(lgu.infrastructure.lgu_investment.actual);
+				row15.push(lgu.infrastructure.lgu_investment.rank);
+				row15.push(lgu.infrastructure.lgu_investment.competitive);
+				row15.push(lgu.infrastructure.accommodation_capacity.actual);
+				row15.push(lgu.infrastructure.accommodation_capacity.rank);
+				row15.push(lgu.infrastructure.accommodation_capacity.competitive);
 				
 				rows15.push(row15);
 				
 			});		
 	
 			doc.autoTable(infrastructure, rows15,{
+				theme: 'striped',
+				margin: {
+					top: 22, 
+					left: 10 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.50,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap'
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 10
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 10
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});
+			
+			doc.addPage(); // add //infrastructure
+			
+			//X-axis, Y-axis
+			doc.setFontSize(16)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(10, 10, 'Datasets');
+			doc.text(35, 10, ''+prediction.year);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(10, 20, 'Infrastructure');
+			
+			var infrastructure = ["No","Province","LGU","Category"];
+			
+			angular.forEach(prediction.headers.infrastructure, function(infrastructure_h,i) {
+
+				if ((i<30) && (i=>6) && (i>23)) {
+					infrastructure.push(infrastructure_h.header);
+				};
+				
+			});
+			
+			var rows16 = [];
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
+				
+				var row16 = [];
+				row16.push(lgu.lgu_no);
+				row16.push(lgu.province);
+				row16.push(lgu.lgu);
+				row16.push(lgu.category);
+				row16.push(lgu.infrastructure.information_technology_capacity.actual);
+				row16.push(lgu.infrastructure.information_technology_capacity.rank);
+				row16.push(lgu.infrastructure.information_technology_capacity.competitive);
+				row16.push(lgu.infrastructure.financial_technology_capacity.actual);
+				row16.push(lgu.infrastructure.financial_technology_capacity.rank);
+				row16.push(lgu.infrastructure.financial_technology_capacity.competitive);
+				
+				rows16.push(row16);
+				
+			});		
+	
+			doc.autoTable(infrastructure, rows16,{
 				theme: 'striped',
 				margin: {
 					top: 22, 
@@ -1471,23 +1546,23 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 			});
 			
-			var rows16 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			var rows17 = [];
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
-				var row16 = [];
-				row16.push(lgu.lgu_no);
-				row16.push(lgu.province);
-				row16.push(lgu.lgu);
-				row16.push(lgu.category);
-				row16.push(lgu.infrastructure.total.actual);
-				row16.push(lgu.infrastructure.total.rank);
-				row16.push(lgu.infrastructure.total.competitive);
+			var row17 = [];
+				row17.push(lgu.lgu_no);
+				row17.push(lgu.province);
+				row17.push(lgu.lgu);
+				row17.push(lgu.category);
+				row17.push(lgu.infrastructure.total.actual);
+				row17.push(lgu.infrastructure.total.rank);
+				row17.push(lgu.infrastructure.total.competitive);
 				
-				rows16.push(row16);
+				rows17.push(row17);
 				
 			});		
 	
-			doc.autoTable(infrastructure, rows16,{
+			doc.autoTable(infrastructure, rows17,{
 				theme: 'striped',
 				margin: {
 					top: 22, 
@@ -1543,94 +1618,20 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 			});
 			
-			var rows17 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
-				
-				var row17 = [];
-				row17.push(lgu.lgu_no);
-				row17.push(lgu.province);
-				row17.push(lgu.lgu);
-				row17.push(lgu.category);
-				row17.push(lgu.resiliency.land_use_plan.actual);
-				row17.push(lgu.resiliency.land_use_plan.rank);
-				row17.push(lgu.resiliency.land_use_plan.competitive);
-				row17.push(lgu.resiliency.disaster_risk_reduction_plan.actual);
-				row17.push(lgu.resiliency.disaster_risk_reduction_plan.rank);
-				row17.push(lgu.resiliency.disaster_risk_reduction_plan.competitive);
-				
-				rows17.push(row17);
-				
-			});		
-	
-			doc.autoTable(resiliency, rows17,{
-				theme: 'striped',
-				margin: {
-					top: 22, 
-					left: 10 
-				},
-				tableWidth: 500,
-				styles: {
-					lineColor: [75, 75, 75],
-					lineWidth: 0.50,
-					cellPadding: 3,
-					overflow: 'linebreak',
-					columnWidth: 'wrap'
-				},
-				headerStyles: {
-					halign: 'center',
-					fillColor: [191, 191, 191],
-					textColor: 50,
-					fontSize: 10
-				},
-				bodyStyles: {
-					halign: 'left',
-					fillColor: [255, 255, 255],
-					textColor: 50,
-					fontSize: 10
-				},
-				alternateRowStyles: {
-					fillColor: [255, 255, 255]
-				}
-			});
-			
-			doc.addPage(); // add //resiliency
-			
-			//X-axis, Y-axis
-			doc.setFontSize(16)
-			doc.setFont('helvetica');
-			doc.setFontType('bold');
-			doc.text(10, 10, 'Datasets');
-			doc.text(35, 10, ''+prediction.year);
-			
-			doc.setFontSize(12)
-			doc.setFont('helvetica');
-			doc.setFontType('normal');
-			doc.text(10, 20, 'Resiliency');
-			
-			var resiliency = ["No","Province","LGU","Category"];
-			
-			angular.forEach(prediction.headers.resiliency, function(resiliency_h,i) {
-
-				if ((i<12) && (i=>6) && (i>5)) {
-					resiliency.push(resiliency_h.header);
-				};
-				
-			});
-			
 			var rows18 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
-				var row18 = [];
+			var row18 = [];
 				row18.push(lgu.lgu_no);
 				row18.push(lgu.province);
 				row18.push(lgu.lgu);
 				row18.push(lgu.category);
-				row18.push(lgu.resiliency.annual_disaster_drill.actual);
-				row18.push(lgu.resiliency.annual_disaster_drill.rank);
-				row18.push(lgu.resiliency.annual_disaster_drill.competitive);
-				row18.push(lgu.resiliency.early_warning_system.actual);
-				row18.push(lgu.resiliency.early_warning_system.rank);
-				row18.push(lgu.resiliency.early_warning_system.competitive);
+				row18.push(lgu.resiliency.land_use_plan.actual);
+				row18.push(lgu.resiliency.land_use_plan.rank);
+				row18.push(lgu.resiliency.land_use_plan.competitive);
+				row18.push(lgu.resiliency.disaster_risk_reduction_plan.actual);
+				row18.push(lgu.resiliency.disaster_risk_reduction_plan.rank);
+				row18.push(lgu.resiliency.disaster_risk_reduction_plan.competitive);
 				
 				rows18.push(row18);
 				
@@ -1685,26 +1686,26 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			angular.forEach(prediction.headers.resiliency, function(resiliency_h,i) {
 
-				if ((i<18) && (i=>6) && (i>11)) {
+				if ((i<12) && (i=>6) && (i>5)) {
 					resiliency.push(resiliency_h.header);
 				};
 				
 			});
 			
 			var rows19 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
-				var row19 = [];
+			var row19 = [];
 				row19.push(lgu.lgu_no);
 				row19.push(lgu.province);
 				row19.push(lgu.lgu);
 				row19.push(lgu.category);
-				row19.push(lgu.resiliency.budget_for_drrmp.actual);
-				row19.push(lgu.resiliency.budget_for_drrmp.rank);
-				row19.push(lgu.resiliency.budget_for_drrmp.competitive);
-				row19.push(lgu.resiliency.local_risk_assessments.actual);
-				row19.push(lgu.resiliency.local_risk_assessments.rank);
-				row19.push(lgu.resiliency.local_risk_assessments.competitive);
+				row19.push(lgu.resiliency.annual_disaster_drill.actual);
+				row19.push(lgu.resiliency.annual_disaster_drill.rank);
+				row19.push(lgu.resiliency.annual_disaster_drill.competitive);
+				row19.push(lgu.resiliency.early_warning_system.actual);
+				row19.push(lgu.resiliency.early_warning_system.rank);
+				row19.push(lgu.resiliency.early_warning_system.competitive);
 				
 				rows19.push(row19);
 				
@@ -1759,26 +1760,26 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			angular.forEach(prediction.headers.resiliency, function(resiliency_h,i) {
 
-				if ((i<24) && (i=>6) && (i>17)) {
+				if ((i<18) && (i=>6) && (i>11)) {
 					resiliency.push(resiliency_h.header);
 				};
 				
 			});
 			
 			var rows20 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
-				var row20 = [];
+			var row20 = [];
 				row20.push(lgu.lgu_no);
 				row20.push(lgu.province);
 				row20.push(lgu.lgu);
 				row20.push(lgu.category);
-				row20.push(lgu.resiliency.emergency_infrastructure.actual);
-				row20.push(lgu.resiliency.emergency_infrastructure.rank);
-				row20.push(lgu.resiliency.emergency_infrastructure.competitive);
-				row20.push(lgu.resiliency.utilities.actual);
-				row20.push(lgu.resiliency.utilities.rank);
-				row20.push(lgu.resiliency.utilities.competitive);
+				row20.push(lgu.resiliency.budget_for_drrmp.actual);
+				row20.push(lgu.resiliency.budget_for_drrmp.rank);
+				row20.push(lgu.resiliency.budget_for_drrmp.competitive);
+				row20.push(lgu.resiliency.local_risk_assessments.actual);
+				row20.push(lgu.resiliency.local_risk_assessments.rank);
+				row20.push(lgu.resiliency.local_risk_assessments.competitive);
 				
 				rows20.push(row20);
 				
@@ -1833,26 +1834,26 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			angular.forEach(prediction.headers.resiliency, function(resiliency_h,i) {
 
-				if ((i<30) && (i=>6) && (i>23)) {
+				if ((i<24) && (i=>6) && (i>17)) {
 					resiliency.push(resiliency_h.header);
 				};
 				
 			});
 			
 			var rows21 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
-				var row21 = [];
+			var row21 = [];
 				row21.push(lgu.lgu_no);
 				row21.push(lgu.province);
 				row21.push(lgu.lgu);
 				row21.push(lgu.category);
-				row21.push(lgu.resiliency.employed_population.actual);
-				row21.push(lgu.resiliency.employed_population.rank);
-				row21.push(lgu.resiliency.employed_population.competitive);
-				row21.push(lgu.resiliency.sanitary_system.actual);
-				row21.push(lgu.resiliency.sanitary_system.rank);
-				row21.push(lgu.resiliency.sanitary_system.competitive);
+				row21.push(lgu.resiliency.emergency_infrastructure.actual);
+				row21.push(lgu.resiliency.emergency_infrastructure.rank);
+				row21.push(lgu.resiliency.emergency_infrastructure.competitive);
+				row21.push(lgu.resiliency.utilities.actual);
+				row21.push(lgu.resiliency.utilities.rank);
+				row21.push(lgu.resiliency.utilities.competitive);
 				
 				rows21.push(row21);
 				
@@ -1907,23 +1908,26 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			angular.forEach(prediction.headers.resiliency, function(resiliency_h,i) {
 
-				if ((i<36) && (i=>6) && (i>29)) {
+				if ((i<30) && (i=>6) && (i>23)) {
 					resiliency.push(resiliency_h.header);
 				};
 				
 			});
 			
 			var rows22 = [];
-			angular.forEach(prediction.dataset, function(lgu,i) {
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
 				
-				var row22 = [];
+			var row22 = [];
 				row22.push(lgu.lgu_no);
 				row22.push(lgu.province);
 				row22.push(lgu.lgu);
 				row22.push(lgu.category);
-				row22.push(lgu.resiliency.total.actual);
-				row22.push(lgu.resiliency.total.rank);
-				row22.push(lgu.resiliency.total.competitive);
+				row22.push(lgu.resiliency.employed_population.actual);
+				row22.push(lgu.resiliency.employed_population.rank);
+				row22.push(lgu.resiliency.employed_population.competitive);
+				row22.push(lgu.resiliency.sanitary_system.actual);
+				row22.push(lgu.resiliency.sanitary_system.rank);
+				row22.push(lgu.resiliency.sanitary_system.competitive);
 				
 				rows22.push(row22);
 				
@@ -1960,7 +1964,77 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				}
 			});
 			
-		
+			doc.addPage(); // add //resiliency
+			
+			//X-axis, Y-axis
+			doc.setFontSize(16)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(10, 10, 'Datasets');
+			doc.text(35, 10, ''+prediction.year);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(10, 20, 'Resiliency');
+			
+			var resiliency = ["No","Province","LGU","Category"];
+			
+			angular.forEach(prediction.headers.resiliency, function(resiliency_h,i) {
+
+				if ((i<36) && (i=>6) && (i>29)) {
+					resiliency.push(resiliency_h.header);
+				};
+				
+			});
+			
+			var rows23 = [];
+			angular.forEach(prediction.prediction.dataset, function(lgu,i) {
+				
+			var row23 = [];
+				row23.push(lgu.lgu_no);
+				row23.push(lgu.province);
+				row23.push(lgu.lgu);
+				row23.push(lgu.category);
+				row23.push(lgu.resiliency.total.actual);
+				row23.push(lgu.resiliency.total.rank);
+				row23.push(lgu.resiliency.total.competitive);
+				
+				rows23.push(row23);
+				
+			});		
+	
+			doc.autoTable(resiliency, rows23,{
+				theme: 'striped',
+				margin: {
+					top: 22, 
+					left: 10 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.50,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap'
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 10
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 10
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});
+			
 			var blob = doc.output('blob');
 			window.open(URL.createObjectURL(blob));
 		

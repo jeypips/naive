@@ -60,7 +60,7 @@ if (count($check_prediction)) {
 
 };
 
-$prediction = array("headers"=>$headers,"prediction"=>$prediction_data);
+$prediction = array("headers"=>$headers,"prediction"=>$prediction_data,"year"=>$period);
 
 # frequency tables
 $frequency_tables = new frequency_tables($prediction['prediction']['dataset'],$pillars,$headers);
