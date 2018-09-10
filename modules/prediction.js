@@ -199,27 +199,40 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				format: [612, 792]
 			});	
 			var doc = new jsPDF('l','mm','legal');
-		
+			
 			//X-axis, Y-axis
 			doc.setFontSize(16)
 			doc.setFont('helvetica');
 			doc.setFontType('bold');
 			doc.text(10, 10, 'Frequency Tables');
 			
-			var frequency = ["Frequency Table","Competitive"];
-
-			var frequency_rows = [];
-				
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(10, 19, 'Economy Dynamism');
+			
+			var frequency = [
+				{title: "Frequency Table", dataKey: "1"},
+				{title: "", dataKey: "2"},
+				{title: "", dataKey: "3"},
+				{title: "Competitive", dataKey: "4"}
+			];
+			var frequency_rows = [
+				{"": "", "3": "Yes","4": "No"},
+				{"1": "Local Economy Size", "2": "Yes"},
+				{"": "", "2": "No"},
+			];
+			
 			doc.autoTable(frequency, frequency_rows,{
 				theme: 'striped',
 				margin: {
-					top: 15, 
+					top: 20, 
 					left: 10 
 				},
 				tableWidth: 500,
 				styles: {
 					lineColor: [75, 75, 75],
-					lineWidth: 0.50,
+					lineWidth: 0.02,
 					cellPadding: 3,
 					overflow: 'linebreak',
 					columnWidth: 'wrap',
