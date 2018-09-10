@@ -93,7 +93,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 							"lengthChange": true,
 							"scrollX": true
 						});
-					}, 4000);
+					}, 1000);
 					$timeout(function() {					
 						$('#table-government').DataTable({
 							"ordering": false,
@@ -101,7 +101,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 							"lengthChange": true,
 							"scrollX": true
 						});
-					}, 4000);	
+					}, 1000);	
 					$timeout(function() {					
 						$('#table-infrastructure').DataTable({
 							"ordering": false,
@@ -109,19 +109,19 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 							"lengthChange": true,
 							"scrollX": true
 						});
-					}, 4000);
-					$timeout(function() {					
+					}, 1000);
+					$timeout(function() {				
 						$('#table-resiliency').DataTable({
 							"ordering": false,
 							"processing": true,
 							"lengthChange": true,
 							"scrollX": true
-						});						
-					}, 4000);
+						});				
+					}, 1000);
 
 					$timeout(function() {
 						bui.hide();
-					},5000);
+					},2000);
 					
 				});					
 				
@@ -152,41 +152,20 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 				$timeout(function() {
 					$compile($('#print-datasets')[0])(scope);
-				}, 500);			
+				}, 500);		
 				
 				// instantiate datable
- 				// $timeout(function() {
-					$('#table-economy').DataTable({
-						"ordering": false,
-						"processing": false,
-						"lengthChange": true,
-						"scrollX": true
-					});
-				// }, 1000);
-				// $timeout(function() {					
-					$('#table-government').DataTable({
-						"ordering": false,
-						"processing": false,
-						"lengthChange": true,
-						"scrollX": true
-					});
-				// }, 1000);	
-				// $timeout(function() {					
-					$('#table-infrastructure').DataTable({
-						"ordering": false,
-						"processing": false,
-						"lengthChange": true,
-						"scrollX": true
-					});
-				// }, 1000);
-				// $timeout(function() {					
-					$('#table-resiliency').DataTable({
-						"ordering": false,
-						"processing": false,
-						"lengthChange": true,
-						"scrollX": true
-					});						
-				// }, 1000);
+				$('table.datasets').DataTable({
+					"ordering": false,
+					"processing": false,
+					"lengthChange": true,
+				});
+				
+ 				$timeout(function() {
+					
+					jQuery('.dataTable').wrap('<div class="dataTables_scroll" />');
+					
+				}, 1000);					
 
 				bui.hide();
 				

@@ -2,12 +2,12 @@
 
 $con = new pdo_db();
 
-$con->table = "datasets";
-$check_dataset = $con->get(array("period"=>"'$period'","top"=>$top));
-if (count($check_dataset)) {
+$con->table = "predictions";
+$check_prediction = $con->get(array("period"=>"'$period'","top"=>$top));
+if (count($check_prediction)) {
 	
-	$dataset_response = $check_dataset[0]['dataset'];
-	$prediction = array("headers"=>$headers,"dataset"=>json_decode($dataset_response,true),"year"=>$period);	
+	$prediction_response = $check_prediction[0]['prediction'];
+	$prediction_data = json_decode($prediction_response,true);
 	
 } else {
 
@@ -53,12 +53,17 @@ if (count($check_dataset)) {
 		$dataset_response = $dataset->get($top);
 	};
 
-	# cache datasets results		
-	$cache_dataset = $con->insertData(array("period"=>$period,"top"=>$top,"dataset"=>json_encode($dataset_response),"system_log"=>"CURRENT_TIMESTAMP"));
+	$prediction_data = array("dataset"=>$dataset_response);
+	# cache prediction results
+	$cache_prediction = $con->insertData(array("period"=>$period,"top"=>$top,"prediction"=>json_encode($prediction_data),"system_log"=>"CURRENT_TIMESTAMP"));
 	#
 
-	$prediction = array("headers"=>$headers,"dataset"=>$dataset_response);
+};
 
-}
+$prediction = array("headers"=>$headers,"prediction"=>$prediction_data);
+
+# frequency tables
+$frequency_tables = new frequency_tables($prediction['prediction']['dataset'],$pillars,$headers);
+$frequencies = $frequency_tables->get_frequency();
 
 ?>
