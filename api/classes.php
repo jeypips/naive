@@ -269,11 +269,11 @@ class frequency_tables {
 		
 		$this->frequencies = [];
 		
-		$this->frequency();
+		$this->process_frequencies();
 		
 	}
 	
-	private function frequency() {		
+	private function process_frequencies() {		
 		
 		# headers
 		$table_headers = array(
@@ -288,9 +288,9 @@ class frequency_tables {
 			$frequency_indicators = [];
 			
 			$data = array(
-				"city"=>array("yes"=>0,"no"=>0),
-				"first_second"=>array("yes"=>0,"no"=>0),
-				"third_fourth"=>array("yes"=>0,"no"=>0),
+				"city"=>array("yes"=>$this->frequency_by_category($pillar,1,"Yes"),"no"=>$this->frequency_by_category($pillar,1,"No")),
+				"first_second"=>array("yes"=>$this->frequency_by_category($pillar,2,"Yes"),"no"=>$this->frequency_by_category($pillar,2,"No")),
+				"third_fourth"=>array("yes"=>$this->frequency_by_category($pillar,3,"Yes"),"no"=>$this->frequency_by_category($pillar,3,"No")),
 			);
 			
 			$frequency_indicators[] = array("indicator"=>"category","header"=>"LGU Category","data"=>$data);
@@ -299,8 +299,8 @@ class frequency_tables {
 				
 				if ($indicator=="total") continue;
 				$data = array(
-					"yes"=>array("yes"=>0,"no"=>0),
-					"no"=>array("yes"=>0,"no"=>0),
+					"yes"=>array("yes"=>$this->frequency_by_indicator($pillar,$indicator,"Yes","Yes"),"no"=>$this->frequency_by_indicator($pillar,$indicator,"Yes","No")),
+					"no"=>array("yes"=>$this->frequency_by_indicator($pillar,$indicator,"No","Yes"),"no"=>$this->frequency_by_indicator($pillar,$indicator,"No","No")),
 				);				
 				$frequency_indicators[] = array("indicator"=>$indicator,"header"=>$this->get_header_description($pillar,$indicator),"data"=>$data);
 
@@ -310,14 +310,10 @@ class frequency_tables {
 			
 		};
 		
-		// echo json_encode($this->frequencies);
-		
-		// exit();
-		
 	}
 	
-	function get_frequency() {
-		
+	function get_frequencies() {
+
 		return $this->frequencies;
 		
 	}
@@ -336,6 +332,36 @@ class frequency_tables {
 		};
 		
 		return $header;
+		
+	}
+	
+	private function frequency_by_category($pillar,$category,$competitive) {
+		
+		$count = 0;
+		
+		foreach ($this->dataset as $lgu) {
+			
+			if ($lgu['cat_no']!=$category) continue;
+			
+			if ($lgu[$pillar]['total']['competitive']==$competitive) $count++;
+			
+		};
+		
+		return $count;
+		
+	}
+	
+	private function frequency_by_indicator($pillar,$indicator,$competitive,$total_competive) {
+		
+		$count = 0;
+		
+		foreach ($this->dataset as $lgu) {
+
+			if ( ($lgu[$pillar][$indicator]['competitive']==$competitive) && ($lgu[$pillar]['total']['competitive']==$total_competive) ) $count++;
+
+		};
+		
+		return $count;		
 		
 	}
 	
