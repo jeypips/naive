@@ -199,27 +199,41 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				format: [612, 792]
 			});	
 			var doc = new jsPDF('l','mm','legal');
-		
+			
 			//X-axis, Y-axis
 			doc.setFontSize(16)
 			doc.setFont('helvetica');
 			doc.setFontType('bold');
 			doc.text(10, 10, 'Frequency Tables');
 			
-			var frequency = ["Frequency Table","Competitive"];
-
-			var frequency_rows = [];
-				
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(10, 18, 'Economy Dynamism');
+			
+			var frequency = [
+				{title: "Frequency Table", dataKey: "1"},
+				{title: "", dataKey: "2"},
+				{title: "Competitive", dataKey: "3"},
+				{title: "", dataKey: "4"}
+			];
+			var frequency_rows = [
+				{"": "","3": "Yes", "4": "No"},
+				{"1": "LGU Category", "2": "City", "3": 100, "4": 25},
+				{"": "", "2": "1st-2nd Class", "3": 125, "4": 0},
+				{"": "", "2": "3rd-4th Class", "3": 115, "4": 10},
+			];
+			
 			doc.autoTable(frequency, frequency_rows,{
 				theme: 'striped',
 				margin: {
-					top: 15, 
+					top: 20, 
 					left: 10 
 				},
 				tableWidth: 500,
 				styles: {
 					lineColor: [75, 75, 75],
-					lineWidth: 0.50,
+					lineWidth: 0.02,
 					cellPadding: 3,
 					overflow: 'linebreak',
 					columnWidth: 'wrap',
@@ -229,13 +243,62 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					halign: 'center',
 					fillColor: [191, 191, 191],
 					textColor: 50,
-					fontSize: 10
+					fontSize: 12
 				},
 				bodyStyles: {
 					halign: 'left',
 					fillColor: [255, 255, 255],
 					textColor: 50,
-					fontSize: 10
+					fontSize: 12
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(10, 83, 'Economy Dynamism');
+			
+			var frequency = [
+				{title: "Frequency Table", dataKey: "1"},
+				{title: "", dataKey: "2"},
+				{title: "Competitive", dataKey: "3"},
+				{title: "", dataKey: "4"}
+			];
+			var frequency_rows = [
+				{"": "", "3": "Yes","4": "No"},
+				{"1": "Local Economy Size", "2": "Yes"},
+				{"": "", "2": "No"},
+			];
+			
+			doc.autoTable(frequency, frequency_rows,{
+				theme: 'striped',
+				margin: {
+					top: 85, 
+					left: 10 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.02,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap',
+					
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 12
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 12
 				},
 				alternateRowStyles: {
 					fillColor: [255, 255, 255]
