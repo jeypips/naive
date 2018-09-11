@@ -13,7 +13,7 @@ if (count($check_prediction)) {
 
 	$categories = array("(1) City","(2) 1st-2nd Class","(3) 3rd-4th Class");
 
-	$cmcis = $con->getData("SELECT cmci.id, lgus.lgu_no, (SELECT provinces.province_description FROM provinces WHERE provinces.province_id = lgus.province) province, (SELECT municipalities.municipality_description FROM municipalities WHERE municipalities.municipality_id = lgus.municipality) lgu, lgus.classification category FROM cmci LEFT JOIN lgus ON cmci.lgu_id = lgus.id WHERE cmci.period_covered = '$period'");
+	$cmcis = $con->getData("SELECT cmci.id, lgus.lgu_no, (SELECT provinces.province_description FROM provinces WHERE provinces.province_id = lgus.province) province, (SELECT municipalities.municipality_description FROM municipalities WHERE municipalities.municipality_id = lgus.municipality) lgu, lgus.classification cat_no, lgus.classification category FROM cmci LEFT JOIN lgus ON cmci.lgu_id = lgus.id WHERE cmci.period_covered = '$period'");
 
 	foreach ($cmcis as $i => $cmci) {
 
@@ -64,6 +64,11 @@ $prediction = array("headers"=>$headers,"prediction"=>$prediction_data);
 
 # frequency tables
 $frequency_tables = new frequency_tables($prediction['prediction']['dataset'],$pillars,$headers);
-$frequencies = $frequency_tables->get_frequency();
+$frequencies = $frequency_tables->get_frequencies();
+
+$prediction['frequency_tables'] = $frequencies;
+
+// echo json_encode($frequencies);
+// exit();
 
 ?>
