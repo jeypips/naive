@@ -368,7 +368,7 @@ $tables['headers'] = array(
 </div>
 <hr>
 
-<h3>Frequency Tables <button class="btn btn-info pull-right" ng-click="app.print(this)">Print</button></h3>
+<h3>Frequency Tables <button id="print-frequency" class="btn btn-info pull-right" ng-click="app.print_frequency(this)">Print</button></h3>
 <div class="clearfix"></div>
 <?php 
 
@@ -405,6 +405,7 @@ $tables['headers'] = array(
 		</div>	
 	</div>
 </div>
+
 <div class="row">
 	<?php
 	
@@ -450,37 +451,62 @@ $tables['headers'] = array(
 		<div class="card">
 			<h4>Economy</h4>
 			<div class="table-bordered">
-				<table class="table" id="predictions">
+				<table class="table">
 					<thead>
 						<tr>
-							<th colspan="2"></th>
-							<th colspan="2"></th>
-							<th colspan="2">Competitive</th>
+							<th rowspan="2" colspan="2">Likelihood Table</th><th colspan="2">Competitive</th>
 						</tr>
 						<tr>
-							<th>Name</th>
-							<th>sam</th>
-							<th>Yes</th>
-							<th>No</th>
-							<th>Yes</th>
-							<th>No</th>
+							<th>Yes</th><th>No</th>
 						</tr>
 					</thead>
-					
 					<tbody>
 						<tr>
-							<td>Sample</td>
-							<td>Sample</td>
-							<td>Sample</td>
-							<td>2</td>
-							<td>8</td>
+							<td rowspan="4">LGU Category</td><td>City</td><td>0/10</td><td>9/115</td><td>9/125</td>
+						</tr>
+						<tr>
+							<td>1st-2nd Class</td><td>9/10</td><td>28/115</td><td>37/125</td>
+						</tr>
+						<tr>
+							<td>3rd-4th Class</td><td>1/10</td><td>78/115</td><td>79/125</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td><td>10/125</td><td>115/125</td><td>&nbsp;</td>
 						</tr>
 					</tbody>
-					
 				</table>
 			</div>
-		</div>
+		</div>	
 	</div>
 </div>
 
-
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<h4>Economy Dynamism</h4>
+			<div class="table-bordered">
+				<table class="table">
+					<thead>
+						<tr>
+							<th rowspan="2" colspan="2">Likelihood Table</th><th colspan="2">Competitive</th>
+						</tr>
+						<tr>
+							<th>Yes</th><th>No</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td rowspan="3">Local Economy Size</td><td>Yes</td><td>0/10</td><td>10/115</td><td>10/125</td>
+						</tr>
+						<tr>
+							<td>No</td><td>10/10</td><td>105/115</td><td>115/125</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td><td>10/125</td><td>115/125</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>	
+	</div>
+</div>
