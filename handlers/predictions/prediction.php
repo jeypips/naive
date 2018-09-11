@@ -66,7 +66,7 @@ $prediction = array("headers"=>$headers,"prediction"=>$prediction_data);
 $frequency_tables = new frequency_tables($prediction['prediction']['dataset'],$pillars,$headers);
 $frequencies = $frequency_tables->get_frequencies();
 
-$prediction['frequency_tables'] = $frequencies;
+$prediction['prediction']['frequency_tables'] = $frequencies;
 
 // echo json_encode($frequencies);
 // exit();

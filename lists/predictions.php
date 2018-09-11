@@ -372,7 +372,7 @@ $tables['headers'] = array(
 <div class="clearfix"></div>
 <?php 
 
-	foreach($frequencies as $i => $frequency) {
+	foreach($prediction['prediction']['frequency_tables'] as $i => $frequency) {
 		
 ?>
 <div class="row">
