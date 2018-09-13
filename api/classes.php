@@ -269,11 +269,11 @@ class frequency_tables {
 		
 		$this->frequencies = [];
 		
-		$this->frequency();
+		$this->process_frequencies();
 		
 	}
 	
-	private function frequency() {		
+	private function process_frequencies() {		
 		
 		# headers
 		$table_headers = array(
@@ -288,9 +288,9 @@ class frequency_tables {
 			$frequency_indicators = [];
 			
 			$data = array(
-				"city"=>array("yes"=>0,"no"=>0),
-				"first_second"=>array("yes"=>0,"no"=>0),
-				"third_fourth"=>array("yes"=>0,"no"=>0),
+				"city"=>array("yes"=>$this->frequency_by_category($pillar,1,"Yes"),"no"=>$this->frequency_by_category($pillar,1,"No")),
+				"first_second"=>array("yes"=>$this->frequency_by_category($pillar,2,"Yes"),"no"=>$this->frequency_by_category($pillar,2,"No")),
+				"third_fourth"=>array("yes"=>$this->frequency_by_category($pillar,3,"Yes"),"no"=>$this->frequency_by_category($pillar,3,"No")),
 			);
 			
 			$frequency_indicators[] = array("indicator"=>"category","header"=>"LGU Category","data"=>$data);
@@ -299,8 +299,8 @@ class frequency_tables {
 				
 				if ($indicator=="total") continue;
 				$data = array(
-					"yes"=>array("yes"=>0,"no"=>0),
-					"no"=>array("yes"=>0,"no"=>0),
+					"yes"=>array("yes"=>$this->frequency_by_indicator($pillar,$indicator,"Yes","Yes"),"no"=>$this->frequency_by_indicator($pillar,$indicator,"Yes","No")),
+					"no"=>array("yes"=>$this->frequency_by_indicator($pillar,$indicator,"No","Yes"),"no"=>$this->frequency_by_indicator($pillar,$indicator,"No","No")),
 				);				
 				$frequency_indicators[] = array("indicator"=>$indicator,"header"=>$this->get_header_description($pillar,$indicator),"data"=>$data);
 
@@ -310,14 +310,10 @@ class frequency_tables {
 			
 		};
 		
-		// echo json_encode($this->frequencies);
-		
-		// exit();
-		
 	}
 	
-	function get_frequency() {
-		
+	function get_frequencies() {
+
 		return $this->frequencies;
 		
 	}
@@ -338,6 +334,183 @@ class frequency_tables {
 		return $header;
 		
 	}
+	
+	private function frequency_by_category($pillar,$category,$competitive) {
+		
+		$count = 0;
+		
+		foreach ($this->dataset as $lgu) {
+			
+			if ($lgu['cat_no']!=$category) continue;
+			
+			if ($lgu[$pillar]['total']['competitive']==$competitive) $count++;
+			
+		};
+		
+		return $count;
+		
+	}
+	
+	private function frequency_by_indicator($pillar,$indicator,$competitive,$total_competive) {
+		
+		$count = 0;
+		
+		foreach ($this->dataset as $lgu) {
+
+			if ( ($lgu[$pillar][$indicator]['competitive']==$competitive) && ($lgu[$pillar]['total']['competitive']==$total_competive) ) $count++;
+
+		};
+		
+		return $count;		
+		
+	}
+	
+};
+
+class likelihood_tables {
+	
+	var $dataset;
+	var $pillars_indicators; # pillars indicators structure
+	var $likelihoods;
+	var $headers;
+	var $total_lgus;
+	
+	function __construct($dataset,$pillars_indicators,$headers) {
+		
+		$this->dataset = $dataset;		
+		$this->pillars_indicators = $pillars_indicators;	
+		$this->headers = $headers;	
+		
+		$this->total_lgus = count($dataset);		
+		
+		$this->likelihoods = [];
+		
+		$this->process_likelihoods();
+		
+	}
+	
+	private function process_likelihoods() {		
+		
+		# headers
+		$table_headers = array(
+			"economy"=>"Economic Dynamism",
+			"government_efficiency"=>"Government Efficiency",
+			"infrastructure"=>"Infrastructure",
+			"resiliency"=>"Resiliency",
+		);
+		
+		foreach ($this->pillars_indicators as $pillar => $indicators) {
+
+			$likelihood_indicators = [];
+			
+			$data = array(
+				"city"=>array("yes"=>$this->likelihood_by_category($pillar,1,"Yes")."/".$this->likelihood_by_category_total($pillar,0,"Yes"),"no"=>$this->likelihood_by_category($pillar,1,"No")."/".$this->likelihood_by_category_total($pillar,0,"No"),"total"=>((string)($this->likelihood_by_category_total($pillar,1,"Yes")+$this->likelihood_by_category_total($pillar,1,"No")))."/".$this->total_lgus),
+				"first_second"=>array("yes"=>$this->likelihood_by_category($pillar,2,"Yes")."/".$this->likelihood_by_category_total($pillar,0,"Yes"),"no"=>$this->likelihood_by_category($pillar,2,"No")."/".$this->likelihood_by_category_total($pillar,0,"No"),"total"=>((string)($this->likelihood_by_category_total($pillar,2,"Yes")+$this->likelihood_by_category_total($pillar,2,"No")))."/".$this->total_lgus),
+				"third_fourth"=>array("yes"=>$this->likelihood_by_category($pillar,3,"Yes")."/".$this->likelihood_by_category_total($pillar,0,"Yes"),"no"=>$this->likelihood_by_category($pillar,3,"No")."/".$this->likelihood_by_category_total($pillar,0,"No"),"total"=>((string)($this->likelihood_by_category_total($pillar,3,"Yes")+$this->likelihood_by_category_total($pillar,3,"No")))."/".$this->total_lgus),
+				"total"=>array("yes"=>$this->likelihood_by_category_total($pillar,0,"Yes")."/".$this->total_lgus,"no"=>$this->likelihood_by_category_total($pillar,0,"No")."/".$this->total_lgus),
+			);
+			
+			$likelihood_indicators[] = array("indicator"=>"category","header"=>"LGU Category","data"=>$data);
+			
+			foreach ($indicators as $indicator) {
+				
+				if ($indicator=="total") continue;
+				$data = array(
+					"yes"=>array("yes"=>$this->likelihood_by_indicator($pillar,$indicator,"Yes","Yes"),"no"=>$this->likelihood_by_indicator($pillar,$indicator,"Yes","No")),
+					"no"=>array("yes"=>$this->likelihood_by_indicator($pillar,$indicator,"No","Yes"),"no"=>$this->likelihood_by_indicator($pillar,$indicator,"No","No")),
+				);				
+				$likelihood_indicators[] = array("indicator"=>$indicator,"header"=>$this->get_header_description($pillar,$indicator),"data"=>$data);
+
+			};		
+			
+			$this->likelihoods[] = array("header"=>$table_headers[$pillar],"indicators"=>$likelihood_indicators);
+			
+		};
+		
+	}
+	
+	function get_likelihoods() {
+
+		return $this->likelihoods;
+		
+	}
+	
+	private function get_header_description($pillar,$indicator) {
+		
+		$header = "";
+		
+		foreach ($this->headers[$pillar] as $h) {
+
+			if ($h['indicator'] == $indicator) {
+				if ( ($h['header']=="Rank Value") || ($h['header']=="Competitive") ) continue;				
+				$header = $h['header'];
+			};
+			
+		};
+		
+		return $header;
+		
+	}
+	
+	private function likelihood_by_category($pillar,$category,$competitive) {
+		
+		$count = 0;
+		
+		foreach ($this->dataset as $lgu) {
+			
+			if ($lgu['cat_no']!=$category) continue;
+			
+			if ($lgu[$pillar]['total']['competitive']==$competitive) $count++;
+			
+		};
+		
+		return $count;
+		
+	}
+	
+	private function likelihood_by_category_total($pillar,$category,$competitive) {
+		
+		$total = 0;
+		
+		foreach ($this->dataset as $lgu) {
+			
+			if ($category>0) if ($lgu['cat_no']!=$category) continue;
+			
+			if ($lgu[$pillar]['total']['competitive']==$competitive) $total++;
+			
+		};
+		
+		return $total;
+		
+	}	
+	
+	private function likelihood_by_indicator($pillar,$indicator,$competitive,$total_competive) {
+		
+		$count = 0;
+		
+		foreach ($this->dataset as $lgu) {
+
+			if ( ($lgu[$pillar][$indicator]['competitive']==$competitive) && ($lgu[$pillar]['total']['competitive']==$total_competive) ) $count++;
+
+		};
+		
+		return $count;		
+		
+	}
+	
+	private function likelihood_by_indicator_total($pillar,$indicator,$competitive,$total_competive) {
+		
+		$total = 0;
+		
+		foreach ($this->dataset as $lgu) {
+
+			if ( ($lgu[$pillar][$indicator]['competitive']==$competitive) && ($lgu[$pillar]['total']['competitive']==$total_competive) ) $total++;
+
+		};
+		
+		return $total;		
+		
+	}	
 	
 };
 

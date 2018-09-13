@@ -188,10 +188,15 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 
 				print_frequency(response.data);
 			
+			}, function error() {
+				
 			});
+			
 		};
 		
 		function print_frequency(prediction) {			
+			
+			// console.log(prediction.prediction.frequency_tables);
 			
 			var doc = new jsPDF({
 				orientation: 'landscape',
@@ -204,60 +209,174 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			doc.setFontSize(16)
 			doc.setFont('helvetica');
 			doc.setFontType('bold');
-			doc.text(10, 10, 'Frequency Tables');
+			doc.text(10, 10, 'Frequency Tables '+prediction.year);
+
+			/*
+			**	category
+			*/
 			
-			doc.setFontSize(12)
-			doc.setFont('helvetica');
-			doc.setFontType('normal');
-			doc.text(10, 19, 'Economy Dynamism');
-			
-			var frequency = [
-				{title: "Frequency Table", dataKey: "1"},
-				{title: "", dataKey: "2"},
-				{title: "", dataKey: "3"},
-				{title: "Competitive", dataKey: "4"}
-			];
-			var frequency_rows = [
-				{"": "", "3": "Yes","4": "No"},
-				{"1": "Local Economy Size", "2": "Yes"},
-				{"": "", "2": "No"},
-			];
-			
-			doc.autoTable(frequency, frequency_rows,{
-				theme: 'striped',
-				margin: {
-					top: 20, 
-					left: 10 
-				},
-				tableWidth: 500,
-				styles: {
-					lineColor: [75, 75, 75],
-					lineWidth: 0.02,
-					cellPadding: 3,
-					overflow: 'linebreak',
-					columnWidth: 'wrap',
+			angular.forEach(prediction.prediction.frequency_tables, function(frequency,i) {				
+				
+				if (i>0) doc.addPage();
+				
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(10, 18, frequency.header);
+				
+				var frequency_header = [
+					{title: "Frequency Table", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "Competitive", dataKey: "3"},
+					{title: "", dataKey: "4"}
+				];
+				var frequency_rows = [
+					{"": "","3": "Yes", "4": "No"},
+					{"1": "LGU Category", "2": "City", "3": frequency.indicators[0].data.city.yes, "4": frequency.indicators[0].data.city.no},
+					{"": "", "2": "1st-2nd Class", "3": frequency.indicators[0].data.first_second.yes, "4": frequency.indicators[0].data.first_second.no},
+					{"": "", "2": "3rd-4th Class", "3": frequency.indicators[0].data.third_fourth.yes, "4": frequency.indicators[0].data.third_fourth.no},
+				];			
+				
+				doc.autoTable(frequency_header, frequency_rows,{
+					theme: 'striped',
+					margin: {
+						top: 20, 
+						left: 10 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 12
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 12
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+				
+				/*
+				**	indicators
+				*/
+				angular.forEach(frequency.indicators, function(indicator,key) {
 					
-				},
-				headerStyles: {
-					halign: 'center',
-					fillColor: [191, 191, 191],
-					textColor: 50,
-					fontSize: 10
-				},
-				bodyStyles: {
-					halign: 'left',
-					fillColor: [255, 255, 255],
-					textColor: 50,
-					fontSize: 10
-				},
-				alternateRowStyles: {
-					fillColor: [255, 255, 255]
-				}
+					if (key==0) return;
+					
+					// console.log(indicator.data);
+					
+					/* doc.setFontSize(12)
+					doc.setFont('helvetica');
+					doc.setFontType('normal');
+					doc.text(10, 83, 'Economy Dynamism');	 */		
+					
+					var frequency_header = [
+						{title: "Frequency Table", dataKey: "1"},
+						{title: "", dataKey: "2"},
+						{title: "Competitive", dataKey: "3"},
+						{title: "", dataKey: "4"}
+					];
+					var frequency_rows = [
+						{"": "", "3": "Yes", "4": "No"},
+						{"1": indicator.header,"2": "Yes","3": indicator.data.yes.yes, "4": indicator.data.yes.no},
+						{"": "", "2": "No","3": indicator.data.no.yes, "4": indicator.data.no.no}
+					];
+					
+					var top = 20;
+					var left = 130;
+					
+					// key = 1,2
+					if (key>1) left+=115;
+					
+					if (key>=3) {
+						top = 85;
+						left = 10;
+					};
+					if (key==4) left+=115;
+					if (key==5) left+=230;
+					
+					if (key>=6) {
+						top = 140;
+						left = 10;
+					};
+					
+					if (key==7) left+=115;
+					if (key==8) left+=230;
+					
+					if(key==9) {
+						top = 20;
+						left = 10;
+						doc.addPage();
+					};
+					
+					if(key==10) {
+						top = 20;
+						left = 130;
+					};
+							
+					doc.autoTable(frequency_header, frequency_rows,{
+						theme: 'striped',
+						margin: {
+							top: top, 
+							left: left 
+						},
+						tableWidth: 500,
+						styles: {
+							lineColor: [75, 75, 75],
+							lineWidth: 0.02,
+							cellPadding: 3,
+							overflow: 'linebreak',
+							columnWidth: 'wrap',
+						},
+						columnStyles: {
+							1: {columnWidth: 48},
+							2: {columnWidth: 15},
+							3: {columnWidth: 30},
+							4: {columnWidth: 15}
+						},
+						headerStyles: {
+							halign: 'center',
+							fillColor: [191, 191, 191],
+							textColor: 50,
+							fontSize: 12
+						},
+						bodyStyles: {
+							halign: 'left',
+							fillColor: [255, 255, 255],
+							textColor: 50,
+							fontSize: 12
+						},
+						alternateRowStyles: {
+							fillColor: [255, 255, 255]
+						}
+					});			
+				
+				});
+				/*
+				**
+				*/
+			
+			/*
+			** end category
+			*/
+			
 			});
 			
 			var blob = doc.output('blob');
 			window.open(URL.createObjectURL(blob));
-		
 		
 		};
 		
