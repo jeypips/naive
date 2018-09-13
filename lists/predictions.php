@@ -444,7 +444,7 @@ $tables['headers'] = array(
 <?php };?>
 <hr>
 
-<h3>Likelihood Tables <button class="btn btn-info pull-right" ng-click="app.print(this)">Print</button></h3>
+<h3>Likelihood Tables <button id="print-likelihood" class="btn btn-info pull-right" ng-click="app.print_likelihood(this)">Print</button></h3>
 <div class="clearfix"></div>
 <div class="row">
 	<div class="col-lg-12">
