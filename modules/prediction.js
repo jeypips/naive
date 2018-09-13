@@ -209,7 +209,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			doc.setFontSize(16)
 			doc.setFont('helvetica');
 			doc.setFontType('bold');
-			doc.text(10, 10, 'Frequency Tables');
+			doc.text(10, 10, 'Frequency Tables '+prediction.year);
 
 			/*
 			**	category
@@ -233,8 +233,8 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				var frequency_rows = [
 					{"": "","3": "Yes", "4": "No"},
 					{"1": "LGU Category", "2": "City", "3": frequency.indicators[0].data.city.yes, "4": frequency.indicators[0].data.city.no},
-					{"": "", "2": "1st-2nd Class", "3": 125, "4": 0},
-					{"": "", "2": "3rd-4th Class", "3": 115, "4": 10},
+					{"": "", "2": "1st-2nd Class", "3": frequency.indicators[0].data.first_second.yes, "4": frequency.indicators[0].data.first_second.no},
+					{"": "", "2": "3rd-4th Class", "3": frequency.indicators[0].data.third_fourth.yes, "4": frequency.indicators[0].data.third_fourth.no},
 				];			
 				
 				doc.autoTable(frequency_header, frequency_rows,{
@@ -276,7 +276,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					
 					if (key==0) return;
 					
-					console.log(indicator.data);
+					// console.log(indicator.data);
 					
 					/* doc.setFontSize(12)
 					doc.setFont('helvetica');
@@ -290,16 +290,48 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 						{title: "", dataKey: "4"}
 					];
 					var frequency_rows = [
-						{"": "", "3": "Yes","4": "No"},
-						{"1": "Local Economy Size", "2": "Yes"},
-						{"": "", "2": "No"},
+						{"": "", "3": "Yes", "4": "No"},
+						{"1": indicator.header,"2": "Yes","3": indicator.data.yes.yes, "4": indicator.data.yes.no},
+						{"": "", "2": "No","3": indicator.data.no.yes, "4": indicator.data.no.no}
 					];
 					
+					var top = 20;
+					var left = 130;
+					
+					// key = 1,2
+					if (key>1) left+=115;
+					
+					if (key>=3) {
+						top = 85;
+						left = 10;
+					};
+					if (key==4) left+=115;
+					if (key==5) left+=230;
+					
+					if (key>=6) {
+						top = 140;
+						left = 10;
+					};
+					
+					if (key==7) left+=115;
+					if (key==8) left+=230;
+					
+					if(key==9) {
+						top = 20;
+						left = 10;
+						doc.addPage();
+					};
+					
+					if(key==10) {
+						top = 20;
+						left = 130;
+					};
+							
 					doc.autoTable(frequency_header, frequency_rows,{
 						theme: 'striped',
 						margin: {
-							top: 85, 
-							left: 10 
+							top: top, 
+							left: left 
 						},
 						tableWidth: 500,
 						styles: {
@@ -308,7 +340,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 							cellPadding: 3,
 							overflow: 'linebreak',
 							columnWidth: 'wrap',
-							
+						},
+						columnStyles: {
+							1: {columnWidth: 48},
+							2: {columnWidth: 15},
+							3: {columnWidth: 30},
+							4: {columnWidth: 15}
 						},
 						headerStyles: {
 							halign: 'center',
