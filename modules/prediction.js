@@ -158,6 +158,10 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					$compile($('#print-frequency')[0])(scope);
 				}, 500);
 				
+				$timeout(function() {
+					$compile($('#print-likelihood')[0])(scope);
+				}, 500);
+				
 				// instantiate datable
 				$('table.datasets').DataTable({
 					"ordering": false,
@@ -175,6 +179,43 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 			});
 			
+		};
+		
+		//print likelihood tables
+		self.print_likelihood = function(scope) {
+			
+			$http({
+			method: 'POST',
+			url: 'api/prediction.php',
+			data: scope.filter.prediction
+			}).then(function success(response) {
+
+				print_likelihood(response.data);
+			
+			}, function error() {
+				
+			});
+			
+		};
+		
+		function print_likelihood(prediction) {			
+			
+			var doc = new jsPDF({
+				orientation: 'landscape',
+				unit: 'pt',
+				format: [612, 792]
+			});	
+			var doc = new jsPDF('l','mm','legal');
+			
+			//X-axis, Y-axis
+			doc.setFontSize(16)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(10, 10, 'Likelihood Tables '+prediction.year);
+			
+			var blob = doc.output('blob');
+			window.open(URL.createObjectURL(blob));
+		
 		};
 		
 		//print frequency tables
