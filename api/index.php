@@ -60,17 +60,7 @@ $app->get('/datasets/{period}', function (Request $request, Response $response, 
 	
 	$dataset = new dataset($cmcis,$pillars);
 	
-    // return $response->withJson($cmcis);
-	// $dataset->get(10);
-	// $dataset->ranks(10);
-	// $dataset->rank_values();
-	// $dataset->actual_values_min_max();
     return $response->withJson($dataset->get(10));
-    // return $response->withJson($dataset->ranks(10));
-    // return $response->withJson($dataset->get_rank_values());
-	
-	// total
-	// resolve ties
 
 });
 
