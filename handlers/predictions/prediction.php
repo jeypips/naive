@@ -68,7 +68,11 @@ $frequencies = $frequency_tables->get_frequencies();
 
 $prediction['prediction']['frequency_tables'] = $frequencies;
 
-// echo json_encode($frequencies);
-// exit();
+# likelihood tables
+$likelihood_tables = new likelihood_tables($prediction['prediction']['dataset'],$pillars,$headers);
+$likelihoods = $likelihood_tables->get_likelihoods();
+
+echo json_encode($likelihoods[0]);
+exit();
 
 ?>
