@@ -404,10 +404,10 @@ class likelihood_tables {
 			$likelihood_indicators = [];
 			
 			$data = array(
-				"city"=>array("yes"=>$this->likelihood_by_category($pillar,1,"Yes")."/".$this->likelihood_by_category_total($pillar,0,"Yes"),"no"=>$this->likelihood_by_category($pillar,1,"No")."/".$this->likelihood_by_category_total($pillar,0,"No"),"total"=>((string)($this->likelihood_by_category_total($pillar,1,"Yes")+$this->likelihood_by_category_total($pillar,1,"No")))."/".$this->total_lgus),
-				"first_second"=>array("yes"=>$this->likelihood_by_category($pillar,2,"Yes")."/".$this->likelihood_by_category_total($pillar,0,"Yes"),"no"=>$this->likelihood_by_category($pillar,2,"No")."/".$this->likelihood_by_category_total($pillar,0,"No"),"total"=>((string)($this->likelihood_by_category_total($pillar,2,"Yes")+$this->likelihood_by_category_total($pillar,2,"No")))."/".$this->total_lgus),
-				"third_fourth"=>array("yes"=>$this->likelihood_by_category($pillar,3,"Yes")."/".$this->likelihood_by_category_total($pillar,0,"Yes"),"no"=>$this->likelihood_by_category($pillar,3,"No")."/".$this->likelihood_by_category_total($pillar,0,"No"),"total"=>((string)($this->likelihood_by_category_total($pillar,3,"Yes")+$this->likelihood_by_category_total($pillar,3,"No")))."/".$this->total_lgus),
-				"total"=>array("yes"=>$this->likelihood_by_category_total($pillar,0,"Yes")."/".$this->total_lgus,"no"=>$this->likelihood_by_category_total($pillar,0,"No")."/".$this->total_lgus),
+				"city"=>array("yes"=>$this->likelihood_by_category($pillar,1,"Yes")."/".$this->likelihood_by_category_total($pillar,"Yes"),"no"=>$this->likelihood_by_category($pillar,1,"No")."/".$this->likelihood_by_category_total($pillar,"No"),"total"=>((string)($this->likelihood_by_category($pillar,1,"Yes")+$this->likelihood_by_category($pillar,1,"No")))."/".$this->total_lgus),
+				"first_second"=>array("yes"=>$this->likelihood_by_category($pillar,2,"Yes")."/".$this->likelihood_by_category_total($pillar,"Yes"),"no"=>$this->likelihood_by_category($pillar,2,"No")."/".$this->likelihood_by_category_total($pillar,"No"),"total"=>((string)($this->likelihood_by_category($pillar,2,"Yes")+$this->likelihood_by_category($pillar,2,"No")))."/".$this->total_lgus),
+				"third_fourth"=>array("yes"=>$this->likelihood_by_category($pillar,3,"Yes")."/".$this->likelihood_by_category_total($pillar,"Yes"),"no"=>$this->likelihood_by_category($pillar,3,"No")."/".$this->likelihood_by_category_total($pillar,"No"),"total"=>((string)($this->likelihood_by_category($pillar,3,"Yes")+$this->likelihood_by_category($pillar,3,"No")))."/".$this->total_lgus),
+				"total"=>array("yes"=>$this->likelihood_by_category_total($pillar,"Yes")."/".$this->total_lgus,"no"=>$this->likelihood_by_category_total($pillar,"No")."/".$this->total_lgus),
 			);
 			
 			$likelihood_indicators[] = array("indicator"=>"category","header"=>"LGU Category","data"=>$data);
@@ -416,8 +416,9 @@ class likelihood_tables {
 				
 				if ($indicator=="total") continue;
 				$data = array(
-					"yes"=>array("yes"=>$this->likelihood_by_indicator($pillar,$indicator,"Yes","Yes"),"no"=>$this->likelihood_by_indicator($pillar,$indicator,"Yes","No")),
-					"no"=>array("yes"=>$this->likelihood_by_indicator($pillar,$indicator,"No","Yes"),"no"=>$this->likelihood_by_indicator($pillar,$indicator,"No","No")),
+					"yes"=>array("yes"=>$this->likelihood_by_indicator($pillar,$indicator,"Yes","Yes")."/".$this->likelihood_by_indicator_total($pillar,$indicator,"Yes"),"no"=>$this->likelihood_by_indicator($pillar,$indicator,"Yes","No")."/".$this->likelihood_by_indicator_total($pillar,$indicator,"No"),"total"=>((string)($this->likelihood_by_indicator($pillar,$indicator,"Yes","Yes")+$this->likelihood_by_indicator($pillar,$indicator,"Yes","No")))."/".$this->total_lgus),
+					"no"=>array("yes"=>$this->likelihood_by_indicator($pillar,$indicator,"No","Yes")."/".$this->likelihood_by_indicator_total($pillar,$indicator,"Yes"),"no"=>$this->likelihood_by_indicator($pillar,$indicator,"No","No")."/".$this->likelihood_by_indicator_total($pillar,$indicator,"No"),"total"=>((string)($this->likelihood_by_indicator($pillar,$indicator,"No","Yes")+$this->likelihood_by_indicator($pillar,$indicator,"No","No")))."/".$this->total_lgus),
+					"total"=>array("yes"=>$this->likelihood_by_indicator_total($pillar,$indicator,"Yes")."/".$this->total_lgus,"no"=>$this->likelihood_by_indicator_total($pillar,$indicator,"No")."/".$this->total_lgus),
 				);				
 				$likelihood_indicators[] = array("indicator"=>$indicator,"header"=>$this->get_header_description($pillar,$indicator),"data"=>$data);
 
@@ -468,13 +469,11 @@ class likelihood_tables {
 		
 	}
 	
-	private function likelihood_by_category_total($pillar,$category,$competitive) {
+	private function likelihood_by_category_total($pillar,$competitive) {
 		
 		$total = 0;
 		
 		foreach ($this->dataset as $lgu) {
-			
-			if ($category>0) if ($lgu['cat_no']!=$category) continue;
 			
 			if ($lgu[$pillar]['total']['competitive']==$competitive) $total++;
 			
@@ -498,13 +497,14 @@ class likelihood_tables {
 		
 	}
 	
-	private function likelihood_by_indicator_total($pillar,$indicator,$competitive,$total_competive) {
+	private function likelihood_by_indicator_total($pillar,$indicator,$total_competive) {
 		
 		$total = 0;
 		
 		foreach ($this->dataset as $lgu) {
 
-			if ( ($lgu[$pillar][$indicator]['competitive']==$competitive) && ($lgu[$pillar]['total']['competitive']==$total_competive) ) $total++;
+			// if ( ($lgu[$pillar][$indicator]['competitive']==$competitive) && ($lgu[$pillar]['total']['competitive']==$total_competive) ) $total++;
+			if ($lgu[$pillar]['total']['competitive']==$total_competive) $total++;
 
 		};
 		
