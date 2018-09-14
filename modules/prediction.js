@@ -213,6 +213,176 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			doc.setFontType('bold');
 			doc.text(10, 10, 'Likelihood Tables '+prediction.year);
 			
+			angular.forEach(prediction.prediction.likelihood_tables, function(likelihood,i) {				
+				
+				if (i>0) doc.addPage();
+				
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(10, 18, likelihood.header);
+				
+				var likelihood_header = [
+					{title: "Likelihood Table", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "Competitive", dataKey: "3"},
+					{title: "", dataKey: "4"},
+					{title: "", dataKey: "5"}
+				];
+				var likelihood_rows = [
+					{"3": "Yes", "4": "No"},
+					{"1": "LGU Category", "2": "City", "3": likelihood.indicators[0].data.city.yes, "4": likelihood.indicators[0].data.city.no, "5": likelihood.indicators[0].data.city.total},
+					{"2": "1st-2nd Class", "3": likelihood.indicators[0].data.first_second.yes, "4": likelihood.indicators[0].data.first_second.no, "5": likelihood.indicators[0].data.first_second.total},
+					{"2": "3rd-4th Class", "3": likelihood.indicators[0].data.third_fourth.yes, "4": likelihood.indicators[0].data.third_fourth.no, "5": likelihood.indicators[0].data.third_fourth.total},
+					{"3": likelihood.indicators[0].data.total.yes, "4": likelihood.indicators[0].data.total.no},
+				];			
+				
+				doc.autoTable(likelihood_header, likelihood_rows,{
+					theme: 'striped',
+					margin: {
+						top: 20, 
+						left: 10 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 12
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 12
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+				
+				/*
+				**	indicators
+				*/
+				angular.forEach(likelihood.indicators, function(indicator,key) {
+					
+					if (key==0) return;
+					
+					// console.log(indicator.data);
+					
+					/* doc.setFontSize(12)
+					doc.setFont('helvetica');
+					doc.setFontType('normal');
+					doc.text(10, 83, 'Economy Dynamism');	 */		
+					
+					var likelihood_header = [
+						{title: "Likelihood Table", dataKey: "1"},
+						{title: "", dataKey: "2"},
+						{title: "Competitive", dataKey: "3"},
+						{title: "", dataKey: "4"},
+						{title: "", dataKey: "5"}
+					];
+					var likelihood_rows = [
+						{"3": "Yes", "4": "No"},
+						{"1": indicator.header,"2": "Yes","3": indicator.data.yes.yes, "4": indicator.data.yes.no, "5": "10/125"},
+						{"2": "No","3": indicator.data.no.yes, "4": indicator.data.no.no, "5": "115/125"},
+						{"3": "10/10", "4": "115/115"}
+					];
+					
+					var top = 20;
+					var left = 160;
+					
+					// key = 1,2
+					if (key>1) left+=160;
+					
+					if (key>=2) {
+						top = 90;
+						left = 10;
+					};
+					
+					if (key==3) left+=150;
+					// if (key==4) left+=230;
+					
+					if (key>=4) {
+						top = 150;
+						left = 10;
+					};
+					if (key==5) left+=150;
+					
+					if (key>=6) {
+						top = 150;
+						left = 10;
+						doc.addPage();
+					};
+					if (key==5) left+=150;
+					
+					if(key==8) {
+						top = 20;
+						left = 10;
+						doc.addPage();
+					};
+					
+					if(key==9) {
+						top = 20;
+						left = 130;
+					};
+							
+					doc.autoTable(likelihood_header, likelihood_rows,{
+						theme: 'striped',
+						margin: {
+							top: top, 
+							left: left 
+						},
+						tableWidth: 500,
+						styles: {
+							lineColor: [75, 75, 75],
+							lineWidth: 0.02,
+							cellPadding: 3,
+							overflow: 'linebreak',
+							columnWidth: 'wrap',
+						},
+						columnStyles: {
+							1: {columnWidth: 48},
+							2: {columnWidth: 15},
+							3: {columnWidth: 30},
+							4: {columnWidth: 25}
+						},
+						headerStyles: {
+							halign: 'center',
+							fillColor: [191, 191, 191],
+							textColor: 50,
+							fontSize: 10
+						},
+						bodyStyles: {
+							halign: 'left',
+							fillColor: [255, 255, 255],
+							textColor: 50,
+							fontSize: 10
+						},
+						alternateRowStyles: {
+							fillColor: [255, 255, 255]
+						}
+					});			
+				
+				});
+				/*
+				**
+				*/
+			
+			/*
+			** end category
+			*/
+			
+			});
+			
 			var blob = doc.output('blob');
 			window.open(URL.createObjectURL(blob));
 		

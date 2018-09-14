@@ -11,29 +11,33 @@
 					</div><hr>
 					<div class="row">
 						<div class="col-lg-4">
-							<div class="form-group">
+							<div class="form-group" ng-class="{'has-error': formHolder.lgu.lgu_no.$touched && formHolder.lgu.lgu_no.$invalid}">
 								<label class="col-form-label">No <span class="text-danger">*</span></label>
-								<input type="number" class="form-control" name="lgu_no" ng-model="lgu.lgu_no" ng-disabled="btns.ok.disabled">
+								<input type="number" class="form-control" name="lgu_no" ng-model="lgu.lgu_no" ng-disabled="btns.ok.disabled" required>
+								<span class="help-block text-danger" ng-show="formHolder.lgu.lgu_no.$touched && formHolder.lgu.lgu_no.$invalid">This field is required</span>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-4">
-							<div class="form-group">
+							<div class="form-group" ng-class="{'has-error': formHolder.lgu.province.$touched && formHolder.lgu.province.$invalid}">
 								<label class="col-form-label">Province <span class="text-danger">*</span></label>
-								<select class="form-control" name="province" ng-model="lgu.province" ng-options="province.province_description for province in provinces track by province.province_id" ng-change="app.checkProvince(this,lgu.province)" ng-disabled="btns.ok.disabled"></select>
+								<select class="form-control" name="province" ng-model="lgu.province" ng-options="province.province_description for province in provinces track by province.province_id" ng-change="app.checkProvince(this,lgu.province)" ng-disabled="btns.ok.disabled" required></select>
+								<span class="help-block text-danger" ng-show="formHolder.lgu.province.$touched && formHolder.lgu.province.$invalid">This field is required</span>
 							</div>
 						</div>
 						<div class="col-lg-4">
-							<div class="form-group">
+							<div class="form-group" ng-class="{'has-error': formHolder.lgu.municipality.$touched && formHolder.lgu.municipality.$invalid}">
 								<label class="col-form-label">Municipality <span class="text-danger">*</span></label>
-								<select class="form-control" name="municipality" ng-model="lgu.municipality" ng-options="municipality.municipality_description for municipality in municipalities track by municipality.municipality_id" ng-disabled="btns.ok.disabled"></select>
+								<select class="form-control" name="municipality" ng-model="lgu.municipality" ng-options="municipality.municipality_description for municipality in municipalities track by municipality.municipality_id" ng-disabled="btns.ok.disabled" required></select>
+								<span class="help-block text-danger" ng-show="formHolder.lgu.municipality.$touched && formHolder.lgu.municipality.$invalid">This field is required</span>
 							</div>
 						</div>
 						<div class="col-lg-4">
-							<div class="form-group">
+							<div class="form-group" ng-class="{'has-error': formHolder.lgu.classification.$touched && formHolder.lgu.classification.$invalid}">
 								<label class="col-form-label">Category <span class="text-danger">*</span></label>
-								<select class="form-control" name="classification" ng-model="lgu.classification" ng-options="cat.description for cat in categories track by cat.id" ng-disabled="btns.ok.disabled"></select>
+								<select class="form-control" name="classification" ng-model="lgu.classification" ng-options="cat.description for cat in categories track by cat.id" ng-disabled="btns.ok.disabled" required></select>
+								<span class="help-block text-danger" ng-show="formHolder.lgu.classification.$touched && formHolder.lgu.classification.$invalid">This field is required</span>
 							</div>
 						</div>
 					</div>
@@ -42,7 +46,7 @@
 			<div class="col-lg-12">
 				<div class="row">
 					<button class="btn btn-outline-secondary" ng-click="app.cancel(this)" style="margin-right: 5px;">{{btns.cancel.label}}</button>
-					<button class="btn btn-info" ng-click="app.save(this)">{{btns.ok.label}}</button>
+					<button class="btn btn-info" ng-click="app.save(this)" id="toastr-success-top-right">{{btns.ok.label}}</button>
 				</div>
 			</div>
 		</div>
