@@ -172,7 +172,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		self.save = function(scope) {
 
 			if (validate.form(scope,'lgu')) {
-				growl.show('danger',{from: 'top', amount: 55},'Some fields are required');				
+				growl.show('danger',{from: 'top', amount: 55},'Some fields are required');			
 				return;
 			};
 

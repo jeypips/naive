@@ -42,20 +42,20 @@ if (isset($_SESSION['id'])) header("location: index.html");
         <div class="unix-login">
             <div class="container-fluid">
                 <div class="row justify-content-center">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" style="margin-top: -50px;">
                         <div class="login-content card">
+							<center><span>Login</span></center>
                             <div class="login-form">
-                                <h4>Login</h4>
-                                <center><h3 class="text-warning">Predicting Development Competitiveness Index</h3></center>
+                                <center><h3 class="text-info">Predicting Development Competitiveness Index</h3></center>
 								<hr>
                                 <form ng-submit="login(this)" novalidate autocomplete="off">
                                     <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" name="username" class="form-control" placeholder="Username" ng-model="user.username" autofocus>
+                                        <span>Username</span>
+                                        <input type="text" name="username" class="form-control" placeholder="Enter Username" ng-model="user.username" autofocus>
                                     </div>
                                     <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" name="password" class="form-control" placeholder="Password" ng-model="user.password">
+                                        <span>Password</span>
+                                        <input type="password" name="password" class="form-control" placeholder="Enter Password" ng-model="user.password">
                                     </div>
 									<div class="alert alert-danger" ng-show="views.incorrect">Username or password incorrect</div>
                                     <div class="checkbox">

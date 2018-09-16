@@ -369,6 +369,7 @@ $tables['headers'] = array(
 <hr>
 
 <h3>Frequency Tables <button id="print-frequency" class="btn btn-info pull-right" ng-click="app.print_frequency(this)">Print</button></h3>
+
 <div class="clearfix"></div>
 <?php 
 
@@ -442,14 +443,20 @@ $tables['headers'] = array(
 	<?php }; ?>
 </div>
 <?php };?>
+
 <hr>
 
-<h3>Likelihood Tables <button class="btn btn-info pull-right" ng-click="app.print(this)">Print</button></h3>
+<h3>Likelihood Tables <button id="print-likelihood" class="btn btn-info pull-right" ng-click="app.print_likelihood(this)">Print</button></h3>
 <div class="clearfix"></div>
+<?php 
+
+	foreach($prediction['prediction']['likelihood_tables'] as $i => $likelihood) {
+		
+?>
 <div class="row">
 	<div class="col-lg-12">
 		<div class="card">
-			<h4>Economy</h4>
+			<h4><?=$likelihood['header']?></h4>
 			<div class="table-bordered">
 				<table class="table">
 					<thead>
@@ -462,16 +469,16 @@ $tables['headers'] = array(
 					</thead>
 					<tbody>
 						<tr>
-							<td rowspan="4">LGU Category</td><td>City</td><td>0/10</td><td>9/115</td><td>9/125</td>
+							<td rowspan="4">LGU Category</td><td>City</td><td><?=$likelihood['indicators'][0]['data']['city']['yes']?></td><td><?=$likelihood['indicators'][0]['data']['city']['no']?></td><td><?=$likelihood['indicators'][0]['data']['city']['total']?></td>
 						</tr>
 						<tr>
-							<td>1st-2nd Class</td><td>9/10</td><td>28/115</td><td>37/125</td>
+							<td>1st-2nd Class</td><td><?=$likelihood['indicators'][0]['data']['first_second']['yes']?></td><td><?=$likelihood['indicators'][0]['data']['first_second']['no']?></td><td><?=$likelihood['indicators'][0]['data']['first_second']['total']?></td>
 						</tr>
 						<tr>
-							<td>3rd-4th Class</td><td>1/10</td><td>78/115</td><td>79/125</td>
+							<td>3rd-4th Class</td><td><?=$likelihood['indicators'][0]['data']['third_fourth']['yes']?></td><td><?=$likelihood['indicators'][0]['data']['third_fourth']['no']?></td><td><?=$likelihood['indicators'][0]['data']['third_fourth']['total']?></td>
 						</tr>
 						<tr>
-							<td>&nbsp;</td><td>10/125</td><td>115/125</td><td>&nbsp;</td>
+							<td>&nbsp;</td><td><?=$likelihood['indicators'][0]['data']['total']['yes']?></td></td><td><?=$likelihood['indicators'][0]['data']['total']['no']?></td><td>&nbsp;</td>
 						</tr>
 					</tbody>
 				</table>
@@ -481,9 +488,16 @@ $tables['headers'] = array(
 </div>
 
 <div class="row">
+	<?php
+	
+		foreach ($likelihood['indicators'] as $key => $indicator) {
+				
+			if ($key==0) continue;
+				
+	?>
 	<div class="col-lg-6">
 		<div class="card">
-			<h4>Economy Dynamism</h4>
+			<h4><?=$likelihood['header']?></h4>
 			<div class="table-bordered">
 				<table class="table">
 					<thead>
@@ -496,17 +510,19 @@ $tables['headers'] = array(
 					</thead>
 					<tbody>
 						<tr>
-							<td rowspan="3">Local Economy Size</td><td>Yes</td><td>0/10</td><td>10/115</td><td>10/125</td>
+							<td rowspan="3"><?=$indicator['header']?></td><td>Yes</td><td><?=$indicator['data']['yes']['yes']?></td><td><?=$indicator['data']['yes']['no']?></td><td><?=$indicator['data']['yes']['total']?></td>
 						</tr>
 						<tr>
-							<td>No</td><td>10/10</td><td>105/115</td><td>115/125</td>
+							<td>No</td><td><?=$indicator['data']['no']['yes']?></td><td><?=$indicator['data']['no']['no']?></td><td><?=$indicator['data']['no']['total']?></td>
 						</tr>
 						<tr>
-							<td>&nbsp;</td><td>10/125</td><td>115/125</td>
+							<td>&nbsp;</td><td><?=$indicator['data']['total']['yes']?></td><td><?=$indicator['data']['total']['no']?></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>	
 	</div>
+	<?php };?>
 </div>
+<?php };?>
