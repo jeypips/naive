@@ -292,9 +292,9 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					];
 					var likelihood_rows = [
 						{"3": "Yes", "4": "No"},
-						{"1": indicator.header,"2": "Yes","3": indicator.data.yes.yes, "4": indicator.data.yes.no, "5": "10/125"},
-						{"2": "No","3": indicator.data.no.yes, "4": indicator.data.no.no, "5": "115/125"},
-						{"3": "10/10", "4": "115/115"}
+						{"1": indicator.header,"2": "Yes","3": indicator.data.yes.yes, "4": indicator.data.yes.no, "5": indicator.data.yes.total},
+						{"2": "No","3": indicator.data.no.yes, "4": indicator.data.no.no, "5": indicator.data.no.total},
+						{"3": indicator.data.total.yes, "4": indicator.data.total.no}
 					];
 					
 					var top = 20;
