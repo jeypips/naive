@@ -369,6 +369,7 @@ $tables['headers'] = array(
 <hr>
 
 <h3>Frequency Tables <button id="print-frequency" class="btn btn-info pull-right" ng-click="app.print_frequency(this)">Print</button></h3>
+
 <div class="clearfix"></div>
 <?php 
 
@@ -509,13 +510,13 @@ $tables['headers'] = array(
 					</thead>
 					<tbody>
 						<tr>
-							<td rowspan="3"><?=$indicator['header']?></td><td>Yes</td><td><?=$indicator['data']['yes']['yes']?></td><td><?=$indicator['data']['yes']['no']?></td><td>total</td>
+							<td rowspan="3"><?=$indicator['header']?></td><td>Yes</td><td><?=$indicator['data']['yes']['yes']?></td><td><?=$indicator['data']['yes']['no']?></td><td><?=$indicator['data']['yes']['total']?></td>
 						</tr>
 						<tr>
-							<td>No</td><td><?=$indicator['data']['no']['yes']?></td><td><?=$indicator['data']['no']['no']?></td><td>total</td>
+							<td>No</td><td><?=$indicator['data']['no']['yes']?></td><td><?=$indicator['data']['no']['no']?></td><td><?=$indicator['data']['no']['total']?></td>
 						</tr>
 						<tr>
-							<td>&nbsp;</td><td>10/125</td><td>115/125</td>
+							<td>&nbsp;</td><td><?=$indicator['data']['total']['yes']?></td><td><?=$indicator['data']['total']['no']?></td>
 						</tr>
 					</tbody>
 				</table>
