@@ -15,7 +15,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			scope.filter = {};
 			scope.filter.prediction = {};
 			scope.filter.prediction.period = d.getFullYear();
-		
+			
 			scope.prediction = [];
 			
 			scope.tables = {};			
@@ -317,24 +317,26 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					};
 					if (key==5) left+=150;
 					
-					if (key>=6) {
-						top = 150;
-						left = 10;
-						doc.addPage();
-					};
-					if (key==5) left+=150;
-					
-					if(key==8) {
+					if (key==6) {
 						top = 20;
 						left = 10;
 						doc.addPage();
 					};
 					
-					if(key==9) {
+					if (key>=7){ 
 						top = 20;
-						left = 130;
+						left+=150;
 					};
-							
+					if(key>=8){
+						top = 80;
+						left = 10;
+					};
+					if(key==9) left+=150;
+					
+					if(key==10){
+						top = 140;
+						left = 10;
+					};		
 					doc.autoTable(likelihood_header, likelihood_rows,{
 						theme: 'striped',
 						margin: {
