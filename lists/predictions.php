@@ -368,8 +368,10 @@ $tables['headers'] = array(
 </div>
 <hr>
 
-<h3>Frequency Tables <button id="print-frequency" class="btn btn-info pull-right" ng-click="app.print_frequency(this)">Print</button></h3>
+<button type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnfrequency">Frequency Tables <i class="fa fa-level-down"></i></button>
+<button id="print-frequency" class="btn btn-info pull-right" ng-click="app.print_frequency(this)"><i class="fa fa-print"></i></button>
 
+<div class="collapse" id="btnfrequency">
 <div class="clearfix"></div>
 <?php 
 
@@ -443,10 +445,13 @@ $tables['headers'] = array(
 	<?php }; ?>
 </div>
 <?php };?>
+</div>
 
 <hr>
 
-<h3>Likelihood Tables <button id="print-likelihood" class="btn btn-info pull-right" ng-click="app.print_likelihood(this)">Print</button></h3>
+<button type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnlikelihood">Likelihood Tables <i class="fa fa-level-down"></i> </button><button id="print-likelihood" class="btn btn-info pull-right" ng-click="app.print_likelihood(this)"><i class="fa fa-print"></i></button>
+
+<div class="collapse" id="btnlikelihood">
 <div class="clearfix"></div>
 <?php 
 
@@ -526,3 +531,4 @@ $tables['headers'] = array(
 	<?php };?>
 </div>
 <?php };?>
+</div>
