@@ -162,6 +162,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					$compile($('#print-likelihood')[0])(scope);
 				}, 500);
 				
+				$timeout(function() {
+					$compile($('#btn-frequency')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#btn-likelihood')[0])(scope);
+				}, 500);
+				
 				// instantiate datable
 				$('table.datasets').DataTable({
 					"ordering": false,
@@ -178,6 +186,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				bui.hide();
 				
 			});
+			
+		};
+		
+		self.edit = function(scope) {
+			
+			scope.btns.ok.disabled = !scope.btns.ok.disabled;
 			
 		};
 		
