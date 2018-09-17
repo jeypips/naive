@@ -304,15 +304,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					if (key>1) left+=160;
 					
 					if (key>=2) {
-						top = 90;
+						top = 87;
 						left = 10;
 					};
 					
 					if (key==3) left+=150;
-					// if (key==4) left+=230;
 					
 					if (key>=4) {
-						top = 150;
+						top = 144;
 						left = 10;
 					};
 					if (key==5) left+=150;
