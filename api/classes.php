@@ -514,4 +514,106 @@ class likelihood_tables {
 	
 };
 
+class probabilities {
+	
+	var $likelihoods;
+	var $pillars;
+	var $probabilities;
+	
+	function __construct($likelihoods,$pillars) {
+
+		$this->likelihoods = $likelihoods;
+		$this->pillars = $pillars;
+		
+		$this->probabilities = [];
+		
+		$this->equations();
+
+	}
+
+	private function equations() {
+		
+		$pillars_indexes = array("economy"=>0,"government_efficiency"=>1,"infrastructure"=>2,"resiliency"=>3);
+		
+		foreach ($this->pillars as $pillar => $indicators) {
+
+			$frequency_by_indicator = $this->get_frequency_by_indicator($pillars_indexes[$pillar],"category");
+			
+			$city = $this->get_frequency_indicator_data($frequency_by_indicator,"city");
+			$first_second = $this->get_frequency_indicator_data($frequency_by_indicator,"first_second");
+			$third_fourth = $this->get_frequency_indicator_data($frequency_by_indicator,"third_fourth");
+			
+			$this->probabilities[$pillar] = array(
+				array(  # city
+					"id"=>1,"description"=>"City","equations"=>array(
+						array("description"=>"P(B)","value"=>0),
+						array("description"=>"P(A)","value"=>0),
+						array("description"=>"P(B|A)","value"=>0),
+					),
+				),
+				array( # first-second class
+					"id"=>2,"description"=>"First-Second Class","equations"=>array(
+						array("description"=>"P(B)","value"=>0),
+						array("description"=>"P(A)","value"=>0),
+						array("description"=>"P(B|A)","value"=>0),						
+					),
+				),
+				array( # third-fourth class
+					"id"=>3,"description"=>"Third-Fourth Class","equations"=>array(
+						array("description"=>"P(B)","value"=>0),
+						array("description"=>"P(A)","value"=>0),
+						array("description"=>"P(B|A)","value"=>0),						
+					),
+				),
+			);
+			
+		};
+	
+	}
+	
+	public function get_probabilities() {
+
+		return $this->probabilities;
+		// return $this->likelihoods;
+	
+	}
+	
+	private function get_frequency_by_indicator($pillar,$indicator) {
+		
+		$frequency_by_indicator = array();
+		
+		foreach ($this->likelihoods as $i => $likelihood) {
+			
+			if ($i == $pillar) {
+			
+				foreach ($likelihood['indicators'] as $li) {
+					
+					if ($li['indicator'] == $indicator) $frequency_by_indicator = $li;
+					
+				};
+			
+			};
+			
+		};
+		
+		return $frequency_by_indicator;
+	
+	}
+	
+	private function get_frequency_indicator_data($frequency_by_indicator,$category) {
+		
+		$data = array();
+		
+		foreach ($frequency_by_indicator['data'] as $c => $d) {
+
+			if ($c == $category) $data = $d;
+			
+		};
+		
+		return $data;
+		
+	}
+	
+};
+
 ?>
