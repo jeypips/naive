@@ -10,11 +10,11 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.views = {};
 			
-			var d = new Date();
+			// var d = new Date();
 
 			scope.filter = {};
 			scope.filter.prediction = {};
-			scope.filter.prediction.period = d.getFullYear();
+			// scope.filter.prediction.period = d.getFullYear();
 			
 			scope.prediction = [];
 			
@@ -58,7 +58,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		};
 		
 		self.prediction_ = function(scope) {
-			
+
 			if ((scope.filter.prediction.period == undefined) || (scope.filter.prediction.period == "")) {			
 				growl.show('danger',{from: 'top', amount: 55}, 'Please enter period');				
 				return;
@@ -134,7 +134,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		};
 		
 		self.prediction = function(scope) {
-			
+
 			if ((scope.filter.prediction.period == undefined) || (scope.filter.prediction.period == "")) {			
 				growl.show('danger',{from: 'top', amount: 55}, 'Please enter period');				
 				return;
