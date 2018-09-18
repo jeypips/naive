@@ -162,6 +162,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					$compile($('#print-likelihood')[0])(scope);
 				}, 500);
 				
+				$timeout(function() {
+					$compile($('#btn-frequency')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#btn-likelihood')[0])(scope);
+				}, 500);
+				
 				// instantiate datable
 				$('table.datasets').DataTable({
 					"ordering": false,
@@ -178,6 +186,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				bui.hide();
 				
 			});
+			
+		};
+		
+		self.edit = function(scope) {
+			
+			scope.btns.ok.disabled = !scope.btns.ok.disabled;
 			
 		};
 		
@@ -292,9 +306,9 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					];
 					var likelihood_rows = [
 						{"3": "Yes", "4": "No"},
-						{"1": indicator.header,"2": "Yes","3": indicator.data.yes.yes, "4": indicator.data.yes.no, "5": "10/125"},
-						{"2": "No","3": indicator.data.no.yes, "4": indicator.data.no.no, "5": "115/125"},
-						{"3": "10/10", "4": "115/115"}
+						{"1": indicator.header,"2": "Yes","3": indicator.data.yes.yes, "4": indicator.data.yes.no, "5": indicator.data.yes.total},
+						{"2": "No","3": indicator.data.no.yes, "4": indicator.data.no.no, "5": indicator.data.no.total},
+						{"3": indicator.data.total.yes, "4": indicator.data.total.no}
 					];
 					
 					var top = 20;
@@ -304,15 +318,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					if (key>1) left+=160;
 					
 					if (key>=2) {
-						top = 90;
+						top = 87;
 						left = 10;
 					};
 					
 					if (key==3) left+=150;
-					// if (key==4) left+=230;
 					
 					if (key>=4) {
-						top = 150;
+						top = 144;
 						left = 10;
 					};
 					if (key==5) left+=150;

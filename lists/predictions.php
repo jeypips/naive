@@ -46,7 +46,7 @@ $tables['headers'] = array(
 );
 
 ?>
-<h4>Datasets <button id="print-datasets" class="btn btn-info pull-right" ng-click="app.print(this)">Print</button></h4>
+<h4>Datasets <button id="print-datasets" class="btn btn-info pull-right" ng-click="app.print(this)"><i class="fa fa-print"></i></button></h4>
 <ul class="nav nav-tabs customtab2" role="tablist" style="margin-top: 30px;">
 	<li class="nav-item"> <a class="nav-link active show" data-toggle="tab" href="#economy" role="tab" aria-selected="false"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Economy</span></a> </li>
 	<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#government" role="tab" aria-selected="true"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Government Efficiency</span></a> </li>
@@ -368,8 +368,10 @@ $tables['headers'] = array(
 </div>
 <hr>
 
-<h3>Frequency Tables <button id="print-frequency" class="btn btn-info pull-right" ng-click="app.print_frequency(this)">Print</button></h3>
+<button id="btn-frequency" type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnfrequency" ng-click="isActive = !isActive">Frequency Tables <i class="fa" ng-class="{'fa-angle-down': isActive, 'fa-angle-right': !isActive}"></i></button>
+<button id="print-frequency" class="btn btn-info pull-right" ng-click="app.print_frequency(this)"><i class="fa fa-print"></i></button>
 
+<div class="collapse" id="btnfrequency">
 <div class="clearfix"></div>
 <?php 
 
@@ -443,10 +445,13 @@ $tables['headers'] = array(
 	<?php }; ?>
 </div>
 <?php };?>
+</div>
 
 <hr>
 
-<h3>Likelihood Tables <button id="print-likelihood" class="btn btn-info pull-right" ng-click="app.print_likelihood(this)">Print</button></h3>
+<button id="btn-likelihood" type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnlikelihood" ng-click="isActive = !isActive">Likelihood Tables <i class="fa" ng-class="{'fa-angle-down': isActive, 'fa-angle-right': !isActive}"></i></button><button  class="btn btn-info pull-right" ng-click="app.print_likelihood(this)"><i class="fa fa-print"></i></button>
+
+<div class="collapse" id="btnlikelihood">
 <div class="clearfix"></div>
 <?php 
 
@@ -526,3 +531,34 @@ $tables['headers'] = array(
 	<?php };?>
 </div>
 <?php };?>
+</div>
+<hr>
+
+<h4>Calculate one variable in category <button  class="btn btn-info pull-right" ng-click=""><i class="fa fa-print"></i></button></h4>
+<div class="row">
+	<div class="col-lg-6">
+		<div class="card">
+			<h4 class="card-title">Economy Dynamism</h4><hr>
+			<div class="row">
+				<div class="col-lg-12">
+					<center><h4>City</h4></center>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<center><h5>P(B)=P(City) = 9/125 <span class="text-danger">= 0.072</span></h5></center>
+				</div>
+			</div><br>
+			<div class="row">
+				<div class="col-lg-12">
+					<center><h5>P(A)=P(No) = 115/125 <span class="text-danger">= 0.92</span></h5></center>
+				</div>
+			</div><br>
+			<div class="row">
+				<div class="col-lg-12">
+					<center><h5>P(B|A)=P(City|No) = 9/115 <span class="text-danger">= 0.078</span></h5></center>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
