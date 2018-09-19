@@ -536,6 +536,11 @@ $tables['headers'] = array(
 
 <h4>Calculate one variable in category <button  class="btn btn-info pull-right" ng-click=""><i class="fa fa-print"></i></button></h4>
 <div class="row">
+<?php 
+
+	foreach($prediction['prediction']['probabilities']['economy'] as $probability) {
+	
+?>
 	<div class="col-lg-12">
 		<div class="card">
 			<h4 class="card-title">Economy Dynamism</h4><hr>
@@ -543,9 +548,9 @@ $tables['headers'] = array(
 				<table class="table">
 					<thead>
 						<tr>
-							<th colspan="4"><center>City</center></th>
-							<th colspan="4"><center>First-Second Class</center></th>
-							<th colspan="4"><center>Third-Fourth Class</center></th>
+							<th colspan="4"><center><?=$prediction['prediction']['probabilities']['economy']['0']['description']?></center></th>
+							<th colspan="4"><center><?=$prediction['prediction']['probabilities']['economy']['1']['description']?></center></th>
+							<th colspan="4"><center><?=$prediction['prediction']['probabilities']['economy']['2']['description']?></center></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -570,4 +575,5 @@ $tables['headers'] = array(
 			</div>
 		</div>	
 	</div>
+	<?php };?>
 </div>
