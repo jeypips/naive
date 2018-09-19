@@ -514,4 +514,164 @@ class likelihood_tables {
 	
 };
 
+class probabilities {
+	
+	var $likelihoods;
+	var $pillars;
+	var $probabilities;
+	
+	function __construct($likelihoods,$pillars) {
+
+		$this->likelihoods = $likelihoods;
+		$this->pillars = $pillars;
+		
+		$this->probabilities = [];
+		
+		$this->equations();
+
+	}
+
+	private function equations() {
+		
+		$pillars_indexes = array("economy"=>0,"government_efficiency"=>1,"infrastructure"=>2,"resiliency"=>3);
+		
+		foreach ($this->pillars as $pillar => $indicators) {
+
+			$frequency_by_indicator = $this->get_frequency_by_indicator($pillars_indexes[$pillar],"category");
+			
+			$city = $this->get_frequency_indicator_data($frequency_by_indicator,"city");
+			$first_second = $this->get_frequency_indicator_data($frequency_by_indicator,"first_second");
+			$third_fourth = $this->get_frequency_indicator_data($frequency_by_indicator,"third_fourth");
+			$total = $this->get_frequency_indicator_data($frequency_by_indicator,"total");
+
+			$this->probabilities[$pillar] = array(
+				array(  # city
+					"id"=>1,"description"=>"City","equations"=>array(
+						array( # no
+							array( # p(b)
+								"P(B)","P(City)",$city['total'],eval("return ".stripslashes($city['total']).";")
+							),
+							array( # p(a)
+								"P(A)","P(No)",$total['no'],eval("return ".stripslashes($total['no']).";")
+							),
+							array( # p(b|a)
+								"P(B|A)","P(City|No)",$city['no'],eval("return ".stripslashes($city['no']).";")
+							),							
+						),
+						array( # yes
+							array( # p(b)
+								"P(B)","P(City)",$city['total'],eval("return ".stripslashes($city['total']).";")
+							),
+							array( # p(a)
+								"P(A)","P(Yes)",$total['yes'],eval("return ".stripslashes($total['yes']).";")
+							),
+							array( # p(b|a)
+								"P(B|A)","P(City|Yes)",$city['yes'],eval("return ".stripslashes($city['yes']).";")
+							),
+						),						
+					),
+				),
+				array( # first-second class
+					"id"=>2,"description"=>"First-Second Class","equations"=>array(
+						array( # no
+							array( # p(b)
+								"P(B)","P(First-Second Class)",$first_second['total'],eval("return ".stripslashes($first_second['total']).";")
+							),
+							array( # p(a)
+								"P(A)","P(No)",$total['no'],eval("return ".stripslashes($total['no']).";")
+							),
+							array( # p(b|a)
+								"P(B|A)","P(First-Second Class|No)",$first_second['no'],eval("return ".stripslashes($first_second['no']).";")
+							),							
+						),
+						array( # yes
+							array( # p(b)
+								"P(B)","P(First-Second Class)",$first_second['total'],eval("return ".stripslashes($first_second['total']).";")
+							),
+							array( # p(a)
+								"P(A)","P(Yes)",$total['yes'],eval("return ".stripslashes($total['yes']).";")
+							),
+							array( # p(b|a)
+								"P(B|A)","P(First-Second Class|Yes)",$first_second['yes'],eval("return ".stripslashes($first_second['yes']).";")
+							),
+						),					
+					),
+				),
+				array( # third-fourth class
+					"id"=>3,"description"=>"Third-Fourth Class","equations"=>array(
+						array( # no
+							array( # p(b)
+								"P(B)","P(Third-Fourth Class)",$third_fourth['total'],eval("return ".stripslashes($third_fourth['total']).";")
+							),
+							array( # p(a)
+								"P(A)","P(No)",$total['no'],eval("return ".stripslashes($total['no']).";")
+							),
+							array( # p(b|a)
+								"P(B|A)","P(Third-Fourth Class|No)",$third_fourth['no'],eval("return ".stripslashes($third_fourth['no']).";")
+							),							
+						),
+						array( # yes
+							array( # p(b)
+								"P(B)","P(Third-Fourth Class)",$third_fourth['total'],eval("return ".stripslashes($third_fourth['total']).";")
+							),
+							array( # p(a)
+								"P(A)","P(Yes)",$total['yes'],eval("return ".stripslashes($total['yes']).";")
+							),
+							array( # p(b|a)
+								"P(B|A)","P(Third-Fourth Class|Yes)",$third_fourth['yes'],eval("return ".stripslashes($third_fourth['yes']).";")
+							),
+						),				
+					),
+				),
+			);
+			
+		};
+	
+	}
+	
+	public function get_probabilities() {
+
+		return $this->probabilities;
+		// return $this->likelihoods;
+	
+	}
+	
+	private function get_frequency_by_indicator($pillar,$indicator) {
+		
+		$frequency_by_indicator = array();
+		
+		foreach ($this->likelihoods as $i => $likelihood) {
+			
+			if ($i == $pillar) {
+			
+				foreach ($likelihood['indicators'] as $li) {
+					
+					if ($li['indicator'] == $indicator) $frequency_by_indicator = $li;
+					
+				};
+			
+			};
+			
+		};
+		
+		return $frequency_by_indicator;
+	
+	}
+	
+	private function get_frequency_indicator_data($frequency_by_indicator,$category) {
+		
+		$data = array();
+		
+		foreach ($frequency_by_indicator['data'] as $c => $d) {
+
+			if ($c == $category) $data = $d;
+			
+		};
+		
+		return $data;
+		
+	}
+	
+};
+
 ?>
