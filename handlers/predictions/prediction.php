@@ -78,6 +78,8 @@ $prediction['prediction']['likelihood_tables'] = $likelihoods;
 $probabilities = new probabilities($likelihoods,$pillars);
 $probabilities_data = $probabilities->get_probabilities();
 
+$prediction['prediction']['probabilities'] = $probabilities_data;
+
 // echo json_encode($probabilities_data);
 // exit();
 
