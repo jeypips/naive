@@ -536,28 +536,37 @@ $tables['headers'] = array(
 
 <h4>Calculate one variable in category <button  class="btn btn-info pull-right" ng-click=""><i class="fa fa-print"></i></button></h4>
 <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-12">
 		<div class="card">
 			<h4 class="card-title">Economy Dynamism</h4><hr>
-			<div class="row">
-				<div class="col-lg-12">
-					<center><h4>City</h4></center>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<center><h5>P(B)=P(City) = 9/125 <span class="text-danger">= 0.072</span></h5></center>
-				</div>
-			</div><br>
-			<div class="row">
-				<div class="col-lg-12">
-					<center><h5>P(A)=P(No) = 115/125 <span class="text-danger">= 0.92</span></h5></center>
-				</div>
-			</div><br>
-			<div class="row">
-				<div class="col-lg-12">
-					<center><h5>P(B|A)=P(City|No) = 9/115 <span class="text-danger">= 0.078</span></h5></center>
-				</div>
+				<div class="table-bordered">
+				<table class="table">
+					<thead>
+						<tr>
+							<th colspan="4"><center>City</center></th>
+							<th colspan="4"><center>First-Second Class</center></th>
+							<th colspan="4"><center>Third-Fourth Class</center></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>P(B)</td>
+							<td>P(City)</td>
+							<td>9/125</td>
+							<td>0.072</td>
+			
+							<td>P(B)</td>
+							<td>P(1stclass-2ndclass)</td>
+							<td>37/125</td>
+							<td>0.296</td>
+							
+							<td>P(B)</td>
+							<td>P(3rdclass-4thclass)</td>
+							<td>78/125</td>
+							<td>0.624</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>	
 	</div>
