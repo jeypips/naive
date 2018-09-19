@@ -449,7 +449,7 @@ $tables['headers'] = array(
 
 <hr>
 
-<button id="btn-likelihood" type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnlikelihood" ng-click="isActive = !isActive">Likelihood Tables <i class="fa" ng-class="{'fa-angle-down': isActive, 'fa-angle-right': !isActive}"></i></button><button  class="btn btn-info pull-right" ng-click="app.print_likelihood(this)"><i class="fa fa-print"></i></button>
+<button id="btn-likelihood" type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnlikelihood" ng-click="isActivelikelihood = !isActivelikelihood">Likelihood Tables <i class="fa" ng-class="{'fa-angle-down': isActivelikelihood, 'fa-angle-right': !isActivelikelihood}"></i></button><button  class="btn btn-info pull-right" ng-click="app.print_likelihood(this)"><i class="fa fa-print"></i></button>
 
 <div class="collapse" id="btnlikelihood">
 <div class="clearfix"></div>
