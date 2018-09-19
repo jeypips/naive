@@ -449,7 +449,7 @@ $tables['headers'] = array(
 
 <hr>
 
-<button id="btn-likelihood" type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnlikelihood" ng-click="isActivelikelihood = !isActivelikelihood">Likelihood Tables <i class="fa" ng-class="{'fa-angle-down': isActivelikelihood, 'fa-angle-right': !isActivelikelihood}"></i></button><button  class="btn btn-info pull-right" ng-click="app.print_likelihood(this)"><i class="fa fa-print"></i></button>
+<button id="btn-likelihood" type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnlikelihood" ng-click="isActivelikelihood = !isActivelikelihood">Likelihood Tables <i class="fa" ng-class="{'fa-angle-down': isActivelikelihood, 'fa-angle-right': !isActivelikelihood}"></i></button><button  class="btn btn-info pull-right" ng-click="app.print_likelihood(this)" id="print-likelihood"><i class="fa fa-print"></i></button>
 
 <div class="collapse" id="btnlikelihood">
 <div class="clearfix"></div>
@@ -536,16 +536,11 @@ $tables['headers'] = array(
 
 <h4>Calculate one variable in category <button  class="btn btn-info pull-right" ng-click=""><i class="fa fa-print"></i></button></h4>
 <div class="row">
-<?php 
-
-	foreach($prediction['prediction']['probabilities']['economy'] as $probability) {
-	
-?>
 	<div class="col-lg-12">
 		<div class="card">
 			<h4 class="card-title">Economy Dynamism</h4><hr>
 				<div class="table-bordered">
-				<table class="table">
+				<table class="table" id="table-probability">
 					<thead>
 						<tr>
 							<th colspan="4"><center><?=$prediction['prediction']['probabilities']['economy']['0']['description']?></center></th>
@@ -555,25 +550,48 @@ $tables['headers'] = array(
 					</thead>
 					<tbody>
 						<tr>
-							<td>P(B)</td>
-							<td>P(City)</td>
-							<td>9/125</td>
-							<td>0.072</td>
-			
-							<td>P(B)</td>
-							<td>P(1stclass-2ndclass)</td>
-							<td>37/125</td>
-							<td>0.296</td>
-							
-							<td>P(B)</td>
-							<td>P(3rdclass-4thclass)</td>
-							<td>78/125</td>
-							<td>0.624</td>
+						<?php
+	
+							foreach ($prediction['prediction']['probabilities']['economy'] as $i => $equation) {
+									
+						?>
+							<td><?=$equation['equations']['0']['0']['0']?></td>
+							<td><?=$equation['equations']['0']['0']['1']?></td>
+							<td><?=$equation['equations']['0']['0']['2']?></td>
+							<td><?=$equation['equations']['0']['0']['3']?></td>
+						<?php }; ?>	
 						</tr>
+						
+						<tr>
+						<?php
+	
+							foreach ($prediction['prediction']['probabilities']['economy'] as $i => $equation) {
+									
+						?>
+							<td><?=$equation['equations']['0']['1']['0']?></td>
+							<td><?=$equation['equations']['0']['1']['1']?></td>
+							<td><?=$equation['equations']['0']['1']['2']?></td>
+							<td><?=$equation['equations']['0']['1']['3']?></td>
+							
+						<?php }; ?>	
+						</tr>
+						
+						<?php
+	
+							foreach ($prediction['prediction']['probabilities']['economy'] as $i => $equation) {
+									
+						?>
+							<td><?=$equation['equations']['0']['2']['0']?></td>
+							<td><?=$equation['equations']['0']['2']['1']?></td>
+							<td><?=$equation['equations']['0']['2']['2']?></td>
+							<td><?=$equation['equations']['0']['2']['3']?></td>
+							
+						<?php }; ?>	
+						</tr>
+						
 					</tbody>
 				</table>
 			</div>
 		</div>	
 	</div>
-	<?php };?>
 </div>
