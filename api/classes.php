@@ -632,7 +632,6 @@ class probabilities {
 	public function get_probabilities() {
 
 		return $this->probabilities;
-		// return $this->likelihoods;
 	
 	}
 	
@@ -673,5 +672,111 @@ class probabilities {
 	}
 	
 };
+
+class conditional_probabilities {
+
+	var $probabilities;
+	var $pillars;
+	var $conditional_probabilities;
+
+	function __construct($probabilities,$pillars) {
+		
+		$this->probabilities = $probabilities;
+		$this->pillars = $pillars;
+		
+		$this->process();
+		
+	}
+	
+	private function process() {
+		
+		$categories = array("city"=>0,"first_second"=>1,"third_fourth"=>2);
+		$no_yes = array("no"=>0,"yes"=>1);
+		$operands = array("pb"=>0,"pa"=>1,"pba"=>2);
+		
+		foreach ($this->pillars as $pillar => $indicators) {
+			
+			$city_equations = $this->get_probability_equation($pillar,$categories['city']);			
+			$city_pb_no = $this->get_operand($city_equations,$no_yes['no'],$operands['pb']);
+			$city_pa_no = $this->get_operand($city_equations,$no_yes['no'],$operands['pa']);
+			$city_pba_no = $this->get_operand($city_equations,$no_yes['no'],$operands['pba']);			
+			$city_pb_yes = $this->get_operand($city_equations,$no_yes['yes'],$operands['pb']);
+			$city_pa_yes = $this->get_operand($city_equations,$no_yes['yes'],$operands['pa']);
+			$city_pba_yes = $this->get_operand($city_equations,$no_yes['yes'],$operands['pba']);
+			
+			$first_second_equations = $this->get_probability_equation($pillar,$categories['first_second']);			
+			$first_second_pb_no = $this->get_operand($first_second_equations,$no_yes['no'],$operands['pb']);
+			$first_second_pa_no = $this->get_operand($first_second_equations,$no_yes['no'],$operands['pa']);
+			$first_second_pba_no = $this->get_operand($first_second_equations,$no_yes['no'],$operands['pba']);			
+			$first_second_pb_yes = $this->get_operand($first_second_equations,$no_yes['yes'],$operands['pb']);
+			$first_second_pa_yes = $this->get_operand($first_second_equations,$no_yes['yes'],$operands['pa']);
+			$first_second_pba_yes = $this->get_operand($first_second_equations,$no_yes['yes'],$operands['pba']);
+			
+			$third_fourth_equations = $this->get_probability_equation($pillar,$categories['third_fourth']);			
+			$third_fourth_pb_no = $this->get_operand($third_fourth_equations,$no_yes['no'],$operands['pb']);
+			$third_fourth_pa_no = $this->get_operand($third_fourth_equations,$no_yes['no'],$operands['pa']);
+			$third_fourth_pba_no = $this->get_operand($third_fourth_equations,$no_yes['no'],$operands['pba']);			
+			$third_fourth_pb_yes = $this->get_operand($third_fourth_equations,$no_yes['yes'],$operands['pb']);
+			$third_fourth_pa_yes = $this->get_operand($third_fourth_equations,$no_yes['yes'],$operands['pa']);
+			$third_fourth_pba_yes = $this->get_operand($third_fourth_equations,$no_yes['yes'],$operands['pba']);			
+			
+			$this->conditional_probabilities[$pillar] = array(
+				array(  # city
+					"id"=>1,"description"=>"City","equations"=>array(
+						array( # no
+							"P(A|B)","P(No|City)","P(B|A)*P(No)/P(City)",(floatval($city_pba_no)*floatval($city_pa_no))/floatval($city_pb_no)
+						),
+						array( # yes
+							"P(A|B)","P(Yes|City)","P(B|A)*P(Yes)/P(City)",(floatval($city_pba_yes)*floatval($city_pa_yes))/floatval($city_pb_yes)
+						),						
+					),
+				),
+				array(  # first-second class
+					"id"=>2,"description"=>"First-Second Class","equations"=>array(
+						array( # no
+							"P(A|B)","P(No|City)","P(B|A)*P(No)/P(City)",(floatval($first_second_pba_no)*floatval($first_second_pa_no))/floatval($first_second_pb_no)
+						),
+						array( # yes
+							"P(A|B)","P(Yes|City)","P(B|A)*P(Yes)/P(City)",(floatval($first_second_pba_yes)*floatval($first_second_pa_yes))/floatval($first_second_pb_yes)
+						),							
+					),
+				),
+				array(  # third-fourth class
+					"id"=>3,"description"=>"Third-Fourth Class","equations"=>array(
+						array( # no
+							"P(A|B)","P(No|City)","P(B|A)*P(No)/P(City)",(floatval($third_fourth_pba_no)*floatval($third_fourth_pa_no))/floatval($third_fourth_pb_no)
+						),
+						array( # yes
+							"P(A|B)","P(Yes|City)","P(B|A)*P(Yes)/P(City)",(floatval($third_fourth_pba_yes)*floatval($third_fourth_pa_yes))/floatval($third_fourth_pb_yes)
+						),							
+					),
+				),				
+			);			
+			
+		}
+		
+	}
+	
+	public function get_conditional_probabilities() {
+		
+		return $this->conditional_probabilities;
+		
+	}
+	
+	private function get_probability_equation($pillar,$category) {
+		
+		return $this->probabilities[$pillar][$category]['equations'];
+		
+	}
+	
+	private function get_operand($equations,$no_yes,$operand) {
+		
+		$value = $equations[$no_yes][$operand][3];
+		
+		return $value;
+		
+	}
+	
+}
 
 ?>

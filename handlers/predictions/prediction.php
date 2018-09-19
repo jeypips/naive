@@ -80,7 +80,12 @@ $probabilities_data = $probabilities->get_probabilities();
 
 $prediction['prediction']['probabilities'] = $probabilities_data;
 
-// echo json_encode($probabilities_data);
+$conditional_probabilities = new conditional_probabilities($probabilities_data,$pillars);
+$conditional_probabilities_data = $conditional_probabilities->get_conditional_probabilities();
+
+$prediction['prediction']['conditional_probabilities'] = $conditional_probabilities_data;
+
+// echo json_encode($conditional_probabilities_data);
 // exit();
 
 ?>
