@@ -118,7 +118,8 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 							"scrollX": true
 						});				
 					}, 1000);
-
+					
+					
 					$timeout(function() {
 						bui.hide();
 					},2000);
@@ -168,6 +169,10 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 				$timeout(function() {
 					$compile($('#btn-likelihood')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#btn-category')[0])(scope);
 				}, 500);
 				
 				// instantiate datable
