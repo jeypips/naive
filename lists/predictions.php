@@ -535,9 +535,9 @@ $tables['headers'] = array(
 </div>
 <hr>
 
-<button id="btn-category" type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btncategory" ng-click="isActiveCategory = !isActiveCategory">Calculate one variable in category <i class="fa" ng-class="{'fa-angle-down': isActiveCategory, 'fa-angle-right': !isActiveCategory}"></i></button><button  class="btn btn-info pull-right" ng-click="app.print_likelihood(this)"><i class="fa fa-print"></i></button>
+<button id="btn-probability" type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnprobability" ng-click="isActiveProbability = !isActiveProbability">Calculate one variable in category <i class="fa" ng-class="{'fa-angle-down': isActiveProbability, 'fa-angle-right': !isActiveProbability}"></i></button><button  class="btn btn-info pull-right" ng-click="app.print_probability(this)" id="print-probability"><i class="fa fa-print"></i></button>
 <div class="clearfix"></div>
-<div id="btncategory" class="collapse">
+<div id="btnprobability" class="collapse">
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card">
@@ -946,4 +946,197 @@ $tables['headers'] = array(
 		</div>
 	</div>
 </div>
+<hr>
+<button id="btn-conditional" type="button" class="btn btn-info waves-effect waves-light active" data-toggle="collapse" data-target="#btnconditional" ng-click="sample = !sample">Calculate Conditional Probabilities <i class="fa" ng-class="{'fa-angle-down': sample, 'fa-angle-right': !sample}"></i></button><button  class="btn btn-info pull-right" ng-click="app.print_conditional(this)" id="print-conditional"><i class="fa fa-print"></i></button>
+	<div class="clearfix"></div>
+	<div id="btnconditional" class="collapse">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<h4 class="card-title">Economy Dynamism</h4><hr>
+						<div class="table-responsive table-bordered">
+						<table class="table">
+							<thead>
+								<tr>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['economy']['0']['description']?></center></th>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['economy']['1']['description']?></center></th>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['economy']['2']['description']?></center></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<?php
+			
+									foreach ($prediction['prediction']['conditional_probabilities']['economy'] as $i => $equation) {
+											
+								?>
+									<td><?=$equation['equations'][0][0]?></td>
+									<td><?=$equation['equations'][0][1]?></td>
+									<td><?=$equation['equations'][0][2]?></td>
+									<td><?=$equation['equations'][0][3]?></td>
+								<?php }; ?>	
+								</tr>
+								
+								<tr>
+								<?php
+			
+									foreach ($prediction['prediction']['conditional_probabilities']['economy'] as $i => $equation) {
+											
+								?>
+									<td><?=$equation['equations'][1][0]?></td>
+									<td><?=$equation['equations'][1][1]?></td>
+									<td><?=$equation['equations'][1][2]?></td>
+									<td><?=$equation['equations'][1][3]?></td>
+								<?php }; ?>	
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<h4 class="card-title">Government Efficiency</h4><hr>
+						<div class="table-responsive table-bordered">
+						<table class="table">
+							<thead>
+								<tr>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['government_efficiency']['0']['description']?></center></th>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['government_efficiency']['1']['description']?></center></th>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['government_efficiency']['2']['description']?></center></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<?php
+			
+									foreach ($prediction['prediction']['conditional_probabilities']['government_efficiency'] as $i => $equation) {
+											
+								?>
+									<td><?=$equation['equations'][0][0]?></td>
+									<td><?=$equation['equations'][0][1]?></td>
+									<td><?=$equation['equations'][0][2]?></td>
+									<td><?=$equation['equations'][0][3]?></td>
+								<?php }; ?>	
+								</tr>
+								
+								<tr>
+								<?php
+			
+									foreach ($prediction['prediction']['conditional_probabilities']['government_efficiency'] as $i => $equation) {
+											
+								?>
+									<td><?=$equation['equations'][1][0]?></td>
+									<td><?=$equation['equations'][1][1]?></td>
+									<td><?=$equation['equations'][1][2]?></td>
+									<td><?=$equation['equations'][1][3]?></td>
+								<?php }; ?>	
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<h4 class="card-title">Infrastructure</h4><hr>
+						<div class="table-responsive table-bordered">
+						<table class="table">
+							<thead>
+								<tr>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['infrastructure']['0']['description']?></center></th>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['infrastructure']['1']['description']?></center></th>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['infrastructure']['2']['description']?></center></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<?php
+			
+									foreach ($prediction['prediction']['conditional_probabilities']['infrastructure'] as $i => $equation) {
+											
+								?>
+									<td><?=$equation['equations'][0][0]?></td>
+									<td><?=$equation['equations'][0][1]?></td>
+									<td><?=$equation['equations'][0][2]?></td>
+									<td><?=$equation['equations'][0][3]?></td>
+								<?php }; ?>	
+								</tr>
+								
+								<tr>
+								<?php
+			
+									foreach ($prediction['prediction']['conditional_probabilities']['infrastructure'] as $i => $equation) {
+											
+								?>
+									<td><?=$equation['equations'][1][0]?></td>
+									<td><?=$equation['equations'][1][1]?></td>
+									<td><?=$equation['equations'][1][2]?></td>
+									<td><?=$equation['equations'][1][3]?></td>
+								<?php }; ?>	
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<h4 class="card-title">Resiliency</h4><hr>
+						<div class="table-responsive table-bordered">
+						<table class="table">
+							<thead>
+								<tr>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['resiliency']['0']['description']?></center></th>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['resiliency']['1']['description']?></center></th>
+									<th colspan="4"><center><?=$prediction['prediction']['conditional_probabilities']['resiliency']['2']['description']?></center></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<?php
+			
+									foreach ($prediction['prediction']['conditional_probabilities']['resiliency'] as $i => $equation) {
+											
+								?>
+									<td><?=$equation['equations'][0][0]?></td>
+									<td><?=$equation['equations'][0][1]?></td>
+									<td><?=$equation['equations'][0][2]?></td>
+									<td><?=$equation['equations'][0][3]?></td>
+								<?php }; ?>	
+								</tr>
+								
+								<tr>
+								<?php
+			
+									foreach ($prediction['prediction']['conditional_probabilities']['resiliency'] as $i => $equation) {
+											
+								?>
+									<td><?=$equation['equations'][1][0]?></td>
+									<td><?=$equation['equations'][1][1]?></td>
+									<td><?=$equation['equations'][1][2]?></td>
+									<td><?=$equation['equations'][1][3]?></td>
+								<?php }; ?>	
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+	</div>
 </div>
