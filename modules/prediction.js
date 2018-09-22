@@ -172,6 +172,10 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				}, 500);
 				
 				$timeout(function() {
+					$compile($('#print-normalized')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
 					$compile($('#btn-frequency')[0])(scope);
 				}, 500);
 				
@@ -185,6 +189,10 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 				$timeout(function() {
 					$compile($('#btn-conditional')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#btn-normalized')[0])(scope);
 				}, 500);
 				
 				// instantiate datable
@@ -210,6 +218,309 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.btns.ok.disabled = !scope.btns.ok.disabled;
 			
+		};
+		
+		// normalize the probabilities
+		self.print_normalized = function(scope) {
+			
+			$http({
+			method: 'POST',
+			url: 'api/prediction.php',
+			data: scope.filter.prediction
+			}).then(function success(response) {
+
+				print_normalized(response.data);
+			
+			}, function error() {
+				
+			});
+			
+		};
+		
+		// conditional probabilities
+		self.print_conditional = function(scope) {
+			
+			$http({
+			method: 'POST',
+			url: 'api/prediction.php',
+			data: scope.filter.prediction
+			}).then(function success(response) {
+
+				print_conditional(response.data);
+			
+			}, function error() {
+				
+			});
+			
+		};
+		
+		function print_normalized(prediction) {			
+			
+			var doc = new jsPDF({
+				orientation: 'landscape',
+				unit: 'pt',
+				format: [612, 792]
+			});	
+			var doc = new jsPDF('l','mm','legal');
+			
+			//X-axis, Y-axis
+			doc.setFontSize(16)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(6, 10, 'Normalize the Probabilities '+prediction.year);
+
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 18, 'Economy Dynamism');
+			
+			var economy_normalized_header = [
+				{title: "City", dataKey: "1"},
+				{title: "", dataKey: "2"},
+				{title: "Total", dataKey: "3"},
+				{title: "First-Second Class", dataKey: "4"},
+				{title: "", dataKey: "5"},
+				{title: "Total", dataKey: "6"},
+				{title: "Third-Fourth Class", dataKey: "7"},
+				{title: "", dataKey: "8"},
+				{title: "Total", dataKey: "9"}
+			];
+			
+				var economy_normalized_rows = [
+				
+					{"1": prediction.prediction.normalized_probabilities.economy[0].equations[0][0],"2": prediction.prediction.normalized_probabilities.economy[0].equations[0][1],"3": prediction.prediction.normalized_probabilities.economy[0].equations[0][2],"4": prediction.prediction.normalized_probabilities.economy[1].equations[0][0],"5": prediction.prediction.normalized_probabilities.economy[1].equations[0][1],"6": prediction.prediction.normalized_probabilities.economy[1].equations[0][2],"7": prediction.prediction.normalized_probabilities.economy[2].equations[0][0],"8": prediction.prediction.normalized_probabilities.economy[2].equations[0][1],"9": prediction.prediction.normalized_probabilities.economy[2].equations[0][2],},
+					{"1": prediction.prediction.normalized_probabilities.economy[0].equations[1][0],"2": prediction.prediction.normalized_probabilities.economy[0].equations[1][1],"3": prediction.prediction.normalized_probabilities.economy[0].equations[1][2],"4": prediction.prediction.normalized_probabilities.economy[1].equations[1][0],"5": prediction.prediction.normalized_probabilities.economy[1].equations[1][1],"6": prediction.prediction.normalized_probabilities.economy[1].equations[1][2],"7": prediction.prediction.normalized_probabilities.economy[2].equations[1][0],"8": prediction.prediction.normalized_probabilities.economy[2].equations[1][1],"9": prediction.prediction.normalized_probabilities.economy[2].equations[1][2]},
+					{"1": prediction.prediction.normalized_probabilities.economy[0].equations[2][0],"2": prediction.prediction.normalized_probabilities.economy[0].equations[2][1],"3": prediction.prediction.normalized_probabilities.economy[0].equations[2][2],"4": prediction.prediction.normalized_probabilities.economy[1].equations[2][0],"5": prediction.prediction.normalized_probabilities.economy[1].equations[2][1],"6": prediction.prediction.normalized_probabilities.economy[1].equations[2][2],"7": prediction.prediction.normalized_probabilities.economy[2].equations[2][0],"8": prediction.prediction.normalized_probabilities.economy[2].equations[2][1],"9": prediction.prediction.normalized_probabilities.economy[2].equations[2][2]}
+					
+				];	
+						
+			
+			doc.autoTable(economy_normalized_header, economy_normalized_rows,{
+				theme: 'striped',
+				margin: {
+					top: 20, 
+					left: 6 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.02,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap',
+					
+				},
+				columnStyles: {
+					5: {columnWidth: 45},
+					8: {columnWidth: 45},
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 9
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 9
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 78, 'Government Efficiency');
+		
+			var government_normalized_header = [
+				{title: "City", dataKey: "1"},
+				{title: "", dataKey: "2"},
+				{title: "Total", dataKey: "3"},
+				{title: "First-Second Class", dataKey: "4"},
+				{title: "", dataKey: "5"},
+				{title: "Total", dataKey: "6"},
+				{title: "Third-Fourth Class", dataKey: "7"},
+				{title: "", dataKey: "8"},
+				{title: "Total", dataKey: "9"}
+			];
+			
+			var government_normalized_rows = [
+			
+				{"1": prediction.prediction.normalized_probabilities.government_efficiency[0].equations[0][0],"2": prediction.prediction.normalized_probabilities.government_efficiency[0].equations[0][1],"3": prediction.prediction.normalized_probabilities.government_efficiency[0].equations[0][2],"4": prediction.prediction.normalized_probabilities.government_efficiency[1].equations[0][0],"5": prediction.prediction.normalized_probabilities.government_efficiency[1].equations[0][1],"6": prediction.prediction.normalized_probabilities.government_efficiency[1].equations[0][2],"7": prediction.prediction.normalized_probabilities.government_efficiency[2].equations[0][0],"8": prediction.prediction.normalized_probabilities.government_efficiency[2].equations[0][1],"9": prediction.prediction.normalized_probabilities.government_efficiency[2].equations[0][2],},
+				{"1": prediction.prediction.normalized_probabilities.government_efficiency[0].equations[1][0],"2": prediction.prediction.normalized_probabilities.government_efficiency[0].equations[1][1],"3": prediction.prediction.normalized_probabilities.government_efficiency[0].equations[1][2],"4": prediction.prediction.normalized_probabilities.government_efficiency[1].equations[1][0],"5": prediction.prediction.normalized_probabilities.government_efficiency[1].equations[1][1],"6": prediction.prediction.normalized_probabilities.government_efficiency[1].equations[1][2],"7": prediction.prediction.normalized_probabilities.government_efficiency[2].equations[1][0],"8": prediction.prediction.normalized_probabilities.government_efficiency[2].equations[1][1],"9": prediction.prediction.normalized_probabilities.government_efficiency[2].equations[1][2]},
+				{"1": prediction.prediction.normalized_probabilities.government_efficiency[0].equations[2][0],"2": prediction.prediction.normalized_probabilities.government_efficiency[0].equations[2][1],"3": prediction.prediction.normalized_probabilities.government_efficiency[0].equations[2][2],"4": prediction.prediction.normalized_probabilities.government_efficiency[1].equations[2][0],"5": prediction.prediction.normalized_probabilities.government_efficiency[1].equations[2][1],"6": prediction.prediction.normalized_probabilities.government_efficiency[1].equations[2][2],"7": prediction.prediction.normalized_probabilities.government_efficiency[2].equations[2][0],"8": prediction.prediction.normalized_probabilities.government_efficiency[2].equations[2][1],"9": prediction.prediction.normalized_probabilities.government_efficiency[2].equations[2][2]}
+				
+			];	
+						
+			
+			doc.autoTable(government_normalized_header, government_normalized_rows,{
+				theme: 'striped',
+				margin: {
+					top: 80, 
+					left: 6 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.02,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap',
+					
+				},
+				columnStyles: {
+					5: {columnWidth: 45},
+					8: {columnWidth: 45},
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 9
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 9
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 138, 'Infrastructure');
+		
+			var infrastructure_normalized_header = [
+				{title: "City", dataKey: "1"},
+				{title: "", dataKey: "2"},
+				{title: "Total", dataKey: "3"},
+				{title: "First-Second Class", dataKey: "4"},
+				{title: "", dataKey: "5"},
+				{title: "Total", dataKey: "6"},
+				{title: "Third-Fourth Class", dataKey: "7"},
+				{title: "", dataKey: "8"},
+				{title: "Total", dataKey: "9"}
+			];
+			
+			var infrastructure_normalized_rows = [
+			
+				{"1": prediction.prediction.normalized_probabilities.infrastructure[0].equations[0][0],"2": prediction.prediction.normalized_probabilities.infrastructure[0].equations[0][1],"3": prediction.prediction.normalized_probabilities.infrastructure[0].equations[0][2],"4": prediction.prediction.normalized_probabilities.infrastructure[1].equations[0][0],"5": prediction.prediction.normalized_probabilities.infrastructure[1].equations[0][1],"6": prediction.prediction.normalized_probabilities.infrastructure[1].equations[0][2],"7": prediction.prediction.normalized_probabilities.infrastructure[2].equations[0][0],"8": prediction.prediction.normalized_probabilities.infrastructure[2].equations[0][1],"9": prediction.prediction.normalized_probabilities.infrastructure[2].equations[0][2],},
+				{"1": prediction.prediction.normalized_probabilities.infrastructure[0].equations[1][0],"2": prediction.prediction.normalized_probabilities.infrastructure[0].equations[1][1],"3": prediction.prediction.normalized_probabilities.infrastructure[0].equations[1][2],"4": prediction.prediction.normalized_probabilities.infrastructure[1].equations[1][0],"5": prediction.prediction.normalized_probabilities.infrastructure[1].equations[1][1],"6": prediction.prediction.normalized_probabilities.infrastructure[1].equations[1][2],"7": prediction.prediction.normalized_probabilities.infrastructure[2].equations[1][0],"8": prediction.prediction.normalized_probabilities.infrastructure[2].equations[1][1],"9": prediction.prediction.normalized_probabilities.infrastructure[2].equations[1][2]},
+				{"1": prediction.prediction.normalized_probabilities.infrastructure[0].equations[2][0],"2": prediction.prediction.normalized_probabilities.infrastructure[0].equations[2][1],"3": prediction.prediction.normalized_probabilities.infrastructure[0].equations[2][2],"4": prediction.prediction.normalized_probabilities.infrastructure[1].equations[2][0],"5": prediction.prediction.normalized_probabilities.infrastructure[1].equations[2][1],"6": prediction.prediction.normalized_probabilities.infrastructure[1].equations[2][2],"7": prediction.prediction.normalized_probabilities.infrastructure[2].equations[2][0],"8": prediction.prediction.normalized_probabilities.infrastructure[2].equations[2][1],"9": prediction.prediction.normalized_probabilities.infrastructure[2].equations[2][2]}
+				
+			];	
+						
+			
+			doc.autoTable(infrastructure_normalized_header, infrastructure_normalized_rows,{
+				theme: 'striped',
+				margin: {
+					top: 140, 
+					left: 6 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.02,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap',
+					
+				},
+				columnStyles: {
+					5: {columnWidth: 45},
+					8: {columnWidth: 45},
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 9
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 9
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});
+			
+			doc.addPage();
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 18, 'Resiliency');
+		
+			var resiliency_normalized_header = [
+				{title: "City", dataKey: "1"},
+				{title: "", dataKey: "2"},
+				{title: "Total", dataKey: "3"},
+				{title: "First-Second Class", dataKey: "4"},
+				{title: "", dataKey: "5"},
+				{title: "Total", dataKey: "6"},
+				{title: "Third-Fourth Class", dataKey: "7"},
+				{title: "", dataKey: "8"},
+				{title: "Total", dataKey: "9"}
+			];
+			
+			var resiliency_normalized_rows = [
+			
+				{"1": prediction.prediction.normalized_probabilities.resiliency[0].equations[0][0],"2": prediction.prediction.normalized_probabilities.resiliency[0].equations[0][1],"3": prediction.prediction.normalized_probabilities.resiliency[0].equations[0][2],"4": prediction.prediction.normalized_probabilities.resiliency[1].equations[0][0],"5": prediction.prediction.normalized_probabilities.resiliency[1].equations[0][1],"6": prediction.prediction.normalized_probabilities.resiliency[1].equations[0][2],"7": prediction.prediction.normalized_probabilities.resiliency[2].equations[0][0],"8": prediction.prediction.normalized_probabilities.resiliency[2].equations[0][1],"9": prediction.prediction.normalized_probabilities.resiliency[2].equations[0][2],},
+				{"1": prediction.prediction.normalized_probabilities.resiliency[0].equations[1][0],"2": prediction.prediction.normalized_probabilities.resiliency[0].equations[1][1],"3": prediction.prediction.normalized_probabilities.resiliency[0].equations[1][2],"4": prediction.prediction.normalized_probabilities.resiliency[1].equations[1][0],"5": prediction.prediction.normalized_probabilities.resiliency[1].equations[1][1],"6": prediction.prediction.normalized_probabilities.resiliency[1].equations[1][2],"7": prediction.prediction.normalized_probabilities.resiliency[2].equations[1][0],"8": prediction.prediction.normalized_probabilities.resiliency[2].equations[1][1],"9": prediction.prediction.normalized_probabilities.resiliency[2].equations[1][2]},
+				{"1": prediction.prediction.normalized_probabilities.resiliency[0].equations[2][0],"2": prediction.prediction.normalized_probabilities.resiliency[0].equations[2][1],"3": prediction.prediction.normalized_probabilities.resiliency[0].equations[2][2],"4": prediction.prediction.normalized_probabilities.resiliency[1].equations[2][0],"5": prediction.prediction.normalized_probabilities.resiliency[1].equations[2][1],"6": prediction.prediction.normalized_probabilities.resiliency[1].equations[2][2],"7": prediction.prediction.normalized_probabilities.resiliency[2].equations[2][0],"8": prediction.prediction.normalized_probabilities.resiliency[2].equations[2][1],"9": prediction.prediction.normalized_probabilities.resiliency[2].equations[2][2]}
+				
+			];	
+						
+			
+			doc.autoTable(resiliency_normalized_header, resiliency_normalized_rows,{
+				theme: 'striped',
+				margin: {
+					top: 20, 
+					left: 6 
+				},
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.02,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap',
+					
+				},
+				columnStyles: {
+					5: {columnWidth: 45},
+					8: {columnWidth: 45},
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 9
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 9
+				},
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});
+			
+			var blob = doc.output('blob');
+			window.open(URL.createObjectURL(blob));
+		
 		};
 		
 		// conditional probabilities

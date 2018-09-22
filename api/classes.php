@@ -684,6 +684,8 @@ class conditional_probabilities {
 		$this->probabilities = $probabilities;
 		$this->pillars = $pillars;
 		
+		$this->conditional_probabilities = [];
+		
 		$this->process();
 		
 	}
@@ -696,7 +698,7 @@ class conditional_probabilities {
 		
 		foreach ($this->pillars as $pillar => $indicators) {
 			
-			$city_equations = $this->get_probability_equation($pillar,$categories['city']);			
+			$city_equations = $this->get_probability_equation($pillar,$categories['city']);
 			$city_pb_no = $this->get_operand($city_equations,$no_yes['no'],$operands['pb']);
 			$city_pa_no = $this->get_operand($city_equations,$no_yes['no'],$operands['pa']);
 			$city_pba_no = $this->get_operand($city_equations,$no_yes['no'],$operands['pba']);			
@@ -774,6 +776,132 @@ class conditional_probabilities {
 		$value = $equations[$no_yes][$operand][3];
 		
 		return $value;
+		
+	}
+	
+}
+
+class normalize_probabilities {
+
+	var $conditional_probabilities;
+	var $pillars;
+	var $normalized_probabilities;
+	
+	function __construct($conditional_probabilities,$pillars) {
+		
+		$this->conditional_probabilities = $conditional_probabilities;
+		$this->pillars = $pillars;
+		
+		$this->normalized_probabilities = [];
+		
+		$this->normalize();
+		
+	}
+	
+	private function normalize() {
+		
+		$categories = array("city"=>0,"first_second"=>1,"third_fourth"=>2);
+		$no_yes = array("no"=>0,"yes"=>1);
+		
+		foreach ($this->pillars as $pillar => $indicators) {
+
+			$city_equations = $this->get_conditional_probability_equation($pillar,$categories['city']);
+			$city_cp_no = $this->get_conditional_probability($city_equations,$no_yes['no']);
+			$city_cp_yes = $this->get_conditional_probability($city_equations,$no_yes['yes']);
+			
+			$first_second_equations = $this->get_conditional_probability_equation($pillar,$categories['first_second']);
+			$first_second_cp_no = $this->get_conditional_probability($first_second_equations,$no_yes['no']);
+			$first_second_cp_yes =$this-> get_conditional_probability($first_second_equations,$no_yes['yes']);
+			
+			$third_fourth_equations = $this->get_conditional_probability_equation($pillar,$categories['third_fourth']);
+			$third_fourth_cp_no = $this->get_conditional_probability($third_fourth_equations,$no_yes['no']);
+			$third_fourth_cp_yes = $this->get_conditional_probability($third_fourth_equations,$no_yes['yes']);
+		
+			$this->normalized_probabilities[$pillar] = array(
+				array(  # city
+					"id"=>1,
+					"description"=>"City",
+					"equations"=>array(
+						array(
+							"Sum of Probabilities",
+							"P(No|City) + P(Yes|City)",
+							$city_cp_no+$city_cp_yes,
+						),
+						array(
+							"Likelihood of Competitiveness",
+							"P(Yes|City)/Sum of Probabilities",	
+							number_format((($city_cp_yes/($city_cp_no+$city_cp_yes))*100),2)."%",
+						),
+						array(
+							"Likelihood of Not Competitive",
+							"P(No|City)/Sum of Probabilities",
+							number_format((($city_cp_no/($city_cp_no+$city_cp_yes))*100),2)."%",							
+						),							
+					),
+				),
+				array(  # first-second class
+					"id"=>2,					
+					"description"=>"First-Second Class",
+					"equations"=>array(
+						array(
+							"Sum of Probabilities",
+							"P(No|First-Second Class) + P(Yes|First-Second Class)",
+							$first_second_cp_no+$first_second_cp_yes,
+						),
+						array(
+							"Likelihood of Competitiveness",
+							"P(Yes|First-Second Class)/Sum of Probabilities",	
+							number_format((($first_second_cp_yes/($first_second_cp_no+$first_second_cp_yes))*100),2)."%",
+						),
+						array(
+							"Likelihood of Not Competitive",
+							"P(No|First-Second Class)/Sum of Probabilities",
+							number_format((($first_second_cp_no/($first_second_cp_no+$first_second_cp_yes))*100),2)."%",							
+						),
+					),						
+				),
+				array(  # third-fourth class
+					"id"=>3,					
+					"description"=>"Third-Fourth Class",
+					"equations"=>array(
+						array(
+							"Sum of Probabilities",
+							"P(No|Third-Fourth Class) + P(Yes|Third-Fourth Class)",
+							$third_fourth_cp_no+$third_fourth_cp_yes,
+						),
+						array(
+							"Likelihood of Competitiveness",
+							"P(Yes|Third-Fourth Class)/Sum of Probabilities",
+							number_format((($third_fourth_cp_yes/($third_fourth_cp_no+$third_fourth_cp_yes))*100),2)."%",
+						),
+						array(
+							"Likelihood of Not Competitive",
+							"P(No|Third-Fourth Class)/Sum of Probabilities",
+							number_format((($third_fourth_cp_no/($third_fourth_cp_no+$third_fourth_cp_yes))*100),2)."%",							
+						),
+					),						
+				),
+			);
+			
+		};
+		
+	}
+	
+	public function get_normalized_probabilities() {
+		
+		return $this->normalized_probabilities;
+		
+	}
+	
+	private function get_conditional_probability_equation($pillar,$category) {
+		
+		return $this->conditional_probabilities[$pillar][$category]['equations'];		
+		
+	}
+	
+	private function get_conditional_probability($equations,$no_yes) {
+		
+		return $equations[$no_yes][3];
 		
 	}
 	
