@@ -85,7 +85,12 @@ $conditional_probabilities_data = $conditional_probabilities->get_conditional_pr
 
 $prediction['prediction']['conditional_probabilities'] = $conditional_probabilities_data;
 
-// echo json_encode($conditional_probabilities_data);
+$normalize_probabilities = new normalize_probabilities($conditional_probabilities_data,$pillars);
+$normalize_probabilities_data = $normalize_probabilities->get_normalized_probabilities();
+
+$prediction['prediction']['normalized_probabilities'] = $normalize_probabilities_data;
+
+// echo json_encode($normalize_probabilities_data);
 // exit();
 
 ?>
