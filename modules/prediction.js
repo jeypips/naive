@@ -118,7 +118,8 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 							"scrollX": true
 						});				
 					}, 1000);
-
+					
+					
 					$timeout(function() {
 						bui.hide();
 					},2000);
@@ -163,11 +164,27 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				}, 500);
 				
 				$timeout(function() {
+					$compile($('#print-probability')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#print-conditional')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
 					$compile($('#btn-frequency')[0])(scope);
 				}, 500);
 				
 				$timeout(function() {
 					$compile($('#btn-likelihood')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#btn-probability')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#btn-conditional')[0])(scope);
 				}, 500);
 				
 				// instantiate datable
@@ -193,6 +210,620 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.btns.ok.disabled = !scope.btns.ok.disabled;
 			
+		};
+		
+		// conditional probabilities
+		self.print_conditional = function(scope) {
+			
+			$http({
+			method: 'POST',
+			url: 'api/prediction.php',
+			data: scope.filter.prediction
+			}).then(function success(response) {
+
+				print_conditional(response.data);
+			
+			}, function error() {
+				
+			});
+			
+		};
+		
+		function print_conditional(prediction) {			
+			
+			var doc = new jsPDF({
+				orientation: 'landscape',
+				unit: 'pt',
+				format: [612, 792]
+			});	
+			var doc = new jsPDF('l','mm','legal');
+			
+			//X-axis, Y-axis
+			doc.setFontSize(16)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(6, 10, 'Calculate Conditional Probabilities '+prediction.year);
+
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(6, 18, 'Economy Dynamism');
+				
+				var economy_conditional_header = [
+					{title: "City", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "", dataKey: "3"},
+					{title: "Total", dataKey: "4"},
+					{title: "First-Second Class", dataKey: "5"},
+					{title: "", dataKey: "6"},
+					{title: "", dataKey: "7"},
+					{title: "Total", dataKey: "8"},
+					{title: "Third-Fourth Class", dataKey: "9"},
+					{title: "", dataKey: "10"},
+					{title: "", dataKey: "11"},
+					{title: "Total", dataKey: "12"}
+				];
+				
+					var economy_conditional_rows = [
+						// no
+						{"1": prediction.prediction.conditional_probabilities.economy[0].equations[0][0],"2": prediction.prediction.conditional_probabilities.economy[0].equations[0][1],"3": prediction.prediction.conditional_probabilities.economy[0].equations[0][2],"4": prediction.prediction.conditional_probabilities.economy[0].equations[0][3],"5": prediction.prediction.conditional_probabilities.economy[1].equations[0][0],"6": prediction.prediction.conditional_probabilities.economy[1].equations[0][1],"7": prediction.prediction.conditional_probabilities.economy[1].equations[0][2],"8": prediction.prediction.conditional_probabilities.economy[1].equations[0][3],"9": prediction.prediction.conditional_probabilities.economy[2].equations[0][0],"10": prediction.prediction.conditional_probabilities.economy[2].equations[0][1],"11": prediction.prediction.conditional_probabilities.economy[2].equations[0][2],"12": prediction.prediction.conditional_probabilities.economy[2].equations[0][3]},
+						// yes
+						{"1": prediction.prediction.conditional_probabilities.economy[0].equations[1][0],"2": prediction.prediction.conditional_probabilities.economy[0].equations[1][1],"3": prediction.prediction.conditional_probabilities.economy[0].equations[1][2],"4": prediction.prediction.conditional_probabilities.economy[0].equations[1][3],"5": prediction.prediction.conditional_probabilities.economy[1].equations[1][0],"6": prediction.prediction.conditional_probabilities.economy[1].equations[1][1],"7": prediction.prediction.conditional_probabilities.economy[1].equations[1][2],"8": prediction.prediction.conditional_probabilities.economy[1].equations[1][3],"9": prediction.prediction.conditional_probabilities.economy[2].equations[1][0],"10": prediction.prediction.conditional_probabilities.economy[2].equations[1][1],"11": prediction.prediction.conditional_probabilities.economy[2].equations[1][2],"12": prediction.prediction.conditional_probabilities.economy[2].equations[1][3]},
+						
+					];	
+							
+				
+				doc.autoTable(economy_conditional_header, economy_conditional_rows,{
+					theme: 'striped',
+					margin: {
+						top: 20, 
+						left: 6 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					columnStyles: {
+						5: {columnWidth: 25},
+						9: {columnWidth: 25},
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 9
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 9
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+				
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(6, 60, 'Government Efficiency');
+				
+				var government_conditional_header = [
+					{title: "City", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "", dataKey: "3"},
+					{title: "Total", dataKey: "4"},
+					{title: "First-Second Class", dataKey: "5"},
+					{title: "", dataKey: "6"},
+					{title: "", dataKey: "7"},
+					{title: "Total", dataKey: "8"},
+					{title: "Third-Fourth Class", dataKey: "9"},
+					{title: "", dataKey: "10"},
+					{title: "", dataKey: "11"},
+					{title: "Total", dataKey: "12"}
+				];
+				
+					var government_conditional_rows = [
+						// no
+						{"1": prediction.prediction.conditional_probabilities.government_efficiency[0].equations[0][0],"2": prediction.prediction.conditional_probabilities.government_efficiency[0].equations[0][1],"3": prediction.prediction.conditional_probabilities.government_efficiency[0].equations[0][2],"4": prediction.prediction.conditional_probabilities.government_efficiency[0].equations[0][3],"5": prediction.prediction.conditional_probabilities.government_efficiency[1].equations[0][0],"6": prediction.prediction.conditional_probabilities.government_efficiency[1].equations[0][1],"7": prediction.prediction.conditional_probabilities.government_efficiency[1].equations[0][2],"8": prediction.prediction.conditional_probabilities.government_efficiency[1].equations[0][3],"9": prediction.prediction.conditional_probabilities.government_efficiency[2].equations[0][0],"10": prediction.prediction.conditional_probabilities.government_efficiency[2].equations[0][1],"11": prediction.prediction.conditional_probabilities.government_efficiency[2].equations[0][2],"12": prediction.prediction.conditional_probabilities.government_efficiency[2].equations[0][3]},
+						// yes
+						{"1": prediction.prediction.conditional_probabilities.government_efficiency[0].equations[1][0],"2": prediction.prediction.conditional_probabilities.government_efficiency[0].equations[1][1],"3": prediction.prediction.conditional_probabilities.government_efficiency[0].equations[1][2],"4": prediction.prediction.conditional_probabilities.government_efficiency[0].equations[1][3],"5": prediction.prediction.conditional_probabilities.government_efficiency[1].equations[1][0],"6": prediction.prediction.conditional_probabilities.government_efficiency[1].equations[1][1],"7": prediction.prediction.conditional_probabilities.government_efficiency[1].equations[1][2],"8": prediction.prediction.conditional_probabilities.government_efficiency[1].equations[1][3],"9": prediction.prediction.conditional_probabilities.government_efficiency[2].equations[1][0],"10": prediction.prediction.conditional_probabilities.government_efficiency[2].equations[1][1],"11": prediction.prediction.conditional_probabilities.government_efficiency[2].equations[1][2],"12": prediction.prediction.conditional_probabilities.government_efficiency[2].equations[1][3]},
+						
+					];	
+							
+				
+				doc.autoTable(government_conditional_header, government_conditional_rows,{
+					theme: 'striped',
+					margin: {
+						top: 62, 
+						left: 6 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					columnStyles: {
+						5: {columnWidth: 25},
+						9: {columnWidth: 25},
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 9
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 9
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+				
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(6, 105, 'Infrastructure');
+				
+				var infrastructure_conditional_header = [
+					{title: "City", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "", dataKey: "3"},
+					{title: "Total", dataKey: "4"},
+					{title: "First-Second Class", dataKey: "5"},
+					{title: "", dataKey: "6"},
+					{title: "", dataKey: "7"},
+					{title: "Total", dataKey: "8"},
+					{title: "Third-Fourth Class", dataKey: "9"},
+					{title: "", dataKey: "10"},
+					{title: "", dataKey: "11"},
+					{title: "Total", dataKey: "12"}
+				];
+				
+					var infrastructure_conditional_rows = [
+						// no
+						{"1": prediction.prediction.conditional_probabilities.infrastructure[0].equations[0][0],"2": prediction.prediction.conditional_probabilities.infrastructure[0].equations[0][1],"3": prediction.prediction.conditional_probabilities.infrastructure[0].equations[0][2],"4": prediction.prediction.conditional_probabilities.infrastructure[0].equations[0][3],"5": prediction.prediction.conditional_probabilities.infrastructure[1].equations[0][0],"6": prediction.prediction.conditional_probabilities.infrastructure[1].equations[0][1],"7": prediction.prediction.conditional_probabilities.infrastructure[1].equations[0][2],"8": prediction.prediction.conditional_probabilities.infrastructure[1].equations[0][3],"9": prediction.prediction.conditional_probabilities.infrastructure[2].equations[0][0],"10": prediction.prediction.conditional_probabilities.infrastructure[2].equations[0][1],"11": prediction.prediction.conditional_probabilities.infrastructure[2].equations[0][2],"12": prediction.prediction.conditional_probabilities.infrastructure[2].equations[0][3]},
+						// yes
+						{"1": prediction.prediction.conditional_probabilities.infrastructure[0].equations[1][0],"2": prediction.prediction.conditional_probabilities.infrastructure[0].equations[1][1],"3": prediction.prediction.conditional_probabilities.infrastructure[0].equations[1][2],"4": prediction.prediction.conditional_probabilities.infrastructure[0].equations[1][3],"5": prediction.prediction.conditional_probabilities.infrastructure[1].equations[1][0],"6": prediction.prediction.conditional_probabilities.infrastructure[1].equations[1][1],"7": prediction.prediction.conditional_probabilities.infrastructure[1].equations[1][2],"8": prediction.prediction.conditional_probabilities.infrastructure[1].equations[1][3],"9": prediction.prediction.conditional_probabilities.infrastructure[2].equations[1][0],"10": prediction.prediction.conditional_probabilities.infrastructure[2].equations[1][1],"11": prediction.prediction.conditional_probabilities.infrastructure[2].equations[1][2],"12": prediction.prediction.conditional_probabilities.infrastructure[2].equations[1][3]},
+						
+					];	
+							
+				
+				doc.autoTable(infrastructure_conditional_header, infrastructure_conditional_rows,{
+					theme: 'striped',
+					margin: {
+						top: 107, 
+						left: 6 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					columnStyles: {
+						5: {columnWidth: 25},
+						9: {columnWidth: 25},
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 9
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 9
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+				
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(6, 150, 'Resiliency');
+				
+				var resiliency_conditional_header = [
+					{title: "City", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "", dataKey: "3"},
+					{title: "Total", dataKey: "4"},
+					{title: "First-Second Class", dataKey: "5"},
+					{title: "", dataKey: "6"},
+					{title: "", dataKey: "7"},
+					{title: "Total", dataKey: "8"},
+					{title: "Third-Fourth Class", dataKey: "9"},
+					{title: "", dataKey: "10"},
+					{title: "", dataKey: "11"},
+					{title: "Total", dataKey: "12"}
+				];
+				
+					var resiliency_conditional_rows = [
+						// no
+						{"1": prediction.prediction.conditional_probabilities.resiliency[0].equations[0][0],"2": prediction.prediction.conditional_probabilities.resiliency[0].equations[0][1],"3": prediction.prediction.conditional_probabilities.resiliency[0].equations[0][2],"4": prediction.prediction.conditional_probabilities.resiliency[0].equations[0][3],"5": prediction.prediction.conditional_probabilities.resiliency[1].equations[0][0],"6": prediction.prediction.conditional_probabilities.resiliency[1].equations[0][1],"7": prediction.prediction.conditional_probabilities.resiliency[1].equations[0][2],"8": prediction.prediction.conditional_probabilities.resiliency[1].equations[0][3],"9": prediction.prediction.conditional_probabilities.resiliency[2].equations[0][0],"10": prediction.prediction.conditional_probabilities.resiliency[2].equations[0][1],"11": prediction.prediction.conditional_probabilities.resiliency[2].equations[0][2],"12": prediction.prediction.conditional_probabilities.resiliency[2].equations[0][3]},
+						// yes
+						{"1": prediction.prediction.conditional_probabilities.resiliency[0].equations[1][0],"2": prediction.prediction.conditional_probabilities.resiliency[0].equations[1][1],"3": prediction.prediction.conditional_probabilities.resiliency[0].equations[1][2],"4": prediction.prediction.conditional_probabilities.resiliency[0].equations[1][3],"5": prediction.prediction.conditional_probabilities.resiliency[1].equations[1][0],"6": prediction.prediction.conditional_probabilities.resiliency[1].equations[1][1],"7": prediction.prediction.conditional_probabilities.resiliency[1].equations[1][2],"8": prediction.prediction.conditional_probabilities.resiliency[1].equations[1][3],"9": prediction.prediction.conditional_probabilities.resiliency[2].equations[1][0],"10": prediction.prediction.conditional_probabilities.resiliency[2].equations[1][1],"11": prediction.prediction.conditional_probabilities.resiliency[2].equations[1][2],"12": prediction.prediction.conditional_probabilities.resiliency[2].equations[1][3]},
+						
+					];	
+							
+				
+				doc.autoTable(resiliency_conditional_header, resiliency_conditional_rows,{
+					theme: 'striped',
+					margin: {
+						top: 152, 
+						left: 6 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					columnStyles: {
+						5: {columnWidth: 25},
+						9: {columnWidth: 25},
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 9
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 9
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+				
+			
+			var blob = doc.output('blob');
+			window.open(URL.createObjectURL(blob));
+		
+		};
+		
+		self.print_probability = function(scope) {
+			
+			$http({
+			method: 'POST',
+			url: 'api/prediction.php',
+			data: scope.filter.prediction
+			}).then(function success(response) {
+
+				print_probability(response.data);
+			
+			}, function error() {
+				
+			});
+			
+		};
+		
+		function print_probability(prediction) {			
+			
+			var doc = new jsPDF({
+				orientation: 'landscape',
+				unit: 'pt',
+				format: [612, 792]
+			});	
+			var doc = new jsPDF('l','mm','legal');
+			
+			//X-axis, Y-axis
+			doc.setFontSize(16)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(8, 10, 'Calculate one variable in category '+prediction.year);
+
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(8, 18, 'Economy Dynamism');
+				
+				var economy_probability_header = [
+					{title: "City", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "", dataKey: "3"},
+					{title: "Total", dataKey: "4"},
+					{title: "First-Second Class", dataKey: "5"},
+					{title: "", dataKey: "6"},
+					{title: "", dataKey: "7"},
+					{title: "Total", dataKey: "8"},
+					{title: "Third-Fourth Class", dataKey: "9"},
+					{title: "", dataKey: "10"},
+					{title: "", dataKey: "11"},
+					{title: "Total", dataKey: "12"}
+				];
+				
+					var economy_probability_rows = [
+						// no
+						{"1": prediction.prediction.probabilities.economy[0].equations[0][0][0], "2": prediction.prediction.probabilities.economy[0].equations[0][0][1], "3": prediction.prediction.probabilities.economy[0].equations[0][0][2], "4": prediction.prediction.probabilities.economy[0].equations[0][0][3], "5": prediction.prediction.probabilities.economy[1].equations[0][0][0],"6": prediction.prediction.probabilities.economy[1].equations[0][0][1],"7": prediction.prediction.probabilities.economy[1].equations[0][0][2],"8": prediction.prediction.probabilities.economy[1].equations[0][0][3],"9": prediction.prediction.probabilities.economy[2].equations[0][0][0],"10": prediction.prediction.probabilities.economy[2].equations[0][0][1],"11": prediction.prediction.probabilities.economy[2].equations[0][0][2],"12": prediction.prediction.probabilities.economy[2].equations[0][0][3],},
+						{"1": prediction.prediction.probabilities.economy[0].equations[0][1][0], "2": prediction.prediction.probabilities.economy[0].equations[0][1][1], "3": prediction.prediction.probabilities.economy[0].equations[0][1][2], "4": prediction.prediction.probabilities.economy[0].equations[0][1][3], "5": prediction.prediction.probabilities.economy[1].equations[0][1][0],"6": prediction.prediction.probabilities.economy[1].equations[0][1][1],"7": prediction.prediction.probabilities.economy[1].equations[0][1][2],"8": prediction.prediction.probabilities.economy[1].equations[0][1][3],"9": prediction.prediction.probabilities.economy[2].equations[0][1][0],"10": prediction.prediction.probabilities.economy[2].equations[0][1][1],"11": prediction.prediction.probabilities.economy[2].equations[0][1][2],"12": prediction.prediction.probabilities.economy[2].equations[0][1][3],},
+						{"1": prediction.prediction.probabilities.economy[0].equations[0][2][0], "2": prediction.prediction.probabilities.economy[0].equations[0][2][1], "3": prediction.prediction.probabilities.economy[0].equations[0][2][2], "4": prediction.prediction.probabilities.economy[0].equations[0][2][3], "5": prediction.prediction.probabilities.economy[1].equations[0][2][0],"6": prediction.prediction.probabilities.economy[1].equations[0][2][1],"7": prediction.prediction.probabilities.economy[1].equations[0][2][2],"8": prediction.prediction.probabilities.economy[1].equations[0][2][3],"9": prediction.prediction.probabilities.economy[2].equations[0][2][0],"10": prediction.prediction.probabilities.economy[2].equations[0][2][1],"11": prediction.prediction.probabilities.economy[2].equations[0][2][2],"12": prediction.prediction.probabilities.economy[2].equations[0][2][3],},
+						// yes
+						{"1": prediction.prediction.probabilities.economy[0].equations[1][0][0], "2": prediction.prediction.probabilities.economy[0].equations[1][0][1], "3": prediction.prediction.probabilities.economy[0].equations[1][0][2], "4": prediction.prediction.probabilities.economy[0].equations[1][0][3], "5": prediction.prediction.probabilities.economy[1].equations[1][0][0],"6": prediction.prediction.probabilities.economy[1].equations[1][0][1],"7": prediction.prediction.probabilities.economy[1].equations[1][0][2],"8": prediction.prediction.probabilities.economy[1].equations[1][0][3],"9": prediction.prediction.probabilities.economy[2].equations[1][0][0],"10": prediction.prediction.probabilities.economy[2].equations[1][0][1],"11": prediction.prediction.probabilities.economy[2].equations[1][0][2],"12": prediction.prediction.probabilities.economy[2].equations[1][0][3],},
+						{"1": prediction.prediction.probabilities.economy[0].equations[1][1][0], "2": prediction.prediction.probabilities.economy[0].equations[1][1][1], "3": prediction.prediction.probabilities.economy[0].equations[1][1][2], "4": prediction.prediction.probabilities.economy[0].equations[1][1][3], "5": prediction.prediction.probabilities.economy[1].equations[1][1][0],"6": prediction.prediction.probabilities.economy[1].equations[1][1][1],"7": prediction.prediction.probabilities.economy[1].equations[1][1][2],"8": prediction.prediction.probabilities.economy[1].equations[1][1][3],"9": prediction.prediction.probabilities.economy[2].equations[1][1][0],"10": prediction.prediction.probabilities.economy[2].equations[1][1][1],"11": prediction.prediction.probabilities.economy[2].equations[1][1][2],"12": prediction.prediction.probabilities.economy[2].equations[1][1][3],},
+						{"1": prediction.prediction.probabilities.economy[0].equations[1][2][0], "2": prediction.prediction.probabilities.economy[0].equations[1][2][1], "3": prediction.prediction.probabilities.economy[0].equations[1][2][2], "4": prediction.prediction.probabilities.economy[0].equations[1][2][3], "5": prediction.prediction.probabilities.economy[1].equations[1][2][0],"6": prediction.prediction.probabilities.economy[1].equations[1][2][1],"7": prediction.prediction.probabilities.economy[1].equations[1][2][2],"8": prediction.prediction.probabilities.economy[1].equations[1][2][3],"9": prediction.prediction.probabilities.economy[2].equations[1][2][0],"10": prediction.prediction.probabilities.economy[2].equations[1][2][1],"11": prediction.prediction.probabilities.economy[2].equations[1][2][2],"12": prediction.prediction.probabilities.economy[2].equations[1][2][3],},
+						
+					];	
+							
+				
+				doc.autoTable(economy_probability_header, economy_probability_rows,{
+					theme: 'striped',
+					margin: {
+						top: 20, 
+						left: 8 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					columnStyles: {
+						6: {columnWidth: 30},
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 9.5
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 9.5
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+				
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(8, 115, 'Government Efficiency');
+				
+				
+				var government_probability_header = [
+					{title: "City", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "", dataKey: "3"},
+					{title: "Total", dataKey: "4"},
+					{title: "First-Second Class", dataKey: "5"},
+					{title: "", dataKey: "6"},
+					{title: "", dataKey: "7"},
+					{title: "Total", dataKey: "8"},
+					{title: "Third-Fourth Class", dataKey: "9"},
+					{title: "", dataKey: "10"},
+					{title: "", dataKey: "11"},
+					{title: "Total", dataKey: "12"}
+				];
+				
+					var government_probability_rows = [
+						// no
+						{"1": prediction.prediction.probabilities.government_efficiency[0].equations[0][0][0], "2": prediction.prediction.probabilities.government_efficiency[0].equations[0][0][1], "3": prediction.prediction.probabilities.government_efficiency[0].equations[0][0][2], "4": prediction.prediction.probabilities.government_efficiency[0].equations[0][0][3], "5": prediction.prediction.probabilities.government_efficiency[1].equations[0][0][0],"6": prediction.prediction.probabilities.government_efficiency[1].equations[0][0][1],"7": prediction.prediction.probabilities.government_efficiency[1].equations[0][0][2],"8": prediction.prediction.probabilities.government_efficiency[1].equations[0][0][3],"9": prediction.prediction.probabilities.government_efficiency[2].equations[0][0][0],"10": prediction.prediction.probabilities.government_efficiency[2].equations[0][0][1],"11": prediction.prediction.probabilities.government_efficiency[2].equations[0][0][2],"12": prediction.prediction.probabilities.government_efficiency[2].equations[0][0][3],},
+						{"1": prediction.prediction.probabilities.government_efficiency[0].equations[0][1][0], "2": prediction.prediction.probabilities.government_efficiency[0].equations[0][1][1], "3": prediction.prediction.probabilities.government_efficiency[0].equations[0][1][2], "4": prediction.prediction.probabilities.government_efficiency[0].equations[0][1][3], "5": prediction.prediction.probabilities.government_efficiency[1].equations[0][1][0],"6": prediction.prediction.probabilities.government_efficiency[1].equations[0][1][1],"7": prediction.prediction.probabilities.government_efficiency[1].equations[0][1][2],"8": prediction.prediction.probabilities.government_efficiency[1].equations[0][1][3],"9": prediction.prediction.probabilities.government_efficiency[2].equations[0][1][0],"10": prediction.prediction.probabilities.government_efficiency[2].equations[0][1][1],"11": prediction.prediction.probabilities.government_efficiency[2].equations[0][1][2],"12": prediction.prediction.probabilities.government_efficiency[2].equations[0][1][3],},
+						{"1": prediction.prediction.probabilities.government_efficiency[0].equations[0][2][0], "2": prediction.prediction.probabilities.government_efficiency[0].equations[0][2][1], "3": prediction.prediction.probabilities.government_efficiency[0].equations[0][2][2], "4": prediction.prediction.probabilities.government_efficiency[0].equations[0][2][3], "5": prediction.prediction.probabilities.government_efficiency[1].equations[0][2][0],"6": prediction.prediction.probabilities.government_efficiency[1].equations[0][2][1],"7": prediction.prediction.probabilities.government_efficiency[1].equations[0][2][2],"8": prediction.prediction.probabilities.government_efficiency[1].equations[0][2][3],"9": prediction.prediction.probabilities.government_efficiency[2].equations[0][2][0],"10": prediction.prediction.probabilities.government_efficiency[2].equations[0][2][1],"11": prediction.prediction.probabilities.government_efficiency[2].equations[0][2][2],"12": prediction.prediction.probabilities.government_efficiency[2].equations[0][2][3],},
+						// yes
+						{"1": prediction.prediction.probabilities.government_efficiency[0].equations[1][0][0], "2": prediction.prediction.probabilities.government_efficiency[0].equations[1][0][1], "3": prediction.prediction.probabilities.government_efficiency[0].equations[1][0][2], "4": prediction.prediction.probabilities.government_efficiency[0].equations[1][0][3], "5": prediction.prediction.probabilities.government_efficiency[1].equations[1][0][0],"6": prediction.prediction.probabilities.government_efficiency[1].equations[1][0][1],"7": prediction.prediction.probabilities.government_efficiency[1].equations[1][0][2],"8": prediction.prediction.probabilities.government_efficiency[1].equations[1][0][3],"9": prediction.prediction.probabilities.government_efficiency[2].equations[1][0][0],"10": prediction.prediction.probabilities.government_efficiency[2].equations[1][0][1],"11": prediction.prediction.probabilities.government_efficiency[2].equations[1][0][2],"12": prediction.prediction.probabilities.government_efficiency[2].equations[1][0][3],},
+						{"1": prediction.prediction.probabilities.government_efficiency[0].equations[1][1][0], "2": prediction.prediction.probabilities.government_efficiency[0].equations[1][1][1], "3": prediction.prediction.probabilities.government_efficiency[0].equations[1][1][2], "4": prediction.prediction.probabilities.government_efficiency[0].equations[1][1][3], "5": prediction.prediction.probabilities.government_efficiency[1].equations[1][1][0],"6": prediction.prediction.probabilities.government_efficiency[1].equations[1][1][1],"7": prediction.prediction.probabilities.government_efficiency[1].equations[1][1][2],"8": prediction.prediction.probabilities.government_efficiency[1].equations[1][1][3],"9": prediction.prediction.probabilities.government_efficiency[2].equations[1][1][0],"10": prediction.prediction.probabilities.government_efficiency[2].equations[1][1][1],"11": prediction.prediction.probabilities.government_efficiency[2].equations[1][1][2],"12": prediction.prediction.probabilities.government_efficiency[2].equations[1][1][3],},
+						{"1": prediction.prediction.probabilities.government_efficiency[0].equations[1][2][0], "2": prediction.prediction.probabilities.government_efficiency[0].equations[1][2][1], "3": prediction.prediction.probabilities.government_efficiency[0].equations[1][2][2], "4": prediction.prediction.probabilities.government_efficiency[0].equations[1][2][3], "5": prediction.prediction.probabilities.government_efficiency[1].equations[1][2][0],"6": prediction.prediction.probabilities.government_efficiency[1].equations[1][2][1],"7": prediction.prediction.probabilities.government_efficiency[1].equations[1][2][2],"8": prediction.prediction.probabilities.government_efficiency[1].equations[1][2][3],"9": prediction.prediction.probabilities.government_efficiency[2].equations[1][2][0],"10": prediction.prediction.probabilities.government_efficiency[2].equations[1][2][1],"11": prediction.prediction.probabilities.government_efficiency[2].equations[1][2][2],"12": prediction.prediction.probabilities.government_efficiency[2].equations[1][2][3],},
+						
+					];	
+							
+				
+				doc.autoTable(government_probability_header, government_probability_rows,{
+					theme: 'striped',
+					margin: {
+						top: 117, 
+						left: 8 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					columnStyles: {
+						6: {columnWidth: 30},
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 9.5
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 9.5
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+				
+			doc.addPage();
+			doc.setFontSize(16)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(8, 10, 'Calculate one variable in category '+prediction.year);
+
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(8, 18, 'Infrastructure');
+				
+				var infrastructure_probability_header = [
+					{title: "City", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "", dataKey: "3"},
+					{title: "Total", dataKey: "4"},
+					{title: "First-Second Class", dataKey: "5"},
+					{title: "", dataKey: "6"},
+					{title: "", dataKey: "7"},
+					{title: "Total", dataKey: "8"},
+					{title: "Third-Fourth Class", dataKey: "9"},
+					{title: "", dataKey: "10"},
+					{title: "", dataKey: "11"},
+					{title: "Total", dataKey: "12"}
+				];
+				
+					var infrastructure_probability_rows = [
+						// no
+						{"1": prediction.prediction.probabilities.infrastructure[0].equations[0][0][0], "2": prediction.prediction.probabilities.infrastructure[0].equations[0][0][1], "3": prediction.prediction.probabilities.infrastructure[0].equations[0][0][2], "4": prediction.prediction.probabilities.infrastructure[0].equations[0][0][3], "5": prediction.prediction.probabilities.infrastructure[1].equations[0][0][0],"6": prediction.prediction.probabilities.infrastructure[1].equations[0][0][1],"7": prediction.prediction.probabilities.infrastructure[1].equations[0][0][2],"8": prediction.prediction.probabilities.infrastructure[1].equations[0][0][3],"9": prediction.prediction.probabilities.infrastructure[2].equations[0][0][0],"10": prediction.prediction.probabilities.infrastructure[2].equations[0][0][1],"11": prediction.prediction.probabilities.infrastructure[2].equations[0][0][2],"12": prediction.prediction.probabilities.infrastructure[2].equations[0][0][3],},
+						{"1": prediction.prediction.probabilities.infrastructure[0].equations[0][1][0], "2": prediction.prediction.probabilities.infrastructure[0].equations[0][1][1], "3": prediction.prediction.probabilities.infrastructure[0].equations[0][1][2], "4": prediction.prediction.probabilities.infrastructure[0].equations[0][1][3], "5": prediction.prediction.probabilities.infrastructure[1].equations[0][1][0],"6": prediction.prediction.probabilities.infrastructure[1].equations[0][1][1],"7": prediction.prediction.probabilities.infrastructure[1].equations[0][1][2],"8": prediction.prediction.probabilities.infrastructure[1].equations[0][1][3],"9": prediction.prediction.probabilities.infrastructure[2].equations[0][1][0],"10": prediction.prediction.probabilities.infrastructure[2].equations[0][1][1],"11": prediction.prediction.probabilities.infrastructure[2].equations[0][1][2],"12": prediction.prediction.probabilities.infrastructure[2].equations[0][1][3],},
+						{"1": prediction.prediction.probabilities.infrastructure[0].equations[0][2][0], "2": prediction.prediction.probabilities.infrastructure[0].equations[0][2][1], "3": prediction.prediction.probabilities.infrastructure[0].equations[0][2][2], "4": prediction.prediction.probabilities.infrastructure[0].equations[0][2][3], "5": prediction.prediction.probabilities.infrastructure[1].equations[0][2][0],"6": prediction.prediction.probabilities.infrastructure[1].equations[0][2][1],"7": prediction.prediction.probabilities.infrastructure[1].equations[0][2][2],"8": prediction.prediction.probabilities.infrastructure[1].equations[0][2][3],"9": prediction.prediction.probabilities.infrastructure[2].equations[0][2][0],"10": prediction.prediction.probabilities.infrastructure[2].equations[0][2][1],"11": prediction.prediction.probabilities.infrastructure[2].equations[0][2][2],"12": prediction.prediction.probabilities.infrastructure[2].equations[0][2][3],},
+						// yes
+						{"1": prediction.prediction.probabilities.infrastructure[0].equations[1][0][0], "2": prediction.prediction.probabilities.infrastructure[0].equations[1][0][1], "3": prediction.prediction.probabilities.infrastructure[0].equations[1][0][2], "4": prediction.prediction.probabilities.infrastructure[0].equations[1][0][3], "5": prediction.prediction.probabilities.infrastructure[1].equations[1][0][0],"6": prediction.prediction.probabilities.infrastructure[1].equations[1][0][1],"7": prediction.prediction.probabilities.infrastructure[1].equations[1][0][2],"8": prediction.prediction.probabilities.infrastructure[1].equations[1][0][3],"9": prediction.prediction.probabilities.infrastructure[2].equations[1][0][0],"10": prediction.prediction.probabilities.infrastructure[2].equations[1][0][1],"11": prediction.prediction.probabilities.infrastructure[2].equations[1][0][2],"12": prediction.prediction.probabilities.infrastructure[2].equations[1][0][3],},
+						{"1": prediction.prediction.probabilities.infrastructure[0].equations[1][1][0], "2": prediction.prediction.probabilities.infrastructure[0].equations[1][1][1], "3": prediction.prediction.probabilities.infrastructure[0].equations[1][1][2], "4": prediction.prediction.probabilities.infrastructure[0].equations[1][1][3], "5": prediction.prediction.probabilities.infrastructure[1].equations[1][1][0],"6": prediction.prediction.probabilities.infrastructure[1].equations[1][1][1],"7": prediction.prediction.probabilities.infrastructure[1].equations[1][1][2],"8": prediction.prediction.probabilities.infrastructure[1].equations[1][1][3],"9": prediction.prediction.probabilities.infrastructure[2].equations[1][1][0],"10": prediction.prediction.probabilities.infrastructure[2].equations[1][1][1],"11": prediction.prediction.probabilities.infrastructure[2].equations[1][1][2],"12": prediction.prediction.probabilities.infrastructure[2].equations[1][1][3],},
+						{"1": prediction.prediction.probabilities.infrastructure[0].equations[1][2][0], "2": prediction.prediction.probabilities.infrastructure[0].equations[1][2][1], "3": prediction.prediction.probabilities.infrastructure[0].equations[1][2][2], "4": prediction.prediction.probabilities.infrastructure[0].equations[1][2][3], "5": prediction.prediction.probabilities.infrastructure[1].equations[1][2][0],"6": prediction.prediction.probabilities.infrastructure[1].equations[1][2][1],"7": prediction.prediction.probabilities.infrastructure[1].equations[1][2][2],"8": prediction.prediction.probabilities.infrastructure[1].equations[1][2][3],"9": prediction.prediction.probabilities.infrastructure[2].equations[1][2][0],"10": prediction.prediction.probabilities.infrastructure[2].equations[1][2][1],"11": prediction.prediction.probabilities.infrastructure[2].equations[1][2][2],"12": prediction.prediction.probabilities.infrastructure[2].equations[1][2][3],},
+						
+					];	
+							
+				
+				doc.autoTable(infrastructure_probability_header, infrastructure_probability_rows,{
+					theme: 'striped',
+					margin: {
+						top: 20, 
+						left: 8 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					columnStyles: {
+						6: {columnWidth: 30},
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 9.5
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 9.5
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+				
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(8, 115, 'Resiliency');
+				
+				
+				var resiliency_probability_header = [
+					{title: "City", dataKey: "1"},
+					{title: "", dataKey: "2"},
+					{title: "", dataKey: "3"},
+					{title: "Total", dataKey: "4"},
+					{title: "First-Second Class", dataKey: "5"},
+					{title: "", dataKey: "6"},
+					{title: "", dataKey: "7"},
+					{title: "Total", dataKey: "8"},
+					{title: "Third-Fourth Class", dataKey: "9"},
+					{title: "", dataKey: "10"},
+					{title: "", dataKey: "11"},
+					{title: "Total", dataKey: "12"}
+				];
+				
+					var resiliency_probability_rows = [
+						// no
+						{"1": prediction.prediction.probabilities.resiliency[0].equations[0][0][0], "2": prediction.prediction.probabilities.resiliency[0].equations[0][0][1], "3": prediction.prediction.probabilities.resiliency[0].equations[0][0][2], "4": prediction.prediction.probabilities.resiliency[0].equations[0][0][3], "5": prediction.prediction.probabilities.resiliency[1].equations[0][0][0],"6": prediction.prediction.probabilities.resiliency[1].equations[0][0][1],"7": prediction.prediction.probabilities.resiliency[1].equations[0][0][2],"8": prediction.prediction.probabilities.resiliency[1].equations[0][0][3],"9": prediction.prediction.probabilities.resiliency[2].equations[0][0][0],"10": prediction.prediction.probabilities.resiliency[2].equations[0][0][1],"11": prediction.prediction.probabilities.resiliency[2].equations[0][0][2],"12": prediction.prediction.probabilities.resiliency[2].equations[0][0][3],},
+						{"1": prediction.prediction.probabilities.resiliency[0].equations[0][1][0], "2": prediction.prediction.probabilities.resiliency[0].equations[0][1][1], "3": prediction.prediction.probabilities.resiliency[0].equations[0][1][2], "4": prediction.prediction.probabilities.resiliency[0].equations[0][1][3], "5": prediction.prediction.probabilities.resiliency[1].equations[0][1][0],"6": prediction.prediction.probabilities.resiliency[1].equations[0][1][1],"7": prediction.prediction.probabilities.resiliency[1].equations[0][1][2],"8": prediction.prediction.probabilities.resiliency[1].equations[0][1][3],"9": prediction.prediction.probabilities.resiliency[2].equations[0][1][0],"10": prediction.prediction.probabilities.resiliency[2].equations[0][1][1],"11": prediction.prediction.probabilities.resiliency[2].equations[0][1][2],"12": prediction.prediction.probabilities.resiliency[2].equations[0][1][3],},
+						{"1": prediction.prediction.probabilities.resiliency[0].equations[0][2][0], "2": prediction.prediction.probabilities.resiliency[0].equations[0][2][1], "3": prediction.prediction.probabilities.resiliency[0].equations[0][2][2], "4": prediction.prediction.probabilities.resiliency[0].equations[0][2][3], "5": prediction.prediction.probabilities.resiliency[1].equations[0][2][0],"6": prediction.prediction.probabilities.resiliency[1].equations[0][2][1],"7": prediction.prediction.probabilities.resiliency[1].equations[0][2][2],"8": prediction.prediction.probabilities.resiliency[1].equations[0][2][3],"9": prediction.prediction.probabilities.resiliency[2].equations[0][2][0],"10": prediction.prediction.probabilities.resiliency[2].equations[0][2][1],"11": prediction.prediction.probabilities.resiliency[2].equations[0][2][2],"12": prediction.prediction.probabilities.resiliency[2].equations[0][2][3],},
+						// yes
+						{"1": prediction.prediction.probabilities.resiliency[0].equations[1][0][0], "2": prediction.prediction.probabilities.resiliency[0].equations[1][0][1], "3": prediction.prediction.probabilities.resiliency[0].equations[1][0][2], "4": prediction.prediction.probabilities.resiliency[0].equations[1][0][3], "5": prediction.prediction.probabilities.resiliency[1].equations[1][0][0],"6": prediction.prediction.probabilities.resiliency[1].equations[1][0][1],"7": prediction.prediction.probabilities.resiliency[1].equations[1][0][2],"8": prediction.prediction.probabilities.resiliency[1].equations[1][0][3],"9": prediction.prediction.probabilities.resiliency[2].equations[1][0][0],"10": prediction.prediction.probabilities.resiliency[2].equations[1][0][1],"11": prediction.prediction.probabilities.resiliency[2].equations[1][0][2],"12": prediction.prediction.probabilities.resiliency[2].equations[1][0][3],},
+						{"1": prediction.prediction.probabilities.resiliency[0].equations[1][1][0], "2": prediction.prediction.probabilities.resiliency[0].equations[1][1][1], "3": prediction.prediction.probabilities.resiliency[0].equations[1][1][2], "4": prediction.prediction.probabilities.resiliency[0].equations[1][1][3], "5": prediction.prediction.probabilities.resiliency[1].equations[1][1][0],"6": prediction.prediction.probabilities.resiliency[1].equations[1][1][1],"7": prediction.prediction.probabilities.resiliency[1].equations[1][1][2],"8": prediction.prediction.probabilities.resiliency[1].equations[1][1][3],"9": prediction.prediction.probabilities.resiliency[2].equations[1][1][0],"10": prediction.prediction.probabilities.resiliency[2].equations[1][1][1],"11": prediction.prediction.probabilities.resiliency[2].equations[1][1][2],"12": prediction.prediction.probabilities.resiliency[2].equations[1][1][3],},
+						{"1": prediction.prediction.probabilities.resiliency[0].equations[1][2][0], "2": prediction.prediction.probabilities.resiliency[0].equations[1][2][1], "3": prediction.prediction.probabilities.resiliency[0].equations[1][2][2], "4": prediction.prediction.probabilities.resiliency[0].equations[1][2][3], "5": prediction.prediction.probabilities.resiliency[1].equations[1][2][0],"6": prediction.prediction.probabilities.resiliency[1].equations[1][2][1],"7": prediction.prediction.probabilities.resiliency[1].equations[1][2][2],"8": prediction.prediction.probabilities.resiliency[1].equations[1][2][3],"9": prediction.prediction.probabilities.resiliency[2].equations[1][2][0],"10": prediction.prediction.probabilities.resiliency[2].equations[1][2][1],"11": prediction.prediction.probabilities.resiliency[2].equations[1][2][2],"12": prediction.prediction.probabilities.resiliency[2].equations[1][2][3],},
+						
+					];	
+							
+				
+				doc.autoTable(resiliency_probability_header, resiliency_probability_rows,{
+					theme: 'striped',
+					margin: {
+						top: 117, 
+						left: 8 
+					},
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+						
+					},
+					columnStyles: {
+						6: {columnWidth: 30},
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 9.5
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 9.5
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});
+			
+			var blob = doc.output('blob');
+			window.open(URL.createObjectURL(blob));
+		
 		};
 		
 		//print likelihood tables
