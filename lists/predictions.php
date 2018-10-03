@@ -1378,38 +1378,3 @@ $tables['headers'] = array(
 		
 	</div>
 </div>
-
-<div class="row">
-	<div class="col-lg-12">
-		<div class="card">
-			<h4 class="card-title">Indicators</h4>
-			<div class="row">
-				<div class="col-lg-1">
-					<span>All </span><input type="checkbox">
-				</div>
-				<div class="col-lg-1">
-					<span>Yes </span><input type="checkbox">
-				</div>
-				<div class="col-lg-1">
-					<span>No </span><input type="checkbox">
-				</div>
-			</div>
-			<hr>
-				<div class="table-responsive table-bordered">
-				<table class="table">
-					<thead>
-						<tr>
-						<th>Economy Dynamism</th>
-						<th>Government Efficiency</th>
-						<th>Infrastructure</th>
-						<th>Resiliency</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-					</tbody>
-				</table>
-			</div>
-		</div>	
-	</div>
-</div>
