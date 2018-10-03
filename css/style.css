@@ -6991,4 +6991,7 @@ tbody tr td:last-child {
 }
 .dataTables_scroll {
 	overflow: auto;
+}
+.for_checkbox{
+	cursor: pointer;
 };
