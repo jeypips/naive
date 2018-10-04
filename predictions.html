@@ -114,7 +114,7 @@
 				</div> -->
 			
 				<div class="row">
-					<div class="col-lg-4 col-md-5 col-sm-5">
+					<div class="col-lg-3 col-md-5 col-sm-5">
 						<div class="form-group">
 							<span>Period:</span>
 							<select class="form-control" ng-model="filter.prediction.period">
@@ -126,15 +126,74 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-lg-4 col-md-5 col-sm-5">
+					<div class="col-lg-3 col-md-5 col-sm-5">
 						<div class="form-group">
 							<span>Top:</span>
 							<input type="text" class="form-control" ng-model="filter.prediction.top">
 						</div>
 					</div>
-					<div class="col-lg-4 col-md-2 col-sm-2">
+					<div class="col-lg-3 col-md-5 col-sm-5">
+						<div class="form-group">
+							<span>Category:</span>
+							<select class="form-control">
+								<option value="(1) City">(1) City</option>
+								<option value="(2) 1st-2nd Class">(2) 1st-2nd Class</option>
+								<option value="(3) 3rd-4th Class">(3) 3rd-4th Class</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				<h4 class="card-title">Indicators:</h4>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="row">
+									<div class="col-lg-1">
+										<div class="checkbox">
+											<label class="for_checkbox">
+												<input type="checkbox" class="for_checkbox"> All
+											</label>
+										</div>
+									</div>
+									<div class="col-lg-1">
+										<div class="checkbox">
+											<label class="for_checkbox">
+												<input type="checkbox" class="for_checkbox"> Yes
+											</label>
+										</div>
+									</div>
+									<div class="col-lg-1">
+										<div class="checkbox">
+											<label class="for_checkbox">
+												<input type="checkbox" class="for_checkbox"> No
+											</label>
+										</div>
+									</div>
+								</div>
+								<br>
+								<div class="table-responsive table-bordered">
+									<table class="table">
+										<thead>
+											<tr>
+											<th>Economy Dynamism</th>
+											<th>Government Efficiency</th>
+											<th>Infrastructure</th>
+											<th>Resiliency</th>
+											</tr>
+										</thead>
+										<tbody>
+											
+										</tbody>
+									</table>
+								</div>
+							</div>	
+						</div>
+					</div>
+				<div class="row">
+					<div class="col-lg-12">
 						<h6>&nbsp;</h6>
-						<button class="btn btn-info" ng-click="app.prediction(this)">Go!</button>
+						<button class="btn btn-info pull-right" ng-click="app.prediction(this)">Go!</button>
 					</div>
 				</div>
 				<hr>					
