@@ -55,6 +55,73 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				{"striped":true},				
 			];
 			
+			scope.pillars = [
+				{
+					key: "economy",
+					description: "Economy Dynamism",
+					indicators: [
+						{key:"local_economy_size", "name": "Local Economy Size", yes: false, no: false},
+						{key:"local_economy_growth", "name": "Local Economy Growth", yes: false, no: false},
+						{key:"local_economy_structure", "name": "Local Economy Structure", yes: false, no: false},
+						{key:"safety_compliant_business", "name": "Safety Compliant Business", yes: false, no: false},
+						{key:"increase_in_employment", "name": "Increase in Employment", yes: false, no: false},
+						{key:"cost_of_living", "name": "Cost of Living", yes: false, no: false},
+						{key:"cost_of_doing_business", "name": "Cost of Doing Business", yes: false, no: false},
+						{key:"financial_deepening", "name": "Financial Deepening", yes: false, no: false},
+						{key:"productivity", "name": "Productivity", yes: false, no: false},
+						{key:"presence_of_business_and_professional", "name": "Presence of Business and Professional Organizations", yes: false, no: false},
+					]
+				},
+				{
+					key: "government_efficiency",
+					description: "Government Efficiency",
+					indicators: [
+						{key:"compliance_to_national_directives", "name": "Compliance to National Directives", yes: false, no: false},
+						{key:"investment_promotion_unit", "name": "Presence of Investment Promotion Unit", yes: false, no: false},
+						{key:"registration_efficiency", "name": "Business Registration Efficiency", yes: false, no: false},
+						{key:"generate_local_resource", "name": "Capacity to Generate Local Resource", yes: false, no: false},
+						{key:"capacity_of_health_services", "name": "Capacity of Health Services", yes: false, no: false},
+						{key:"capacity_of_school_services", "name": "Capacity of School Services", yes: false, no: false},
+						{key:"recognition_of_performance", "name": "Recognition of Performance", yes: false, no: false},
+						{key:"business_permits_and_licensing", "name": "Compliance to Business Permits and Licensing System (BPLS) Standards", yes: false, no: false},
+						{key:"peace_and_order", "name": "Peace and Order", yes: false, no: false},
+						{key:"social_protection", "name": "Social Protection", yes: false, no: false},
+					]
+				},
+				{
+					key: "infrastructure",
+					description: "Infrastructure",
+					indicators: [
+						{key:"road_network", "name": "Road Network", yes: false, no: false},
+						{key:"distance_to_ports", "name": "Distance to Ports", yes: false, no: false},
+						{key:"availability_of_basic_utilities", "name": "Availability of Basic Utilities", yes: false, no: false},
+						{key:"transportation_vehicles", "name": "Transportation Vehicles", yes: false, no: false},
+						{key:"education", "name": "Education", yes: false, no: false},
+						{key:"health", "name": "Health", yes: false, no: false},
+						{key:"lgu_investment", "name": "LGU Investment", yes: false, no: false},
+						{key:"accommodation_capacity", "name": "Accommodation Capacity", yes: false, no: false},
+						{key:"information_technology_capacity", "name": "Information Technology Capacity", yes: false, no: false},
+						{key:"financial_technology_capacity", "name": "Financial Technology Capacity", yes: false, no: false},
+					]
+				},
+				{
+					key: "resiliency",
+					description: "Resiliency",
+					indicators: [
+						{key:"land_use_plan", "name": "Land Use Plan", yes: false, no: false},
+						{key:"disaster_risk_reduction_plan", "name": "Disaster Risk Reduction Plan", yes: false, no: false},
+						{key:"annual_disaster_drill", "name": "Annual Disaster Drill", yes: false, no: false},
+						{key:"early_warning_system", "name": "Early Warning System", yes: false, no: false},
+						{key:"budget_for_drrmp", "name": "Budget for DRRMP", yes: false, no: false},
+						{key:"local_risk_assessments", "name": "Local Risk Assessments", yes: false, no: false},
+						{key:"emergency_infrastructure", "name": "Emergency Infrastructure", yes: false, no: false},
+						{key:"utilities", "name": "Utilities", yes: false, no: false},
+						{key:"employed_population", "name": "Employed Population", yes: false, no: false},
+						{key:"sanitary_system", "name": "Sanitary System", yes: false, no: false},
+					]
+				}
+			];	
+			
 		};
 		
 		self.prediction_ = function(scope) {
