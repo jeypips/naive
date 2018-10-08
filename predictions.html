@@ -149,7 +149,7 @@
 						<div class="col-lg-12">
 							<div class="card">
 								<div class="row">
-									<div class="col-lg-1">
+									<div class="col-lg-2">
 										<div class="checkbox">
 											<label class="for_checkbox">
 												<input type="checkbox" class="for_checkbox" ng-model="indicators.all" ng-checked="indicators.all" ng-click="app.checkAll(this,indicators.all)"> All indicators
@@ -171,20 +171,19 @@
 										</div>
 									</div>
 								</div>
-								<br>
 								<div class="table-responsive table-bordered">
 									<table class="table">
 										<thead>
 											<tr>
-											<th>Economy Dynamism</th>
-											<th>Government Efficiency</th>
-											<th>Infrastructure</th>
-											<th>Resiliency</th>
+												<th style="text-align: center;">Economy Dynamism</th>
+												<th style="text-align: center;">Government Efficiency</th>
+												<th style="text-align: center;">Infrastructure</th>
+												<th style="text-align: center;">Resiliency</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td>
+												<td nowrap>
 													<div class="row" ng-repeat="indicator in pillars[0].indicators" style="border-bottom: 1px solid #dee2e6;">												
 														<div class="col-md-12">
 															<div class="checkbox">
@@ -209,7 +208,8 @@
 														</div>
 													</div>
 												</td>
-												<td>
+												
+												<td nowrap>
 													<div class="row" ng-repeat="indicator in pillars[1].indicators" style="border-bottom: 1px solid #dee2e6;">												
 														<div class="col-md-12">
 															<div class="checkbox">
@@ -234,8 +234,9 @@
 														</div>
 													</div>
 												</td>
-												<td>
-													<div class="row" ng-repeat="indicator in pillars[2].indicators" style="border-bottom: 1px solid #dee2e6;">												
+												
+												<td nowrap>
+													<div class="row" ng-repeat="indicator in pillars[2].indicators"  style="border-bottom: 1px solid #dee2e6;">												
 														<div class="col-md-12">
 															<div class="checkbox">
 																<label class="for_checkbox">
@@ -258,7 +259,8 @@
 															</div>
 														</div>
 													</div>
-												<td>
+												</td>
+												<td nowrap>
 													<div class="row" ng-repeat="indicator in pillars[3].indicators" style="border-bottom: 1px solid #dee2e6;">												
 														<div class="col-md-12">
 															<div class="checkbox">
@@ -270,20 +272,20 @@
 														<div class="col-md-6">
 															<div class="checkbox">
 																<label class="for_checkbox">
-																	<input type="checkbox" class="for_checkbox" ng-model="indicator.yes" ng-checked="indicator.yes" ng-click="app.unCheckYes(this,indicator.yes,3,$index)"> Yes
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.yes" ng-checked="indicator.yes" ng-click="app.unCheckYes(this,indicator.yes,2,$index)"> Yes
 																</label>
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="checkbox">
 																<label class="for_checkbox">
-																	<input type="checkbox" class="for_checkbox" ng-model="indicator.no" ng-checked="indicator.no" ng-click="app.unCheckNo(this,indicator.no,3,$index)"> No
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.no" ng-checked="indicator.no" ng-click="app.unCheckNo(this,indicator.no,2,$index)"> No
 																</label>
 															</div>
 														</div>
 													</div>
-												</td>													
-												</td>												
+												</td>
+												<td style="display: none;"></td>
 											</tr>
 										</tbody>
 									</table>
