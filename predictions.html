@@ -91,7 +91,10 @@
         <div class="page-wrapper">
             <!-- Bread crumb -->
             <div class="row page-titles">
-                <div class="col-md-12 align-self-center">
+				<div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Predictions</h3>
+				</div>
+                <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">PDCI</a></li>
                         <li class="breadcrumb-item active"><a href="predictions.html">Predictions</a></li>
@@ -149,21 +152,21 @@
 									<div class="col-lg-1">
 										<div class="checkbox">
 											<label class="for_checkbox">
-												<input type="checkbox" class="for_checkbox"> All
+												<input type="checkbox" class="for_checkbox" ng-model="indicators.all" ng-checked="indicators.all" ng-click="app.checkAll(this,indicators.all)"> All indicators
 											</label>
 										</div>
 									</div>
 									<div class="col-lg-1">
 										<div class="checkbox">
 											<label class="for_checkbox">
-												<input type="checkbox" class="for_checkbox"> Yes
+												<input type="checkbox" class="for_checkbox" ng-model="indicators.yes" ng-checked="indicators.yes" ng-click="app.yesAll(this,indicators.yes)"> Yes
 											</label>
 										</div>
 									</div>
 									<div class="col-lg-1">
 										<div class="checkbox">
 											<label class="for_checkbox">
-												<input type="checkbox" class="for_checkbox"> No
+												<input type="checkbox" class="for_checkbox" ng-model="indicators.no" ng-checked="indicators.no" ng-click="app.noAll(this,indicators.no)"> No
 											</label>
 										</div>
 									</div>
@@ -180,7 +183,108 @@
 											</tr>
 										</thead>
 										<tbody>
-											
+											<tr>
+												<td>
+													<div class="row" ng-repeat="indicator in pillars[0].indicators" style="border-bottom: 1px solid #dee2e6;">												
+														<div class="col-md-12">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.value" ng-checked="indicator.value" ng-click="app.unCheckAll(this,indicator.value)"> {{indicator.name}}
+																</label>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.yes" ng-checked="indicator.yes" ng-click="app.unCheckYes(this,indicator.yes,0,$index)"> Yes
+																</label>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.no" ng-checked="indicator.no" ng-click="app.unCheckNo(this,indicator.no,0,$index)"> No
+																</label>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td>
+													<div class="row" ng-repeat="indicator in pillars[1].indicators" style="border-bottom: 1px solid #dee2e6;">												
+														<div class="col-md-12">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.value" ng-checked="indicator.value" ng-click="app.unCheckAll(this,indicator.value)"> {{indicator.name}}
+																</label>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.yes" ng-checked="indicator.yes" ng-click="app.unCheckYes(this,indicator.yes,1,$index)"> Yes
+																</label>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.no" ng-checked="indicator.no" ng-click="app.unCheckNo(this,indicator.no,1,$index)"> No
+																</label>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td>
+													<div class="row" ng-repeat="indicator in pillars[2].indicators" style="border-bottom: 1px solid #dee2e6;">												
+														<div class="col-md-12">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.value" ng-checked="indicator.value" ng-click="app.unCheckAll(this,indicator.value)"> {{indicator.name}}
+																</label>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.yes" ng-checked="indicator.yes" ng-click="app.unCheckYes(this,indicator.yes,2,$index)"> Yes
+																</label>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.no" ng-checked="indicator.no" ng-click="app.unCheckNo(this,indicator.no,2,$index)"> No
+																</label>
+															</div>
+														</div>
+													</div>
+												<td>
+													<div class="row" ng-repeat="indicator in pillars[3].indicators" style="border-bottom: 1px solid #dee2e6;">												
+														<div class="col-md-12">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.value" ng-checked="indicator.value" ng-click="app.unCheckAll(this,indicator.value)"> {{indicator.name}}
+																</label>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.yes" ng-checked="indicator.yes" ng-click="app.unCheckYes(this,indicator.yes,3,$index)"> Yes
+																</label>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="checkbox">
+																<label class="for_checkbox">
+																	<input type="checkbox" class="for_checkbox" ng-model="indicator.no" ng-checked="indicator.no" ng-click="app.unCheckNo(this,indicator.no,3,$index)"> No
+																</label>
+															</div>
+														</div>
+													</div>
+												</td>													
+												</td>												
+											</tr>
 										</tbody>
 									</table>
 								</div>
