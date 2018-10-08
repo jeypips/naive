@@ -55,6 +55,75 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				{"striped":true},				
 			];
 			
+			scope.indicators = {all: false, yes: false, no: false};
+			
+			scope.pillars = [
+				{
+					key: "economy",
+					description: "Economy Dynamism",
+					indicators: [
+						{key:"local_economy_size", "name": "Local Economy Size", value: false, yes: false, no: false},
+						{key:"local_economy_growth", "name": "Local Economy Growth", value: false, yes: false, no: false},
+						{key:"local_economy_structure", "name": "Local Economy Structure", value: false, yes: false, no: false},
+						{key:"safety_compliant_business", "name": "Safety Compliant Business", value: false, yes: false, no: false},
+						{key:"increase_in_employment", "name": "Increase in Employment", value: false, yes: false, no: false},
+						{key:"cost_of_living", "name": "Cost of Living", value: false, yes: false, no: false},
+						{key:"cost_of_doing_business", "name": "Cost of Doing Business", value: false, yes: false, no: false},
+						{key:"financial_deepening", "name": "Financial Deepening", value: false, yes: false, no: false},
+						{key:"productivity", "name": "Productivity", value: false, yes: false, no: false},
+						{key:"presence_of_business_and_professional", "name": "Presence of Business and Professional Organizations", value: false, yes: false, no: false},
+					]
+				},
+				{
+					key: "government_efficiency",
+					description: "Government Efficiency",
+					indicators: [
+						{key:"compliance_to_national_directives", "name": "Compliance to National Directives", value: false, yes: false, no: false},
+						{key:"investment_promotion_unit", "name": "Presence of Investment Promotion Unit", value: false, yes: false, no: false},
+						{key:"registration_efficiency", "name": "Business Registration Efficiency", value: false, yes: false, no: false},
+						{key:"generate_local_resource", "name": "Capacity to Generate Local Resource", value: false, yes: false, no: false},
+						{key:"capacity_of_health_services", "name": "Capacity of Health Services", value: false, yes: false, no: false},
+						{key:"capacity_of_school_services", "name": "Capacity of School Services", value: false, yes: false, no: false},
+						{key:"recognition_of_performance", "name": "Recognition of Performance", value: false, yes: false, no: false},
+						{key:"business_permits_and_licensing", "name": "Compliance to Business Permits and Licensing System (BPLS) Standards", value: false, yes: false, no: false},
+						{key:"peace_and_order", "name": "Peace and Order", value: false, yes: false, no: false},
+						{key:"social_protection", "name": "Social Protection", value: false, yes: false, no: false},
+					]
+				},
+				{
+					key: "infrastructure",
+					description: "Infrastructure",
+					indicators: [
+						{key:"road_network", "name": "Road Network", value: false, yes: false, no: false},
+						{key:"distance_to_ports", "name": "Distance to Ports", value: false, yes: false, no: false},
+						{key:"availability_of_basic_utilities", "name": "Availability of Basic Utilities", value: false, yes: false, no: false},
+						{key:"transportation_vehicles", "name": "Transportation Vehicles", value: false, yes: false, no: false},
+						{key:"education", "name": "Education", value: false, yes: false, no: false},
+						{key:"health", "name": "Health", value: false, yes: false, no: false},
+						{key:"lgu_investment", "name": "LGU Investment", value: false, yes: false, no: false},
+						{key:"accommodation_capacity", "name": "Accommodation Capacity", value: false, yes: false, no: false},
+						{key:"information_technology_capacity", "name": "Information Technology Capacity", value: false, yes: false, no: false},
+						{key:"financial_technology_capacity", "name": "Financial Technology Capacity", value: false, yes: false, no: false},
+					]
+				},
+				{
+					key: "resiliency",
+					description: "Resiliency",
+					indicators: [
+						{key:"land_use_plan", "name": "Land Use Plan", value: false, yes: false, no: false},
+						{key:"disaster_risk_reduction_plan", "name": "Disaster Risk Reduction Plan", value: false, yes: false, no: false},
+						{key:"annual_disaster_drill", "name": "Annual Disaster Drill", value: false, yes: false, no: false},
+						{key:"early_warning_system", "name": "Early Warning System", value: false, yes: false, no: false},
+						{key:"budget_for_drrmp", "name": "Budget for DRRMP", value: false, yes: false, no: false},
+						{key:"local_risk_assessments", "name": "Local Risk Assessments", value: false, yes: false, no: false},
+						{key:"emergency_infrastructure", "name": "Emergency Infrastructure", value: false, yes: false, no: false},
+						{key:"utilities", "name": "Utilities", value: false, yes: false, no: false},
+						{key:"employed_population", "name": "Employed Population", value: false, yes: false, no: false},
+						{key:"sanitary_system", "name": "Sanitary System", value: false, yes: false, no: false},
+					]
+				}
+			];	
+			
 		};
 		
 		self.prediction_ = function(scope) {
@@ -3340,6 +3409,136 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		
 		};
+		
+		self.checkAll = function(scope,value) {
+
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					scope.pillars[i].indicators[ii].value = value;
+					
+				});
+				
+			});
+			
+		};
+		
+		self.unCheckAll = function(scope,value) {
+			
+			var values = "true";
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					values += "&&"+indicator.value.toString();
+					
+				});
+				
+			});
+
+			scope.indicators.all = eval(values);
+			
+		};		
+		
+		self.yesAll = function(scope,value) {
+			
+			if (value) scope.indicators.no = false;
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					scope.pillars[i].indicators[ii].yes = value;
+					
+				});
+				
+			});
+
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					if (value) scope.pillars[i].indicators[ii].no = false;
+					
+				});
+				
+			});			
+			
+		};
+		
+		self.unCheckYes = function(scope,value,index1,index2) {
+			
+			if (value) scope.pillars[index1].indicators[index2].no = false;
+			
+			var yeses = "true";
+			var nos = "true";			
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					yeses += "&&"+indicator.yes.toString();
+					nos += "&&"+indicator.no.toString();					
+					
+				});
+				
+			});
+
+			scope.indicators.yes = eval(yeses);
+			scope.indicators.no = eval(nos);
+			
+		};		
+		
+		self.noAll = function(scope,value) {
+			
+			if (value) scope.indicators.yes = false;			
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					scope.pillars[i].indicators[ii].no = value;
+					
+				});
+				
+			});
+
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					if (value) scope.pillars[i].indicators[ii].yes = false;
+					
+				});
+				
+			});			
+			
+		};
+
+		self.unCheckNo = function(scope,value,index1,index2) {
+			
+			if (value) scope.pillars[index1].indicators[index2].yes = false;			
+			
+			var yeses = "true";
+			var nos = "true";			
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					yeses += "&&"+indicator.yes.toString();
+					nos += "&&"+indicator.no.toString();					
+					
+				});
+				
+			});
+
+			scope.indicators.yes = eval(yeses);
+			scope.indicators.no = eval(nos);
+			
+		};		
 		
 	};
 	
