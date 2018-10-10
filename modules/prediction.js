@@ -245,6 +245,10 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				}, 500);
 				
 				$timeout(function() {
+					$compile($('#btn-datasets')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
 					$compile($('#btn-frequency')[0])(scope);
 				}, 500);
 				
