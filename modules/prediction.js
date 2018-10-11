@@ -204,7 +204,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		};
 		
 		self.prediction = function(scope) {
-
+		
 			if ((scope.filter.prediction.period == undefined) || (scope.filter.prediction.period == "")) {			
 				growl.show('danger',{from: 'top', amount: 55}, 'Please enter period');				
 				return;
@@ -215,10 +215,28 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				return;
 			};			
 			
+			if ((scope.filter.prediction.category == undefined) || (scope.filter.prediction.category == "")) {			
+				growl.show('danger',{from: 'top', amount: 55}, 'Please enter category');				
+				return;
+			};	
+			
+			if (!(check_indicator(scope))['indicators']) {
+				growl.show('danger',{from: 'top', amount: 55}, 'Please select indicators');				
+				return;				
+			};
+			
+			if ( (!(check_indicator(scope))['yeses']) && (!(check_indicator(scope))['nos']) ) {
+				growl.show('danger',{from: 'top', amount: 55}, 'Please specify if indicator is yes or no');				
+				return;				
+			};
+			
 			bui.show("Analyzing data please wait...");
+			
+			var pillars = JSON.stringify(scope.pillars);
 
+			$.post('lists/predictions.php', {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}).done(function(html) {
 				
-			$('#content').load('lists/predictions.php?period='+scope.filter.prediction.period+'&top='+scope.filter.prediction.top, function() {
+				$('#content').html(html);
 				
 				$timeout(function() {
 					$compile($('#print-datasets')[0])(scope);
@@ -3474,6 +3492,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.unCheckYes = function(scope,value,index1,index2) {
 			
+			if (!scope.pillars[index1].indicators[index2].value) {
+				scope.pillars[index1].indicators[index2].yes = false;
+				scope.pillars[index1].indicators[index2].no = false;
+				return;
+			};
+			
 			if (value) scope.pillars[index1].indicators[index2].no = false;
 			
 			var yeses = "true";
@@ -3523,6 +3547,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 
 		self.unCheckNo = function(scope,value,index1,index2) {
 			
+			if (!scope.pillars[index1].indicators[index2].value) {
+				scope.pillars[index1].indicators[index2].yes = false;
+				scope.pillars[index1].indicators[index2].no = false;
+				return;
+			};			
+			
 			if (value) scope.pillars[index1].indicators[index2].yes = false;			
 			
 			var yeses = "true";
@@ -3542,7 +3572,29 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			scope.indicators.yes = eval(yeses);
 			scope.indicators.no = eval(nos);
 			
-		};		
+		};
+		
+		function check_indicator(scope) {
+			
+			var values = "false";
+			var yeses = "false";
+			var nos = "false";
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					values += "||"+indicator.value.toString();
+					yeses += "||"+indicator.yes.toString();
+					nos += "||"+indicator.no.toString();					
+					
+				});
+				
+			});
+			
+			return {indicators: eval(values), yeses: eval(yeses), nos: eval(nos)};
+			
+		};
 		
 	};
 	
