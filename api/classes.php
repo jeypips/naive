@@ -907,4 +907,59 @@ class normalize_probabilities {
 	
 }
 
+class classifier {
+	
+	var $likelihoods;
+	var $pillars;
+	var $prediction_category;
+	var $prediction_indicators;
+	var $classified;
+	
+	function __construct($likelihoods,$pillars,$prediction_category,$prediction_indicators) {
+		
+		$this->likelihoods = $likelihoods;
+		$this->pillars = $pillars;
+		$this->prediction_category = $prediction_category;
+		$this->prediction_indicators = $prediction_indicators;
+		
+		$this->classified = [];
+		
+		$this->classify();
+		
+	}
+	
+	private function classify() {
+		
+		$categories = array("City","1st-2nd class","3rd-4th class");		
+		
+		$this->classified[] = "Let B equals";		
+		
+		$this->classified[] = array("LGU Category",$categories[$this->prediction_category-1]);
+		
+		$indicators = [];
+		
+		foreach ($this->prediction_indicators as $i => $prediction_indicators) {
+			
+			foreach ($prediction_indicators['indicators'] as $key => $indicator) {
+
+				if ($indicator['value']) $indicators[] = $indicator; 
+				
+			};
+			
+		};
+		
+		var_dump($indicators);
+	
+	}
+	
+	public function get_classifed() {
+
+		// return $this->classified;
+		// return $this->likelihoods;
+		return $this->prediction_indicators;
+	
+	}
+	
+}
+
 ?>
