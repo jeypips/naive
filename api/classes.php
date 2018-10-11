@@ -932,9 +932,9 @@ class classifier {
 		
 		$categories = array("City","1st-2nd class","3rd-4th class");		
 		
-		$this->classified[] = "Let B equals";		
+		$b[] = "Let B equals";		
 		
-		$this->classified[] = array("LGU Category",$categories[$this->prediction_category-1]);
+		$b[] = array("LGU Category",$categories[$this->prediction_category-1]);
 		
 		$indicators = [];
 		
@@ -948,15 +948,23 @@ class classifier {
 			
 		};
 		
-		var_dump($indicators);
+		foreach ($indicators as $indicator) {
+			
+			$b[] = array($indicator['name'],($indicator['yes'])?"Yes":"No");
+			
+		};
+	
+		$this->classified[] = $b;
+	
+		// var_dump($indicators);
 	
 	}
 	
 	public function get_classifed() {
 
-		// return $this->classified;
+		return $this->classified;
 		// return $this->likelihoods;
-		return $this->prediction_indicators;
+		// return $this->prediction_indicators;
 	
 	}
 	

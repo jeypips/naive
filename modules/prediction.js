@@ -3446,7 +3446,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 		};
 		
-		self.unCheckAll = function(scope,value) {
+		self.unCheckAll = function(scope,pillar_indicator) {
+			
+			if (!pillar_indicator.value) {
+				
+				pillar_indicator.yes = false;
+				pillar_indicator.no = false;
+				
+			};
 			
 			var values = "true";
 			
