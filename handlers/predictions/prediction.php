@@ -90,7 +90,10 @@ $normalize_probabilities_data = $normalize_probabilities->get_normalized_probabi
 
 $prediction['prediction']['normalized_probabilities'] = $normalize_probabilities_data;
 
-// echo json_encode($normalize_probabilities_data);
-// exit();
+$classifier = new classifier($likelihoods,$pillars,$prediction_category,$prediction_indicators);
+$classified = $classifier->get_classifed();
+
+echo json_encode($classified);
+exit();
 
 ?>
