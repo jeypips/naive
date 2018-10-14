@@ -224,12 +224,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				growl.show('danger',{from: 'top', amount: 55}, 'Please select indicators');				
 				return;				
 			};
-			
-			if ( (!(check_indicator(scope))['yeses']) && (!(check_indicator(scope))['nos']) ) {
+
+			if (!(check_indicator(scope))['yns']) {
 				growl.show('danger',{from: 'top', amount: 55}, 'Please specify if indicator is yes or no');				
 				return;				
 			};
-			
+
 			bui.show("Analyzing data please wait...");
 			
 			var pillars = JSON.stringify(scope.pillars);
@@ -3439,14 +3439,49 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				angular.forEach(pillar.indicators, function(indicator,ii) {
 					
 					scope.pillars[i].indicators[ii].value = value;
+					// scope.pillars[i].indicators[ii].yes = true;
 					
 				});
 				
 			});
 			
+			if (!value) {
+				
+				angular.forEach(scope.pillars, function(pillar,i) {
+					
+					angular.forEach(pillar.indicators, function(indicator,ii) {
+						
+						scope.pillars[i].indicators[ii].yes = false;
+						scope.pillars[i].indicators[ii].no = false;
+						
+					});
+					
+				});				
+				
+			};
+			
+			var yeses = "true";
+			var nos = "true";			
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					yeses += "&&"+indicator.yes.toString();
+					nos += "&&"+indicator.no.toString();					
+					
+				});
+				
+			});
+
+			scope.indicators.yes = eval(yeses);
+			scope.indicators.no = eval(nos);			
+			
 		};
 		
-		self.unCheckAll = function(scope,pillar_indicator) {
+		self.unCheckAll = function(scope,pi,pillar_indicator) {
+			
+			pillar_indicator.yes = true;			
 			
 			if (!pillar_indicator.value) {
 				
@@ -3468,6 +3503,25 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 
 			scope.indicators.all = eval(values);
+			
+			/*
+			** pillar specific indicator
+			*/
+			angular.forEach(scope.pillars, function(pillar,i) {
+
+				if (pi != i) {
+					
+					angular.forEach(pillar.indicators, function(indicator,ii) {
+						
+						indicator.value = false;
+						indicator.yes = false;
+						indicator.no = false;
+						
+					});					
+					
+				};
+			
+			});
 			
 		};		
 		
@@ -3504,6 +3558,11 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				scope.pillars[index1].indicators[index2].no = false;
 				return;
 			};
+			
+			if ( (!scope.pillars[index1].indicators[index2].yes) && (!scope.pillars[index1].indicators[index2].no) ) {
+				scope.pillars[index1].indicators[index2].value = false;
+				return;
+			};			
 			
 			if (value) scope.pillars[index1].indicators[index2].no = false;
 			
@@ -3560,6 +3619,11 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				return;
 			};			
 			
+			if ( (!scope.pillars[index1].indicators[index2].yes) && (!scope.pillars[index1].indicators[index2].no) ) {
+				scope.pillars[index1].indicators[index2].value = false;
+				return;
+			};
+			
 			if (value) scope.pillars[index1].indicators[index2].yes = false;			
 			
 			var yeses = "true";
@@ -3586,20 +3650,27 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			var values = "false";
 			var yeses = "false";
 			var nos = "false";
+			var yns = "true";
 			
 			angular.forEach(scope.pillars, function(pillar,i) {
 				
 				angular.forEach(pillar.indicators, function(indicator,ii) {
 					
-					values += "||"+indicator.value.toString();
-					yeses += "||"+indicator.yes.toString();
-					nos += "||"+indicator.no.toString();					
+					if (indicator.value) {
+						
+						values += "||"+indicator.value.toString();
+						yeses += "||"+indicator.yes.toString();
+						nos += "||"+indicator.no.toString();
+						
+						yns += "&&(true&&("+indicator.yes.toString()+"||"+indicator.no.toString()+"))";
+						
+					};
 					
 				});
 				
 			});
-			
-			return {indicators: eval(values), yeses: eval(yeses), nos: eval(nos)};
+
+			return {indicators: eval(values), yeses: eval(yeses), nos: eval(nos), yns: eval(yns)};
 			
 		};
 		

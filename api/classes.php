@@ -930,11 +930,54 @@ class classifier {
 	
 	private function classify() {
 		
-		$categories = array("City","1st-2nd class","3rd-4th class");		
+		$categories = array("City","1st-2nd class","3rd-4th class");
+		$categories_key = array("city","first_second","third_fourth");
+
+		$indicators_pillars_indexes = array(
+			"local_economy_size"=>0,
+			"local_economy_growth"=>0,	
+			"local_economy_structure"=>0,		
+			"safety_compliant_business"=>0,
+			"increase_in_employment"=>0,
+			"cost_of_living"=>0,
+			"cost_of_doing_business"=>0,
+			"financial_deepening"=>0,
+			"productivity"=>0,
+			"presence_of_business_and_professional"=>0,	
+			"compliance_to_national_directives"=>1,
+			"investment_promotion_unit"=>1,
+			"registration_efficiency"=>1,
+			"generate_local_resource"=>1,
+			"capacity_of_health_services"=>1,
+			"capacity_of_school_services"=>1,
+			"recognition_of_performance"=>1,
+			"business_permits_and_licensing"=>1,	
+			"peace_and_order"=>1,
+			"social_protection"=>1,	
+			"road_network"=>2,
+			"distance_to_ports"=>2,
+			"availability_of_basic_utilities"=>2,
+			"transportation_vehicles"=>2,
+			"education"=>2,
+			"health"=>2,
+			"lgu_investment"=>2,
+			"accommodation_capacity"=>2,
+			"information_technology_capacity"=>2,	
+			"financial_technology_capacity"=>2,	
+			"land_use_plan"=>3,
+			"disaster_risk_reduction_plan"=>3,
+			"annual_disaster_drill"=>3,
+			"early_warning_system"=>3,
+			"budget_for_drrmp"=>3,
+			"local_risk_assessments"=>3,
+			"emergency_infrastructure"=>3,
+			"utilities"=>3,
+			"employed_population"=>3,
+			"sanitary_system"=>3,
+		);	
 		
-		$b[] = "Let B equals";		
-		
-		$b[] = array("LGU Category",$categories[$this->prediction_category-1]);
+		$b[] = "Let B equals";
+		$b[] = "LGU Category = ".$categories[$this->prediction_category-1];
 		
 		$indicators = [];
 		
@@ -950,13 +993,127 @@ class classifier {
 		
 		foreach ($indicators as $indicator) {
 			
-			$b[] = array($indicator['name'],($indicator['yes'])?"Yes":"No");
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$b[] = $indicator['name']." = ".$yn;
+			
+		};	
+	
+		# No
+		$b[] = "Let A = No";
+		
+		$pn = "P(No|"."LGU Category = ".$categories[$this->prediction_category-1].",";
+		
+		foreach ($indicators as $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$pn .= $indicator['name']." = ".$yn.",";
+			
+		};		
+		
+		$pn = substr($pn,0,strlen($pn)-1);
+		$b[] = $pn.")";
+		
+		$dd = "= P(LGU Category = ".$categories[$this->prediction_category-1]."|No)";
+		$dd .= "*";
+		
+		foreach ($indicators as $i => $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$dd .= "P(".$indicator['name']." = ".$yn."|No)";
+			$dd .= "*";
+			
+		};			
+		
+		$dd .= "P(No)";
+
+		$b[] = $dd;		
+		
+		$dr = "P(LGU Category = ".$categories[$this->prediction_category-1].")";
+		$dr .= "*";
+		
+		foreach ($indicators as $i => $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$dr .= "P(".$indicator['name']." = ".$yn.")";
+			if ($i<(count($indicators)-1)) $dr .= "*";
+			
+		};	
+		
+		$b[] = $dr;
+		
+		$frequency_by_indicator = $this->get_frequency_by_indicator($indicators_pillars_indexes[$indicators[0]['key']],"category");
+		$lgu_category = $this->get_frequency_indicator_data($frequency_by_indicator,$categories_key[$this->prediction_category-1]);		
+		var_dump($frequency_by_indicator['data']['total']);
+		$nedd = "(".$lgu_category['no'].")";
+
+		# equation values
+		foreach ($indicators as $indicator) {
+			
+			$yes_no = ($indicator['yes'])?"yes":"no";
+
+			$frequency_by_indicator = $this->get_frequency_by_indicator($indicators_pillars_indexes[$indicators[0]['key']],$indicator['key']);		
+
+			$nedd .= "*(".$frequency_by_indicator['data'][$yes_no]['no'].")";
+		
+		};		
+		#
+		
+		
+		$b[] = $nedd;
+		
+		# Yes
+		$b[] = "Let A = Yes";	
+			
+		$py = "P(Yes|"."LGU Category = ".$categories[$this->prediction_category-1].",";
+		
+		foreach ($indicators as $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$py .= $indicator['name']." = ".$yn.",";
 			
 		};
 	
-		$this->classified[] = $b;
+		$py = substr($py,0,strlen($py)-1);
+		$b[] = $py.")";	
 	
-		// var_dump($indicators);
+		$dd = "= P(LGU Category = ".$categories[$this->prediction_category-1]."|Yes)";
+		$dd .= "*";
+		
+		foreach ($indicators as $i => $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$dd .= "P(".$indicator['name']." = ".$yn."|Yes)";
+			$dd .= "*";
+			
+		};			
+		
+		$dd .= "P(Yes)";
+
+		$b[] = $dd;
+		
+		$dr = "P(LGU Category = ".$categories[$this->prediction_category-1].")";
+		$dr .= "*";
+		
+		foreach ($indicators as $i => $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$dr .= "P(".$indicator['name']." = ".$yn.")";
+			if ($i<(count($indicators)-1)) $dr .= "*";
+			
+		};
+		
+		$b[] = $dr;		
+	
+		# equation values		
+	
+		$this->classified = $b;
 	
 	}
 	
@@ -967,6 +1124,42 @@ class classifier {
 		// return $this->prediction_indicators;
 	
 	}
+	
+	private function get_frequency_by_indicator($pillar,$indicator) {
+		
+		$frequency_by_indicator = array();
+		
+		foreach ($this->likelihoods as $i => $likelihood) {
+			
+			if ($i == $pillar) {
+			
+				foreach ($likelihood['indicators'] as $li) {
+					
+					if ($li['indicator'] == $indicator) $frequency_by_indicator = $li;
+					
+				};
+			
+			};
+			
+		};
+		
+		return $frequency_by_indicator;
+	
+	}
+	
+	private function get_frequency_indicator_data($frequency_by_indicator,$category) {
+		
+		$data = array();
+		
+		foreach ($frequency_by_indicator['data'] as $c => $d) {
+
+			if ($c == $category) $data = $d;
+			
+		};
+		
+		return $data;
+		
+	}	
 	
 }
 
