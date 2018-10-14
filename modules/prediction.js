@@ -140,10 +140,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			bui.show("Analyzing data please wait...");
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
 				method: 'POST',
 				url: 'api/prediction.php',
-				data: scope.filter.prediction
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				scope.prediction = angular.copy(response.data);
@@ -314,10 +316,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		// normalize the probabilities
 		self.print_normalized = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_normalized(response.data);
@@ -331,10 +335,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		// conditional probabilities
 		self.print_conditional = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_conditional(response.data);
@@ -617,10 +623,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		// conditional probabilities
 		self.print_conditional = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_conditional(response.data);
@@ -914,10 +922,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.print_probability = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_probability(response.data);
@@ -1231,10 +1241,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		//print likelihood tables
 		self.print_likelihood = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_likelihood(response.data);
@@ -1439,10 +1451,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		//print frequency tables
 		self.print_frequency = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_frequency(response.data);
@@ -1641,10 +1655,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.print = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
 				method: 'POST',
 				url: 'api/prediction.php',
-				data: scope.filter.prediction
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print(response.data);
