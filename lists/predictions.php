@@ -1156,232 +1156,313 @@ $tables['headers'] = array(
 	<button  class="btn btn-info pull-right" ng-click="app.print_normalized(this)" id="print-normalized"><i class="fa fa-print"></i></button>
 	<div class="clearfix"></div>
 	<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<h4 class="card-title">Economy Dynamism</h4><hr>
-						<div class="table-responsive table-bordered">
-						<table class="table">
-							<thead>
-								<tr>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['economy'][0]['description']?></center></th>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['economy'][1]['description']?></center></th>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['economy'][2]['description']?></center></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['economy'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][0][0]?></td>
-									<td><?=$equation['equations'][0][1]?></td>
-									<td><?=$equation['equations'][0][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['economy'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][1][0]?></td>
-									<td><?=$equation['equations'][1][1]?></td>
-									<td><?=$equation['equations'][1][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['economy'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][2][0]?></td>
-									<td><?=$equation['equations'][2][1]?></td>
-									<td><?=$equation['equations'][2][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-							</tbody>
-						</table>
+		<div class="col-lg-12">
+			<div class="card">
+				<h4 class="card-title">Economy Dynamism</h4><hr>
+					<div class="table-responsive table-bordered">
+					<table class="table">
+						<thead>
+							<tr>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['economy'][0]['description']?></center></th>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['economy'][1]['description']?></center></th>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['economy'][2]['description']?></center></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['economy'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][0][0]?></td>
+								<td><?=$equation['equations'][0][1]?></td>
+								<td><?=$equation['equations'][0][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['economy'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][1][0]?></td>
+								<td><?=$equation['equations'][1][1]?></td>
+								<td><?=$equation['equations'][1][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['economy'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][2][0]?></td>
+								<td><?=$equation['equations'][2][1]?></td>
+								<td><?=$equation['equations'][2][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>	
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<h4 class="card-title">Government Efficiency</h4><hr>
+					<div class="table-responsive table-bordered">
+					<table class="table">
+						<thead>
+							<tr>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['government_efficiency'][0]['description']?></center></th>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['government_efficiency'][1]['description']?></center></th>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['government_efficiency'][2]['description']?></center></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['government_efficiency'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][0][0]?></td>
+								<td><?=$equation['equations'][0][1]?></td>
+								<td><?=$equation['equations'][0][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['government_efficiency'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][1][0]?></td>
+								<td><?=$equation['equations'][1][1]?></td>
+								<td><?=$equation['equations'][1][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['government_efficiency'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][2][0]?></td>
+								<td><?=$equation['equations'][2][1]?></td>
+								<td><?=$equation['equations'][2][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>	
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<h4 class="card-title">Infrastructure</h4><hr>
+					<div class="table-responsive table-bordered">
+					<table class="table">
+						<thead>
+							<tr>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['infrastructure'][0]['description']?></center></th>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['infrastructure'][1]['description']?></center></th>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['infrastructure'][2]['description']?></center></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['infrastructure'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][0][0]?></td>
+								<td><?=$equation['equations'][0][1]?></td>
+								<td><?=$equation['equations'][0][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['infrastructure'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][1][0]?></td>
+								<td><?=$equation['equations'][1][1]?></td>
+								<td><?=$equation['equations'][1][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['infrastructure'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][2][0]?></td>
+								<td><?=$equation['equations'][2][1]?></td>
+								<td><?=$equation['equations'][2][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>	
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<h4 class="card-title">Resiliency</h4><hr>
+					<div class="table-responsive table-bordered">
+					<table class="table">
+						<thead>
+							<tr>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['resiliency'][0]['description']?></center></th>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['resiliency'][1]['description']?></center></th>
+								<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['resiliency'][2]['description']?></center></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['resiliency'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][0][0]?></td>
+								<td><?=$equation['equations'][0][1]?></td>
+								<td><?=$equation['equations'][0][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['resiliency'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][1][0]?></td>
+								<td><?=$equation['equations'][1][1]?></td>
+								<td><?=$equation['equations'][1][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+							<tr>
+							<?php
+		
+								foreach ($prediction['prediction']['normalized_probabilities']['resiliency'] as $i => $equation) {
+										
+							?>
+								<td><?=$equation['equations'][2][0]?></td>
+								<td><?=$equation['equations'][2][1]?></td>
+								<td><?=$equation['equations'][2][2]?></td>
+							<?php }; ?>	
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+<hr>
+<h4 id="btn-naive" data-toggle="collapse" data-target="#btnnaive" style="cursor: pointer;" ng-click="isActiveNaive = !isActiveNaive"><i class="fa" ng-class="{'fa-times-circle': isActiveNaive, 'fa-plus-circle': !isActiveNaive}"></i> <?=$prediction['prediction']['classified'][0]?></h4>
+<div id="btnnaive" class="collapse">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="table-responsive table-bordered">
+					<table class="table">
+					<br>
+					<?php foreach ($prediction['prediction']['classified'] as $i => $classified) { ?>
+					
+					<?php if (($i == 0 ) || ($i == count($indicators)+7) || ($i == count($indicators)+13)) continue; ?>
+					
+					<?php if (($i == count($indicators)+3) || ($i == count($indicators)+9)) {?>
+						<br>
+					<?php }; ?>
+					
+					<?php if (($i == count($indicators)+5) || ($i == count($indicators)+11)) {?>
+						<hr>
+					<?php }; ?>
+					
+					<?php if ($i == 0) { ?>
+						
+					<?php }; ?>
+					
+					<div class="col-lg-12">
+						<h5><?=$classified?></h5>
 					</div>
-				</div>	
+					<?php };?>
+					</table>
+				</div>
 			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<h4 class="card-title">Government Efficiency</h4><hr>
-						<div class="table-responsive table-bordered">
-						<table class="table">
-							<thead>
-								<tr>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['government_efficiency'][0]['description']?></center></th>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['government_efficiency'][1]['description']?></center></th>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['government_efficiency'][2]['description']?></center></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['government_efficiency'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][0][0]?></td>
-									<td><?=$equation['equations'][0][1]?></td>
-									<td><?=$equation['equations'][0][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['government_efficiency'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][1][0]?></td>
-									<td><?=$equation['equations'][1][1]?></td>
-									<td><?=$equation['equations'][1][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['government_efficiency'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][2][0]?></td>
-									<td><?=$equation['equations'][2][1]?></td>
-									<td><?=$equation['equations'][2][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-							</tbody>
-						</table>
-					</div>
-				</div>	
+	</div>
+</div>
+
+<hr>
+<h4 id="btn-results" data-toggle="collapse" data-target="#btnresults" style="cursor: pointer;" ng-click="isActiveResults = !isActiveResults"><i class="fa" ng-class="{'fa-times-circle': isActiveResults, 'fa-plus-circle': !isActiveResults}"></i> <?=$prediction['prediction']['results'][0]?> & <?=$prediction['prediction']['normalized_results'][0]?></h4>
+<div id="btnresults" class="collapse">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<h4 class="card-title"><?=$prediction['prediction']['results'][0]?>:</h4><hr>
+				<div class="col-lg-12">
+					<h5><?=$prediction['prediction']['results'][1]?></h5>
+					<h5><?=$prediction['prediction']['results'][2]?></h5>
+				</div>
 			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<h4 class="card-title">Infrastructure</h4><hr>
-						<div class="table-responsive table-bordered">
-						<table class="table">
-							<thead>
-								<tr>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['infrastructure'][0]['description']?></center></th>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['infrastructure'][1]['description']?></center></th>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['infrastructure'][2]['description']?></center></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['infrastructure'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][0][0]?></td>
-									<td><?=$equation['equations'][0][1]?></td>
-									<td><?=$equation['equations'][0][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['infrastructure'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][1][0]?></td>
-									<td><?=$equation['equations'][1][1]?></td>
-									<td><?=$equation['equations'][1][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['infrastructure'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][2][0]?></td>
-									<td><?=$equation['equations'][2][1]?></td>
-									<td><?=$equation['equations'][2][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-							</tbody>
-						</table>
-					</div>
-				</div>	
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+				<h4 class="card-title"><?=$prediction['prediction']['normalized_results'][0]?><span class="pull-right" style="margin-right: 250px;">Total</span></h4><hr>
+				<div class="row">
+				<div class="col-lg-8">
+					<h5><?=$prediction['prediction']['normalized_results'][1]?></h5>
+					<hr>
+					<h5><?=$prediction['prediction']['normalized_results'][3]?></h5>
+					<hr>
+					<h5><?=$prediction['prediction']['normalized_results'][5]?></h5>
+				</div>
+				<div class="col-lg-4">
+					<h5><?=$prediction['prediction']['normalized_results'][2]?></h5>
+					<hr>
+					<h5><?=$prediction['prediction']['normalized_results'][4]?></h5>
+					<hr>
+					<h5><?=$prediction['prediction']['normalized_results'][6]?></h5>
+				</div>
+				</div>
 			</div>
 		</div>
-		
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="card">
-					<h4 class="card-title">Resiliency</h4><hr>
-						<div class="table-responsive table-bordered">
-						<table class="table">
-							<thead>
-								<tr>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['resiliency'][0]['description']?></center></th>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['resiliency'][1]['description']?></center></th>
-									<th colspan="3"><center><?=$prediction['prediction']['normalized_probabilities']['resiliency'][2]['description']?></center></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['resiliency'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][0][0]?></td>
-									<td><?=$equation['equations'][0][1]?></td>
-									<td><?=$equation['equations'][0][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['resiliency'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][1][0]?></td>
-									<td><?=$equation['equations'][1][1]?></td>
-									<td><?=$equation['equations'][1][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-								<tr>
-								<?php
-			
-									foreach ($prediction['prediction']['normalized_probabilities']['resiliency'] as $i => $equation) {
-											
-								?>
-									<td><?=$equation['equations'][2][0]?></td>
-									<td><?=$equation['equations'][2][1]?></td>
-									<td><?=$equation['equations'][2][2]?></td>
-								<?php }; ?>	
-								</tr>
-								
-							</tbody>
-						</table>
-					</div>
-				</div>	
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card">
+			<h4 class="card-title">Prediction Result:</h4><hr>
+				<center><h4><?=$prediction['prediction']['prediction_result']?></h4></center>
 			</div>
 		</div>
-		
 	</div>
 </div>

@@ -288,6 +288,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					$compile($('#btn-normalized')[0])(scope);
 				}, 500);
 				
+				$timeout(function() {
+					$compile($('#btn-naive')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#btn-results')[0])(scope);
+				}, 500);
+				
 				// instantiate datable
 				$('table.datasets').DataTable({
 					"ordering": false,

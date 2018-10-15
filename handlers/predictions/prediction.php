@@ -95,6 +95,7 @@ $classified = $classifier->get_classifed();
 $results = $classifier->get_results();
 $normalized_results = $classifier->normalize();
 $prediction_result = $classifier->prediction();
+$indicators = $classifier->indicators;
 
 $prediction['prediction']['classified'] = $classified;
 $prediction['prediction']['results'] = $results;
