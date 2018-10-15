@@ -8,6 +8,8 @@ require_once 'classes.php';
 
 $period = $_POST['period'];
 $top = intval($_POST['top']);
+$prediction_category = intval($_POST['category']);
+$prediction_indicators = json_decode($_POST['indicators'], true);
 
 require_once '../handlers/predictions/prediction.php';
 
