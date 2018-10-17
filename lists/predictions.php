@@ -1402,7 +1402,7 @@ $tables['headers'] = array(
 						<br>
 					<?php }; ?>
 					
-					<?php if (($i == count($indicators)+6) || ($i == count($indicators)+12)) {?>
+					<?php if (($i == count($indicators)+4) || ($i == count($indicators)+10)) {?>
 						<hr>
 					<?php }; ?>
 					
