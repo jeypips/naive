@@ -265,6 +265,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				}, 500);
 				
 				$timeout(function() {
+					$compile($('#print-results')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#print-naive')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
 					$compile($('#btn-datasets')[0])(scope);
 				}, 500);
 				
@@ -319,6 +327,60 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			scope.btns.ok.disabled = !scope.btns.ok.disabled;
 			
+		};
+		
+		// naive bayes
+		self.print_naive = function(scope) {
+			
+			var pillars = JSON.stringify(scope.pillars);			
+			
+			$http({
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
+			}).then(function success(response) {
+
+				print_naive(response.data);
+			
+			}, function error() {
+				
+			});
+			
+		};
+		
+		function print_naive(prediction) {			
+			
+			var doc = new jsPDF({
+				orientation: 'portrait',
+				unit: 'pt',
+				format: [612, 792]
+			});
+			var doc = new jsPDF('p','mm','legal');
+			
+			//X-axis, Y-axis
+			doc.setFontSize(14)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(6, 10, ''+prediction.prediction.classified[0]+' '+prediction.year);
+		
+		angular.forEach(prediction.prediction.classified, function(classified,i) {
+			
+			var x = 10;
+			var y = 10;
+			
+			if (i<17) y=20; 
+
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(x, y, ''+classified);
+			
+			
+		});
+			
+			var blob = doc.output('blob');
+			window.open(URL.createObjectURL(blob));
+		
 		};
 		
 		// normalize the probabilities

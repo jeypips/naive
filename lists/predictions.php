@@ -1386,6 +1386,8 @@ $tables['headers'] = array(
 <hr>
 <h4 id="btn-naive" data-toggle="collapse" data-target="#btnnaive" style="cursor: pointer;" ng-click="isActiveNaive = !isActiveNaive"><i class="fa" ng-class="{'fa-times-circle': isActiveNaive, 'fa-plus-circle': !isActiveNaive}"></i> <?=$prediction['prediction']['classified'][0]?></h4>
 <div id="btnnaive" class="collapse">
+<button  class="btn btn-info pull-right" ng-click="app.print_naive(this)" id="print-naive"><i class="fa fa-print"></i></button>
+	<div class="clearfix"></div>
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card">
@@ -1400,12 +1402,8 @@ $tables['headers'] = array(
 						<br>
 					<?php }; ?>
 					
-					<?php if (($i == count($indicators)+5) || ($i == count($indicators)+11)) {?>
+					<?php if (($i == count($indicators)+6) || ($i == count($indicators)+12)) {?>
 						<hr>
-					<?php }; ?>
-					
-					<?php if ($i == 0) { ?>
-						
 					<?php }; ?>
 					
 					<div class="col-lg-12">
@@ -1422,6 +1420,8 @@ $tables['headers'] = array(
 <hr>
 <h4 id="btn-results" data-toggle="collapse" data-target="#btnresults" style="cursor: pointer;" ng-click="isActiveResults = !isActiveResults"><i class="fa" ng-class="{'fa-times-circle': isActiveResults, 'fa-plus-circle': !isActiveResults}"></i> <?=$prediction['prediction']['results'][0]?> & <?=$prediction['prediction']['normalized_results'][0]?></h4>
 <div id="btnresults" class="collapse">
+	<button  class="btn btn-info pull-right" ng-click="app.print_results(this)" id="print-results"><i class="fa fa-print"></i></button>
+	<div class="clearfix"></div>
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card">
