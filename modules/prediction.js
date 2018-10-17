@@ -140,10 +140,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			bui.show("Analyzing data please wait...");
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
 				method: 'POST',
 				url: 'api/prediction.php',
-				data: scope.filter.prediction
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				scope.prediction = angular.copy(response.data);
@@ -224,12 +226,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				growl.show('danger',{from: 'top', amount: 55}, 'Please select indicators');				
 				return;				
 			};
-			
-			if ( (!(check_indicator(scope))['yeses']) && (!(check_indicator(scope))['nos']) ) {
+
+			if (!(check_indicator(scope))['yns']) {
 				growl.show('danger',{from: 'top', amount: 55}, 'Please specify if indicator is yes or no');				
 				return;				
 			};
-			
+
 			bui.show("Analyzing data please wait...");
 			
 			var pillars = JSON.stringify(scope.pillars);
@@ -263,6 +265,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				}, 500);
 				
 				$timeout(function() {
+					$compile($('#print-results')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#print-naive')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
 					$compile($('#btn-datasets')[0])(scope);
 				}, 500);
 				
@@ -284,6 +294,14 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				
 				$timeout(function() {
 					$compile($('#btn-normalized')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#btn-naive')[0])(scope);
+				}, 500);
+				
+				$timeout(function() {
+					$compile($('#btn-results')[0])(scope);
 				}, 500);
 				
 				// instantiate datable
@@ -311,13 +329,212 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 		};
 		
+		// results
+		self.print_results = function(scope) {
+			
+			var pillars = JSON.stringify(scope.pillars);			
+			
+			$http({
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
+			}).then(function success(response) {
+
+				print_results(response.data);
+			
+			}, function error() {
+				
+			});
+			
+		};
+		
+		function print_results(prediction) {			
+			
+			var doc = new jsPDF({
+				orientation: 'portrait',
+				unit: 'pt',
+				format: [612, 792]
+			});
+			var doc = new jsPDF('p','mm','legal');
+			
+			//X-axis, Y-axis
+			doc.setFontSize(14)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(6, 10, ''+prediction.prediction.results[0]+': '+prediction.year);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 18, ''+prediction.prediction.results[1]);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 25, ''+prediction.prediction.results[2]);
+			
+			doc.setFontSize(14)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(6, 36, ''+prediction.prediction.normalized_results[0]);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 42, ''+prediction.prediction.normalized_results[1]);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 48, ''+prediction.prediction.normalized_results[2]);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 55, ''+prediction.prediction.normalized_results[3]);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 61, ''+prediction.prediction.normalized_results[4]);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 68, ''+prediction.prediction.normalized_results[5]);
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			doc.text(6, 74, ''+prediction.prediction.normalized_results[6]);
+			
+			doc.setFontSize(14)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(6, 85, 'Prediction Result:');
+			
+			doc.setFontSize(12)
+			doc.setFont('helvetica');
+			doc.setFontType('normal');
+			var lMargin=6; //left margin in mm
+			var rMargin=5; //right margin in mm
+			var pdfInMM=210;  // width of A4 in mm
+		
+			// var paragraph = ;
+			
+			var lines = doc.splitTextToSize(''+prediction.prediction.prediction_result, (pdfInMM-lMargin-rMargin));
+			doc.text(lMargin,91,lines);
+		
+			var blob = doc.output('blob');
+			window.open(URL.createObjectURL(blob));
+		
+		};
+		
+		// naive bayes
+		self.print_naive = function(scope) {
+			
+			var pillars = JSON.stringify(scope.pillars);			
+			
+			$http({
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
+			}).then(function success(response) {
+
+				print_naive(response.data);
+			
+			}, function error() {
+				
+			});
+			
+		};
+		
+		function print_naive(prediction) {			
+			
+			var doc = new jsPDF({
+				orientation: 'portrait',
+				unit: 'pt',
+				format: [612, 792]
+			});
+			var doc = new jsPDF('p','mm','legal');
+			
+			//X-axis, Y-axis
+			doc.setFontSize(14)
+			doc.setFont('helvetica');
+			doc.setFontType('bold');
+			doc.text(6, 10, ''+prediction.prediction.classified[0]+' '+prediction.year);
+		
+			angular.forEach(prediction.prediction.classified, function(classified,i) {
+				
+				
+				if (i == 2) {
+					return; // stop the loop
+				  }
+				  console.log(i);
+				
+				doc.setFontSize(12)
+				doc.setFont('helvetica');
+				doc.setFontType('normal');
+				doc.text(6, 10, ''+classified);
+				
+				/* var classified_header = [
+					{title: classified, dataKey: "1"}
+				];
+				
+				var classified_rows = [
+					{"1": classified}
+				];
+				
+				doc.autoTable(classified_header, classified_rows,{
+					theme: 'striped',
+					
+					tableWidth: 500,
+					styles: {
+						lineColor: [75, 75, 75],
+						lineWidth: 0.02,
+						cellPadding: 3,
+						overflow: 'linebreak',
+						columnWidth: 'wrap',
+					},
+					columnStyles: {
+						1: {columnWidth: 48},
+						2: {columnWidth: 15},
+						3: {columnWidth: 30},
+						4: {columnWidth: 25}
+					},
+					headerStyles: {
+						halign: 'center',
+						fillColor: [191, 191, 191],
+						textColor: 50,
+						fontSize: 10
+					},
+					bodyStyles: {
+						halign: 'left',
+						fillColor: [255, 255, 255],
+						textColor: 50,
+						fontSize: 10
+					},
+					alternateRowStyles: {
+						fillColor: [255, 255, 255]
+					}
+				});	 */
+				
+			});
+			
+			var blob = doc.output('blob');
+			window.open(URL.createObjectURL(blob));
+		
+		};
+		
 		// normalize the probabilities
 		self.print_normalized = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_normalized(response.data);
@@ -331,10 +548,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		// conditional probabilities
 		self.print_conditional = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_conditional(response.data);
@@ -617,10 +836,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		// conditional probabilities
 		self.print_conditional = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_conditional(response.data);
@@ -914,10 +1135,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.print_probability = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_probability(response.data);
@@ -1231,10 +1454,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		//print likelihood tables
 		self.print_likelihood = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_likelihood(response.data);
@@ -1439,10 +1664,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		//print frequency tables
 		self.print_frequency = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_frequency(response.data);
@@ -1641,10 +1868,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.print = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
 				method: 'POST',
 				url: 'api/prediction.php',
-				data: scope.filter.prediction
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print(response.data);
@@ -3439,14 +3668,56 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				angular.forEach(pillar.indicators, function(indicator,ii) {
 					
 					scope.pillars[i].indicators[ii].value = value;
+					// scope.pillars[i].indicators[ii].yes = true;
 					
 				});
 				
 			});
 			
+			if (!value) {
+				
+				angular.forEach(scope.pillars, function(pillar,i) {
+					
+					angular.forEach(pillar.indicators, function(indicator,ii) {
+						
+						scope.pillars[i].indicators[ii].yes = false;
+						scope.pillars[i].indicators[ii].no = false;
+						
+					});
+					
+				});				
+				
+			};
+			
+			var yeses = "true";
+			var nos = "true";			
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					yeses += "&&"+indicator.yes.toString();
+					nos += "&&"+indicator.no.toString();					
+					
+				});
+				
+			});
+
+			scope.indicators.yes = eval(yeses);
+			scope.indicators.no = eval(nos);			
+			
 		};
 		
-		self.unCheckAll = function(scope,value) {
+		self.unCheckAll = function(scope,pi,pillar_indicator) {
+			
+			pillar_indicator.yes = true;			
+			
+			if (!pillar_indicator.value) {
+				
+				pillar_indicator.yes = false;
+				pillar_indicator.no = false;
+				
+			};
 			
 			var values = "true";
 			
@@ -3461,6 +3732,25 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 
 			scope.indicators.all = eval(values);
+			
+			/*
+			** pillar specific indicator
+			*/
+			angular.forEach(scope.pillars, function(pillar,i) {
+
+				if (pi != i) {
+					
+					angular.forEach(pillar.indicators, function(indicator,ii) {
+						
+						indicator.value = false;
+						indicator.yes = false;
+						indicator.no = false;
+						
+					});					
+					
+				};
+			
+			});
 			
 		};		
 		
@@ -3497,6 +3787,11 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				scope.pillars[index1].indicators[index2].no = false;
 				return;
 			};
+			
+			if ( (!scope.pillars[index1].indicators[index2].yes) && (!scope.pillars[index1].indicators[index2].no) ) {
+				scope.pillars[index1].indicators[index2].value = false;
+				return;
+			};			
 			
 			if (value) scope.pillars[index1].indicators[index2].no = false;
 			
@@ -3553,6 +3848,11 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				return;
 			};			
 			
+			if ( (!scope.pillars[index1].indicators[index2].yes) && (!scope.pillars[index1].indicators[index2].no) ) {
+				scope.pillars[index1].indicators[index2].value = false;
+				return;
+			};
+			
 			if (value) scope.pillars[index1].indicators[index2].yes = false;			
 			
 			var yeses = "true";
@@ -3579,20 +3879,27 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			var values = "false";
 			var yeses = "false";
 			var nos = "false";
+			var yns = "true";
 			
 			angular.forEach(scope.pillars, function(pillar,i) {
 				
 				angular.forEach(pillar.indicators, function(indicator,ii) {
 					
-					values += "||"+indicator.value.toString();
-					yeses += "||"+indicator.yes.toString();
-					nos += "||"+indicator.no.toString();					
+					if (indicator.value) {
+						
+						values += "||"+indicator.value.toString();
+						yeses += "||"+indicator.yes.toString();
+						nos += "||"+indicator.no.toString();
+						
+						yns += "&&(true&&("+indicator.yes.toString()+"||"+indicator.no.toString()+"))";
+						
+					};
 					
 				});
 				
 			});
-			
-			return {indicators: eval(values), yeses: eval(yeses), nos: eval(nos)};
+
+			return {indicators: eval(values), yeses: eval(yeses), nos: eval(nos), yns: eval(yns)};
 			
 		};
 		

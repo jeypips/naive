@@ -914,6 +914,11 @@ class classifier {
 	var $prediction_category;
 	var $prediction_indicators;
 	var $classified;
+	var $yes;
+	var $no;
+	var $indicators;
+	var $cl;
+	var $ncl;
 	
 	function __construct($likelihoods,$pillars,$prediction_category,$prediction_indicators) {
 		
@@ -930,11 +935,55 @@ class classifier {
 	
 	private function classify() {
 		
-		$categories = array("City","1st-2nd class","3rd-4th class");		
+		$categories = array("City","1st-2nd class","3rd-4th class");
+		$categories_key = array("city","first_second","third_fourth");
+
+		$indicators_pillars_indexes = array(
+			"local_economy_size"=>0,
+			"local_economy_growth"=>0,	
+			"local_economy_structure"=>0,		
+			"safety_compliant_business"=>0,
+			"increase_in_employment"=>0,
+			"cost_of_living"=>0,
+			"cost_of_doing_business"=>0,
+			"financial_deepening"=>0,
+			"productivity"=>0,
+			"presence_of_business_and_professional"=>0,	
+			"compliance_to_national_directives"=>1,
+			"investment_promotion_unit"=>1,
+			"registration_efficiency"=>1,
+			"generate_local_resource"=>1,
+			"capacity_of_health_services"=>1,
+			"capacity_of_school_services"=>1,
+			"recognition_of_performance"=>1,
+			"business_permits_and_licensing"=>1,	
+			"peace_and_order"=>1,
+			"social_protection"=>1,	
+			"road_network"=>2,
+			"distance_to_ports"=>2,
+			"availability_of_basic_utilities"=>2,
+			"transportation_vehicles"=>2,
+			"education"=>2,
+			"health"=>2,
+			"lgu_investment"=>2,
+			"accommodation_capacity"=>2,
+			"information_technology_capacity"=>2,	
+			"financial_technology_capacity"=>2,	
+			"land_use_plan"=>3,
+			"disaster_risk_reduction_plan"=>3,
+			"annual_disaster_drill"=>3,
+			"early_warning_system"=>3,
+			"budget_for_drrmp"=>3,
+			"local_risk_assessments"=>3,
+			"emergency_infrastructure"=>3,
+			"utilities"=>3,
+			"employed_population"=>3,
+			"sanitary_system"=>3,
+		);	
 		
-		$this->classified[] = "Let B equals";		
-		
-		$this->classified[] = array("LGU Category",$categories[$this->prediction_category-1]);
+		$b[] = "Naive Bayes Classifier: Likelihood Occurrence using Other Variables";
+		$b[] = "Let B equals";
+		$b[] = "LGU Category = ".$categories[$this->prediction_category-1];
 		
 		$indicators = [];
 		
@@ -948,16 +997,288 @@ class classifier {
 			
 		};
 		
-		var_dump($indicators);
+		$this->indicators = $indicators;
+		
+		foreach ($indicators as $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$b[] = $indicator['name']." = ".$yn;
+			
+		};	
+	
+		# No
+		$b[] = "Let A = No";
+		
+		$pn = "P(No|"."LGU Category = ".$categories[$this->prediction_category-1].",";
+		
+		foreach ($indicators as $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$pn .= $indicator['name']." = ".$yn.",";
+			
+		};		
+		
+		$pn = substr($pn,0,strlen($pn)-1);
+		$b[] = $pn.")";
+		
+		$dd = "= P(LGU Category = ".$categories[$this->prediction_category-1]."|No)";
+		$dd .= "*";
+		
+		foreach ($indicators as $i => $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$dd .= "P(".$indicator['name']." = ".$yn."|No)";
+			$dd .= "*";
+			
+		};			
+		
+		$dd .= "P(No)";
+
+		$b[] = $dd;		
+		
+		$dr = "P(LGU Category = ".$categories[$this->prediction_category-1].")";
+		$dr .= "*";
+		
+		foreach ($indicators as $i => $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$dr .= "P(".$indicator['name']." = ".$yn.")";
+			if ($i<(count($indicators)-1)) $dr .= "*";
+			
+		};	
+		
+		$b[] = $dr;
+
+		# equation values		
+		$frequency_by_indicator_lgu = $this->get_frequency_by_indicator($indicators_pillars_indexes[$indicators[0]['key']],"category");
+		$lgu_category = $this->get_frequency_indicator_data($frequency_by_indicator_lgu,$categories_key[$this->prediction_category-1]);		
+
+		$nedd = "(".$lgu_category['no'].")";
+		$nedr = "(".$frequency_by_indicator_lgu['data'][$categories_key[$this->prediction_category-1]]['total'].")";		
+
+		foreach ($indicators as $indicator) {
+			
+			$yes_no = ($indicator['yes'])?"yes":"no";
+
+			$frequency_by_indicator = $this->get_frequency_by_indicator($indicators_pillars_indexes[$indicators[0]['key']],$indicator['key']);
+			$nedd .= "*(".$frequency_by_indicator['data'][$yes_no]['no'].")";			
+			$nedr .= "*(".$frequency_by_indicator['data'][$yes_no]['total'].")";
+		
+		};
+		
+		$nedd .= "*(".$frequency_by_indicator_lgu['data']['total']['no'].")";		
+		
+		$ne = "(".$nedd.")/(".$nedr.")";
+		
+		$b[] = $ne;
+		$this->no = eval("return ".stripslashes($ne).";");
+		$b[] = $this->no;
+		
+		# end equation
+		
+		# Yes
+		$b[] = "Let A = Yes";	
+			
+		$py = "P(Yes|"."LGU Category = ".$categories[$this->prediction_category-1].",";
+		
+		foreach ($indicators as $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$py .= $indicator['name']." = ".$yn.",";
+			
+		};
+	
+		$py = substr($py,0,strlen($py)-1);
+		$b[] = $py.")";	
+	
+		$dd = "= P(LGU Category = ".$categories[$this->prediction_category-1]."|Yes)";
+		$dd .= "*";
+		
+		foreach ($indicators as $i => $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$dd .= "P(".$indicator['name']." = ".$yn."|Yes)";
+			$dd .= "*";
+			
+		};			
+		
+		$dd .= "P(Yes)";
+
+		$b[] = $dd;
+		
+		$dr = "P(LGU Category = ".$categories[$this->prediction_category-1].")";
+		$dr .= "*";
+		
+		foreach ($indicators as $i => $indicator) {
+			
+			$yn = ($indicator['yes'])?"Yes":"No";
+			
+			$dr .= "P(".$indicator['name']." = ".$yn.")";
+			if ($i<(count($indicators)-1)) $dr .= "*";
+			
+		};
+		
+		$b[] = $dr;		
+	
+		# equation values
+		$frequency_by_indicator_lgu = $this->get_frequency_by_indicator($indicators_pillars_indexes[$indicators[0]['key']],"category");
+		$lgu_category = $this->get_frequency_indicator_data($frequency_by_indicator_lgu,$categories_key[$this->prediction_category-1]);		
+
+		$yedd = "(".$lgu_category['yes'].")";
+		$yedr = "(".$frequency_by_indicator_lgu['data'][$categories_key[$this->prediction_category-1]]['total'].")";		
+
+		foreach ($indicators as $indicator) {
+			
+			$yes_no = ($indicator['yes'])?"yes":"no";
+
+			$frequency_by_indicator = $this->get_frequency_by_indicator($indicators_pillars_indexes[$indicators[0]['key']],$indicator['key']);
+			$yedd .= "*(".$frequency_by_indicator['data'][$yes_no]['yes'].")";			
+			$yedr .= "*(".$frequency_by_indicator['data'][$yes_no]['total'].")";
+		
+		};
+		
+		$yedd .= "*(".$frequency_by_indicator_lgu['data']['total']['yes'].")";		
+		
+		$ye = "(".$yedd.")/(".$yedr.")";
+
+		$b[] = $ye;
+		$this->yes = eval("return ".stripslashes($ye).";");
+		$b[] = $this->yes;
+		
+		# end equation
+
+		$this->classified = $b;
 	
 	}
 	
 	public function get_classifed() {
 
-		// return $this->classified;
-		// return $this->likelihoods;
-		return $this->prediction_indicators;
+		return $this->classified;
 	
+	}
+	
+	private function get_frequency_by_indicator($pillar,$indicator) {
+		
+		$frequency_by_indicator = array();
+		
+		foreach ($this->likelihoods as $i => $likelihood) {
+			
+			if ($i == $pillar) {
+			
+				foreach ($likelihood['indicators'] as $li) {
+					
+					if ($li['indicator'] == $indicator) $frequency_by_indicator = $li;
+					
+				};
+			
+			};
+			
+		};
+		
+		return $frequency_by_indicator;
+	
+	}
+	
+	private function get_frequency_indicator_data($frequency_by_indicator,$category) {
+		
+		$data = array();
+		
+		foreach ($frequency_by_indicator['data'] as $c => $d) {
+
+			if ($c == $category) $data = $d;
+			
+		};
+		
+		return $data;
+		
+	}
+	
+	public function get_results() {
+		
+		return array(
+			"Results",
+			"Probability of Competitiveness: ".$this->yes,
+			"Probability of Not Competitiveness: ".$this->no,
+		);
+		
+	}
+	
+	public function normalize() {
+		
+		$sum = $this->yes+$this->no;
+		$this->cl = ($this->yes/$sum)*100;
+		$this->ncl = ($this->no/$sum)*100;
+		
+		return array(
+			"Normalize the Probabilites",
+			"Sum of Probabilities = ".$this->yes."+".$this->no,
+			$sum,
+			"Likelihood of Competitiveness = ".$this->yes."/".$sum,
+			$this->cl."%",
+			"Likelihood of Not Competitive = ".$this->no."/".$sum,
+			$this->ncl."%",
+		);
+		
+	}
+	
+	public function prediction() {		
+
+		$gtlt = ($this->cl>$this->ncl)?"greater than":"less than";
+		$cnc = ($this->cl>$this->ncl)?"will":"will not";
+		
+		$categories = array("City","1st-2nd class","3rd-4th class");		
+		
+		switch ($this->prediction_category) {
+			
+			case 1:
+				
+				$lgus = "Cities";
+				
+			break;
+			
+			case 2:
+
+				$lgus = $categories[$this->prediction_category-1]." municipalities";
+
+			break;
+			
+			case 3:
+
+				$lgus = $categories[$this->prediction_category-1]." municipalities";
+
+			break;
+			
+		};
+		
+		$prediction = $this->cl." percent is $gtlt ".$this->ncl." percent which means that average of";
+		$prediction .= " $lgus $cnc be competitive in ";
+		
+		foreach ($this->indicators as $i => $indicator) {
+
+			if (count($this->indicators)>2) {
+				if ($i<(count($this->indicators)-1)) {
+					$prediction .= $indicator['name'].", ";
+				} else {
+					$prediction .= "and ".$indicator['name'];
+				};				
+			} else {
+				if ($i<(count($this->indicators)-1)) {
+					$prediction .= $indicator['name']." and ";
+				} else {
+					$prediction .= $indicator['name'];
+				};				
+			};
+		
+		};
+		
+		return $prediction;
+				
 	}
 	
 }
