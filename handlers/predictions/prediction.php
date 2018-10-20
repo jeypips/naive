@@ -102,6 +102,8 @@ $prediction['prediction']['results'] = $results;
 $prediction['prediction']['normalized_results'] = $normalized_results;
 $prediction['prediction']['prediction_result'] = $prediction_result;
 
+$prediction['prediction']['indicators'] = $indicators;
+
 // echo json_encode($classified);
 // echo json_encode($results);
 // echo json_encode($normalized_results);
