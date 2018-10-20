@@ -90,7 +90,21 @@ $normalize_probabilities_data = $normalize_probabilities->get_normalized_probabi
 
 $prediction['prediction']['normalized_probabilities'] = $normalize_probabilities_data;
 
-// echo json_encode($normalize_probabilities_data);
+$classifier = new classifier($likelihoods,$pillars,$prediction_category,$prediction_indicators);
+$classified = $classifier->get_classifed();
+$results = $classifier->get_results();
+$normalized_results = $classifier->normalize();
+$prediction_result = $classifier->prediction();
+
+$prediction['prediction']['classified'] = $classified;
+$prediction['prediction']['results'] = $results;
+$prediction['prediction']['normalized_results'] = $normalized_results;
+$prediction['prediction']['prediction_result'] = $prediction_result;
+
+// echo json_encode($classified);
+// echo json_encode($results);
+// echo json_encode($normalized_results);
+// echo json_encode($prediction_result);
 // exit();
 
 ?>

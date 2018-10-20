@@ -140,10 +140,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			
 			bui.show("Analyzing data please wait...");
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
 				method: 'POST',
 				url: 'api/prediction.php',
-				data: scope.filter.prediction
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				scope.prediction = angular.copy(response.data);
@@ -204,7 +206,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		};
 		
 		self.prediction = function(scope) {
-
+		
 			if ((scope.filter.prediction.period == undefined) || (scope.filter.prediction.period == "")) {			
 				growl.show('danger',{from: 'top', amount: 55}, 'Please enter period');				
 				return;
@@ -215,10 +217,28 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				return;
 			};			
 			
-			bui.show("Analyzing data please wait...");
+			if ((scope.filter.prediction.category == undefined) || (scope.filter.prediction.category == "")) {			
+				growl.show('danger',{from: 'top', amount: 55}, 'Please enter category');				
+				return;
+			};	
+			
+			if (!(check_indicator(scope))['indicators']) {
+				growl.show('danger',{from: 'top', amount: 55}, 'Please select indicators');				
+				return;				
+			};
 
+			if (!(check_indicator(scope))['yns']) {
+				growl.show('danger',{from: 'top', amount: 55}, 'Please specify if indicator is yes or no');				
+				return;				
+			};
+
+			bui.show("Analyzing data please wait...");
+			
+			var pillars = JSON.stringify(scope.pillars);
+
+			$.post('lists/predictions.php', {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}).done(function(html) {
 				
-			$('#content').load('lists/predictions.php?period='+scope.filter.prediction.period+'&top='+scope.filter.prediction.top, function() {
+				$('#content').html(html);
 				
 				$timeout(function() {
 					$compile($('#print-datasets')[0])(scope);
@@ -296,10 +316,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		// normalize the probabilities
 		self.print_normalized = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_normalized(response.data);
@@ -313,10 +335,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		// conditional probabilities
 		self.print_conditional = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_conditional(response.data);
@@ -599,10 +623,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		// conditional probabilities
 		self.print_conditional = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_conditional(response.data);
@@ -896,10 +922,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.print_probability = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_probability(response.data);
@@ -1213,10 +1241,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		//print likelihood tables
 		self.print_likelihood = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_likelihood(response.data);
@@ -1421,10 +1451,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		//print frequency tables
 		self.print_frequency = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
-			method: 'POST',
-			url: 'api/prediction.php',
-			data: scope.filter.prediction
+				method: 'POST',
+				url: 'api/prediction.php',
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print_frequency(response.data);
@@ -1623,10 +1655,12 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		
 		self.print = function(scope) {
 			
+			var pillars = JSON.stringify(scope.pillars);			
+			
 			$http({
 				method: 'POST',
 				url: 'api/prediction.php',
-				data: scope.filter.prediction
+				data: {period: scope.filter.prediction.period, top: scope.filter.prediction.top, category: scope.filter.prediction.category, indicators: pillars}
 			}).then(function success(response) {
 
 				print(response.data);
@@ -3421,14 +3455,56 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 				angular.forEach(pillar.indicators, function(indicator,ii) {
 					
 					scope.pillars[i].indicators[ii].value = value;
+					// scope.pillars[i].indicators[ii].yes = true;
 					
 				});
 				
 			});
 			
+			if (!value) {
+				
+				angular.forEach(scope.pillars, function(pillar,i) {
+					
+					angular.forEach(pillar.indicators, function(indicator,ii) {
+						
+						scope.pillars[i].indicators[ii].yes = false;
+						scope.pillars[i].indicators[ii].no = false;
+						
+					});
+					
+				});				
+				
+			};
+			
+			var yeses = "true";
+			var nos = "true";			
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					yeses += "&&"+indicator.yes.toString();
+					nos += "&&"+indicator.no.toString();					
+					
+				});
+				
+			});
+
+			scope.indicators.yes = eval(yeses);
+			scope.indicators.no = eval(nos);			
+			
 		};
 		
-		self.unCheckAll = function(scope,value) {
+		self.unCheckAll = function(scope,pi,pillar_indicator) {
+			
+			pillar_indicator.yes = true;			
+			
+			if (!pillar_indicator.value) {
+				
+				pillar_indicator.yes = false;
+				pillar_indicator.no = false;
+				
+			};
 			
 			var values = "true";
 			
@@ -3443,6 +3519,25 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			});
 
 			scope.indicators.all = eval(values);
+			
+			/*
+			** pillar specific indicator
+			*/
+			angular.forEach(scope.pillars, function(pillar,i) {
+
+				if (pi != i) {
+					
+					angular.forEach(pillar.indicators, function(indicator,ii) {
+						
+						indicator.value = false;
+						indicator.yes = false;
+						indicator.no = false;
+						
+					});					
+					
+				};
+			
+			});
 			
 		};		
 		
@@ -3473,6 +3568,17 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		};
 		
 		self.unCheckYes = function(scope,value,index1,index2) {
+			
+			if (!scope.pillars[index1].indicators[index2].value) {
+				scope.pillars[index1].indicators[index2].yes = false;
+				scope.pillars[index1].indicators[index2].no = false;
+				return;
+			};
+			
+			if ( (!scope.pillars[index1].indicators[index2].yes) && (!scope.pillars[index1].indicators[index2].no) ) {
+				scope.pillars[index1].indicators[index2].value = false;
+				return;
+			};			
 			
 			if (value) scope.pillars[index1].indicators[index2].no = false;
 			
@@ -3523,6 +3629,17 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 
 		self.unCheckNo = function(scope,value,index1,index2) {
 			
+			if (!scope.pillars[index1].indicators[index2].value) {
+				scope.pillars[index1].indicators[index2].yes = false;
+				scope.pillars[index1].indicators[index2].no = false;
+				return;
+			};			
+			
+			if ( (!scope.pillars[index1].indicators[index2].yes) && (!scope.pillars[index1].indicators[index2].no) ) {
+				scope.pillars[index1].indicators[index2].value = false;
+				return;
+			};
+			
 			if (value) scope.pillars[index1].indicators[index2].yes = false;			
 			
 			var yeses = "true";
@@ -3542,7 +3659,36 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			scope.indicators.yes = eval(yeses);
 			scope.indicators.no = eval(nos);
 			
-		};		
+		};
+		
+		function check_indicator(scope) {
+			
+			var values = "false";
+			var yeses = "false";
+			var nos = "false";
+			var yns = "true";
+			
+			angular.forEach(scope.pillars, function(pillar,i) {
+				
+				angular.forEach(pillar.indicators, function(indicator,ii) {
+					
+					if (indicator.value) {
+						
+						values += "||"+indicator.value.toString();
+						yeses += "||"+indicator.yes.toString();
+						nos += "||"+indicator.no.toString();
+						
+						yns += "&&(true&&("+indicator.yes.toString()+"||"+indicator.no.toString()+"))";
+						
+					};
+					
+				});
+				
+			});
+
+			return {indicators: eval(values), yeses: eval(yeses), nos: eval(nos), yns: eval(yns)};
+			
+		};
 		
 	};
 	

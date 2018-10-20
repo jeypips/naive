@@ -4,8 +4,10 @@ require_once '../db.php';
 require_once '../api/mapper.php';
 require_once '../api/classes.php';
 
-$period = $_GET['period'];
-$top = intval($_GET['top']);
+$period = $_POST['period'];
+$top = intval($_POST['top']);
+$prediction_category = intval($_POST['category']);
+$prediction_indicators = json_decode($_POST['indicators'], true);
 
 require_once '../handlers/predictions/prediction.php';
 
