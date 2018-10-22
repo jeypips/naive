@@ -154,7 +154,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 					
 					$timeout(function() {
 						$compile($('#predictions')[0])(scope);
-					}, 500);				
+					}, 500);					
 					
 					// instantiate datable
 					$timeout(function() {
@@ -450,7 +450,7 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 		};
 		
 		function print_naive(prediction) {			
-			
+			console.log(prediction.prediction.classified);
 			var doc = new jsPDF({
 				orientation: 'portrait',
 				unit: 'pt',
@@ -459,67 +459,77 @@ angular.module('app-module', ['bootstrap-modal','ui.bootstrap','block-ui','boots
 			var doc = new jsPDF('p','mm','legal');
 			
 			//X-axis, Y-axis
-			doc.setFontSize(14)
+			doc.setFontSize(14);
 			doc.setFont('helvetica');
 			doc.setFontType('bold');
-			doc.text(6, 10, ''+prediction.prediction.classified[0]+' '+prediction.year);
-		
+			doc.text(6, 10, prediction.year);
+
+			var classified_header = [];
+			classified_header.push(prediction.prediction.classified[0]);
+			var classified_rows = [];
+			
+			var divident_no = '';
+			var divident_yes = '';
+			
 			angular.forEach(prediction.prediction.classified, function(classified,i) {
+
+				console.log(i+': '+classified);			
+			
+				var value = {0:classified};
+			
+				if (i==0) return;
+				if (i==(prediction.prediction.indicators.length+7)) return;
+				if (i==(prediction.prediction.indicators.length+13)) return;
 				
+				if (i==(prediction.prediction.indicators.length+5)) {
+					divident_no = classified;
+					return;
+				};
+				if (i==(prediction.prediction.indicators.length+6)) {
+					value = {0:divident_no+'/'+classified};
+				};
 				
-				if (i == 2) {
-					return; // stop the loop
-				  }
-				  console.log(i);
+				if (i==(prediction.prediction.indicators.length+11)) {
+					divident_yes = classified;
+					return;
+				};
+				if (i==(prediction.prediction.indicators.length+12)) {
+					value = {0:divident_yes+'/'+classified};
+				};				
 				
-				doc.setFontSize(12)
-				doc.setFont('helvetica');
-				doc.setFontType('normal');
-				doc.text(6, 10, ''+classified);
-				
-				/* var classified_header = [
-					{title: classified, dataKey: "1"}
-				];
-				
-				var classified_rows = [
-					{"1": classified}
-				];
-				
-				doc.autoTable(classified_header, classified_rows,{
-					theme: 'striped',
-					
-					tableWidth: 500,
-					styles: {
-						lineColor: [75, 75, 75],
-						lineWidth: 0.02,
-						cellPadding: 3,
-						overflow: 'linebreak',
-						columnWidth: 'wrap',
-					},
-					columnStyles: {
-						1: {columnWidth: 48},
-						2: {columnWidth: 15},
-						3: {columnWidth: 30},
-						4: {columnWidth: 25}
-					},
-					headerStyles: {
-						halign: 'center',
-						fillColor: [191, 191, 191],
-						textColor: 50,
-						fontSize: 10
-					},
-					bodyStyles: {
-						halign: 'left',
-						fillColor: [255, 255, 255],
-						textColor: 50,
-						fontSize: 10
-					},
-					alternateRowStyles: {
-						fillColor: [255, 255, 255]
-					}
-				});	 */
+				classified_rows.push(value);
 				
 			});
+
+			doc.autoTable(classified_header, classified_rows,{
+				theme: 'striped',					
+				tableWidth: 500,
+				styles: {
+					lineColor: [75, 75, 75],
+					lineWidth: 0.02,
+					cellPadding: 3,
+					overflow: 'linebreak',
+					columnWidth: 'wrap',
+				},
+				headerStyles: {
+					halign: 'center',
+					fillColor: [191, 191, 191],
+					textColor: 50,
+					fontSize: 10
+				},
+				bodyStyles: {
+					halign: 'left',
+					fillColor: [255, 255, 255],
+					textColor: 50,
+					fontSize: 10
+				},
+				columnStyles: {
+					0: {columnWidth: 150},
+				},				
+				alternateRowStyles: {
+					fillColor: [255, 255, 255]
+				}
+			});			
 			
 			var blob = doc.output('blob');
 			window.open(URL.createObjectURL(blob));
